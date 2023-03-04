@@ -1,4 +1,4 @@
-package by.model.flight;
+package by.dao.model.flight;
 
 import java.time.LocalTime;
 

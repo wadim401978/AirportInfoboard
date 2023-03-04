@@ -1,8 +1,10 @@
-package by.model.flight;
+package by.dao.model.flight;
 
 import java.time.LocalTime;
 
-public class Flight {
+import by.dao.model.Entity;
+
+public class Flight extends Entity {
     private Airline airline;
     private Airport aiport;
     private LocalTime scheduleTime;

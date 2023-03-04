@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"by.controller"})
+@ComponentScan(basePackages = {"by.controller", "by.dao.impl", "by.services.impl"})
 public class WebMvcConfig {
     @Bean
     public InternalResourceViewResolver resolver() {

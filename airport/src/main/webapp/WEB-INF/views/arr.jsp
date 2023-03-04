@@ -11,7 +11,7 @@
     </head>
 <body>
     <h2>${title}</h2>
-    ${text}<br>
+    ${code}<br>
     ${pageContext.request.contextPath}/css/viewer.css
     <br>
     <fmt:message key="my.name" bundle="${viewer}" />

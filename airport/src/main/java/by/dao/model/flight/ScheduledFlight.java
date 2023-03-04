@@ -1,11 +1,12 @@
-package by.model.flight;
+package by.dao.model.flight;
 
-import by.model.common.Language;
+import by.dao.model.Entity;
+import by.dao.model.common.Language;
 
 import java.util.Date;
 import java.util.Map;
 
-public abstract class ScheduledFlight {
+public abstract class ScheduledFlight extends Entity {
     private Flight flight;
     private Date date;
     private Map<Language, String> comment;
