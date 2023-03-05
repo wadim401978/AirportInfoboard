@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import by.dao.model.flight.Airport;
 import by.services.AirportService;
 import by.services.LanguageService;
 
@@ -31,7 +32,8 @@ public class ViewerController {
         model.addAttribute("title", "Arrivals");
         model.addAttribute("text", "Таблица прилёта");
         model.addAttribute("code", langService.getDefaultLang().toString());
-        model.addAttribute("airport", airportService.getAll().get(0).toString());
+        Airport airport = airportService.getAll().get(0);
+        model.addAttribute("airport", airport.getNames().get(langService.getDefaultLang()) + ": " + airport.toString());
         return "arr";
     }
 

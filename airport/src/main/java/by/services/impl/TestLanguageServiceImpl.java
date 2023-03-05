@@ -8,7 +8,6 @@ import by.dao.LanguageDAO;
 import by.dao.model.common.Language;
 import by.services.LanguageService;
 
-//@Service(value = "LanguageService")
 @Service
 public class TestLanguageServiceImpl implements LanguageService {
 	
