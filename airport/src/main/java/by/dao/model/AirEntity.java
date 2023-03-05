@@ -9,6 +9,19 @@ public abstract class AirEntity extends Entity {
     private String icaoCode;
     private Map<Language, String> names;
     
+    
+    
+	public AirEntity() {
+		super();
+	}
+	
+	public AirEntity(int id, String iataCode, String icaoCode, Map<Language, String> names) {
+		setId(id);
+		this.iataCode = iataCode;
+		this.icaoCode = icaoCode;
+		this.names = names;
+	}
+	
 	public String getIataCode() {
 		return iataCode;
 	}

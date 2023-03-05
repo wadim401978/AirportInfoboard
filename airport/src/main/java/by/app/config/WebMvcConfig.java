@@ -26,6 +26,7 @@ public class WebMvcConfig {
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:viewer");
+        messageSource.addBasenames("classpath:initial");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

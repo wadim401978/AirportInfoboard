@@ -7,7 +7,7 @@ public class Language extends Entity{
     private String code;
     
     public Language(int id, String name, String code) {
-		super(id);
+		setId(id);
 		this.name = name;
 		this.code = code;
 	}
@@ -32,5 +32,13 @@ public class Language extends Entity{
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+
+	@Override
+	public String toString() {
+		return getId()+ ") " + getCode() + ": " + getName() + " / " + hashCode();
+	}
+	
+	
 
 }

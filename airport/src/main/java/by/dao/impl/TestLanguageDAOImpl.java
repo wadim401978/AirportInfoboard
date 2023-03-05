@@ -1,5 +1,10 @@
 package by.dao.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import by.dao.LanguageDAO;
@@ -8,40 +13,45 @@ import by.dao.model.common.Language;
 //@Repository(value = "LanguageDAO")
 @Repository
 public class TestLanguageDAOImpl implements LanguageDAO {
+
+	private Map<String, Language> langMap;
+	private List<Language> languages;
 	
-	
-	@Override
-	public void create(Language obj) {
-		//--Object created TODO log4j
+	public TestLanguageDAOImpl() {
+		super();
+		this.langMap = new HashMap<String, Language>();
+		int i = 0;
+		Language lang = new Language(++i, "русский", "ru");
+		langMap.put(lang.getCode(), lang);
+		languages = new ArrayList<>();
+		languages.add(lang);
+		lang = new Language(++i, "английский-english", "en");
+		langMap.put(lang.getCode(), lang);
+		languages.add(lang);
+		lang = new Language(++i, "белорусский-беларуская", "be");
+		langMap.put(lang.getCode(), lang);
+		languages.add(lang);
+		
 	}
+
 
 	@Override
 	public Language read(Integer id) {
-		Language lang;
-		switch (id) {
-		case 2:
-			lang = new Language(id, "английский-english", "en");
-			break;
-
-		case 3:
-			lang = new Language(id, "белорусский-беларуская", "be");
-			break;
-
-		default:
-			lang = new Language(id, "русский", "ru");
-			break;
-		}
-		return lang;
+		id--;
+		if (id < 0) id = 0;
+		return languages.get(id);
 	}
 
-	@Override
-	public void update(Language obj) {
-		//--Object updated TODO log4j
-	}
 
 	@Override
-	public void delete(Integer id) {
-		//--Object deleted TODO log4j
+	public Language getLangByCode(String code) {
+		return langMap.get(code);
+	}
+
+
+	@Override
+	public List<Language> getLanguages() {
+		return languages;
 	}
 
 }

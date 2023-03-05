@@ -12,8 +12,7 @@
 <body>
     <h2>${title}</h2>
     ${code}<br>
-    ${pageContext.request.contextPath}/css/viewer.css
-    <br>
+    ${airport}<br>
     <fmt:message key="my.name" bundle="${viewer}" />
 </body>
 </html>

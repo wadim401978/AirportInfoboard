@@ -1,11 +1,9 @@
 package by.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-
+import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import by.dao.LanguageDAO;
 import by.dao.model.common.Language;
 import by.services.LanguageService;
@@ -13,7 +11,6 @@ import by.services.LanguageService;
 //@Service(value = "LanguageService")
 @Service
 public class TestLanguageServiceImpl implements LanguageService {
-	
 	
 	private LanguageDAO dao;
 
@@ -24,16 +21,23 @@ public class TestLanguageServiceImpl implements LanguageService {
 
 	@Override
 	public List<Language> getAll() {
-		List<Language> list = new ArrayList<>();
-		for (int i = 1; i <=3; i++) {
-			list.add(dao.read(i));
-		}
-		return list;
+		return dao.getLanguages();
 	}
 
 	@Override
-	public void saveInstance(Language obj) {
-		// ---Object saved TODO log4j
+	public void save(Language obj) {
+		// ---Object saved 
+        if (obj.getId() == 0) {
+            dao.create(obj);
+        } else {
+            dao.update(obj);
+        }
+	}
+
+	@Override
+	public Language getDefaultLang() {
+		ResourceBundle resourceBundle = ResourceBundle.getBundle("initial");
+		return dao.getLangByCode(resourceBundle.getString("language.default"));
 	}
 
 }
