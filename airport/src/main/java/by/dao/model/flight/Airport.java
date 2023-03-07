@@ -15,12 +15,5 @@ public class Airport extends AirEntity{
 		super(id, iataCode, icaoCode, names);
 	}
 	
-	@Override
-	public String toString() {
-		return getId()+ ") " + getIataCode() + "/" + getIcaoCode() + " | " + hashCode();
-	}
-
-	
-	
 
 }

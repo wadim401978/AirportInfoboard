@@ -1,6 +1,7 @@
 package by.services.impl;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,13 +11,18 @@ import by.dao.model.flight.Airport;
 import by.services.AirportService;
 
 @Service
-public class TestAirportServiceImpl implements AirportService {
+public class AirportServiceImpl implements AirportService {
 
 	private AirportDAO dao;
+	private ResourceBundle initialResourceBundle;
 	
 	@Autowired
 	public void setDao(AirportDAO dao) {
 		this.dao = dao;
+	}
+	
+	public AirportServiceImpl() {
+		this.initialResourceBundle = ResourceBundle.getBundle("initial");
 	}
 
 	@Override
@@ -32,4 +38,16 @@ public class TestAirportServiceImpl implements AirportService {
             dao.update(obj);
         }
 	}
+
+	@Override
+	public Airport getByIcaoCode(String icaoCode) {
+		return this.dao.getAirportByIcaoCode(icaoCode);
+	}
+
+	@Override
+	public Airport getDefaultAirport() {
+		return getByIcaoCode(initialResourceBundle.getString("airport.base.ICAO"));
+	}
+	
+	
 }

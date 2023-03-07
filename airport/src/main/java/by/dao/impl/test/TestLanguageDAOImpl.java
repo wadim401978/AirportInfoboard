@@ -1,4 +1,4 @@
-package by.dao.impl;
+package by.dao.impl.test;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;

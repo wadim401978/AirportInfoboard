@@ -1,4 +1,4 @@
-package by.dao.impl;
+package by.dao.impl.test;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,6 @@ import by.dao.model.flight.Airport;
 
 @Repository
 public class TestAirportDAOImpl implements AirportDAO  {
-	
 
 	@Override
 	public Airport read(Integer id) {
@@ -25,14 +24,17 @@ public class TestAirportDAOImpl implements AirportDAO  {
 	@Override
 	public void setNameByLang(String name, Language lang, Airport obj) {
 		obj.getNames().put(lang, name);
-		
 	}
 
 	@Override
 	public List<Airport> getAirports() {
 		return TestDataSet.getInstance().getAirports();
 	}
+
+	@Override
+	public Airport getAirportByIcaoCode(String icaoCode) {
+		return TestDataSet.getInstance().getAirportMap().get(icaoCode);
+	}
 	
-	//TODO getAirportByIcaoCode
 
 }

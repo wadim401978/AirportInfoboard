@@ -9,14 +9,20 @@ import by.dao.model.common.Language;
 import by.services.LanguageService;
 
 @Service
-public class TestLanguageServiceImpl implements LanguageService {
+public class LanguageServiceImpl implements LanguageService {
 	
 	private LanguageDAO dao;
+	private ResourceBundle initialResourceBundle;
+
+	public LanguageServiceImpl() {
+		this.initialResourceBundle = ResourceBundle.getBundle("initial");
+	}
 
 	@Autowired
 	public void setDao(LanguageDAO dao) {
 		this.dao = dao;
 	}
+	
 
 	@Override
 	public List<Language> getAll() {
@@ -35,8 +41,12 @@ public class TestLanguageServiceImpl implements LanguageService {
 
 	@Override
 	public Language getDefaultLang() {
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("initial");
-		return dao.getLangByCode(resourceBundle.getString("language.default"));
+		return dao.getLangByCode(initialResourceBundle.getString("language.default"));
+	}
+
+	@Override
+	public Language getLangByCode(String code) {
+		return  dao.getLangByCode(code);
 	}
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"by.controller", "by.dao.impl", "by.services.impl"})
+@ComponentScan(basePackages = {"by.controller", "by.dao.impl.test", "by.services.impl"})
 public class WebMvcConfig {
     @Bean
     public InternalResourceViewResolver resolver() {
@@ -30,6 +30,5 @@ public class WebMvcConfig {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-
 
 }

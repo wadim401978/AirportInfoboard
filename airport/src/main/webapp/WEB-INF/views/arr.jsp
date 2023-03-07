@@ -13,6 +13,9 @@
     <h2>${title}</h2>
     ${code}<br>
     ${airport}<br>
+    ${airline}<br>
+    ${flightb2}<br>
+    ${flightbru}<br>
     <fmt:message key="my.name" bundle="${viewer}" />
 </body>
 </html>
