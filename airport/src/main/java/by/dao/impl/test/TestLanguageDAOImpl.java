@@ -17,13 +17,13 @@ public class TestLanguageDAOImpl implements LanguageDAO {
 
 
 	@Override
-	public Language getLangByCode(String code) {
+	public Language findLangByCode(String code) {
 		return TestDataSet.getInstance().getLangMap().get(code);
 	}
 
 
 	@Override
-	public List<Language> getLanguages() {
+	public List<Language> findLanguages() {
 		return TestDataSet.getInstance().getLanguages();
 	}
 

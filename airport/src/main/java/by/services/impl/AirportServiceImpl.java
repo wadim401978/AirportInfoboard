@@ -27,7 +27,7 @@ public class AirportServiceImpl implements AirportService {
 
 	@Override
 	public List<Airport> getAll() {
-		return dao.getAirports();
+		return dao.findAirports();
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class AirportServiceImpl implements AirportService {
 
 	@Override
 	public Airport getByIcaoCode(String icaoCode) {
-		return this.dao.getAirportByIcaoCode(icaoCode);
+		return this.dao.findAirportByIcaoCode(icaoCode);
 	}
 
 	@Override

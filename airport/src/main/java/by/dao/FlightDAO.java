@@ -1,8 +1,6 @@
-package by.dao.model;
+package by.dao;
 
 import java.util.List;
-
-import by.dao.GenericDAO;
 import by.dao.model.flight.Flight;
 
 public interface FlightDAO extends GenericDAO<Integer, Flight> {

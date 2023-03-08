@@ -130,9 +130,9 @@ public final class TestDataSet {
 		
 	}
 	
-	private static void generateFlightDefinitions(TestDataSet inst, List<Flight> flights, Map<String, Flight> flightMap, int apId, int alId, int num, int incr) {
+	private static void generateFlightDefinitions(TestDataSet inst, List<Flight> flights, Map<String, Flight> flightMap, int apId, int alId, int num, boolean isArr, int incr) {
 		Airline al = TestDataSet.getInstance().airlines.get(alId);
-		Flight flight = new Flight(incr, TestDataSet.getInstance().airports.get(apId), al, num);
+		Flight flight = new Flight(incr, isArr, TestDataSet.getInstance().airports.get(apId), al, num);
 		flights.add(flight);
 		flightMap.put(al.getIcaoCode()+num, flight);
 	}
@@ -141,10 +141,10 @@ public final class TestDataSet {
 		inst.flightMap = new HashMap<String, Flight>();
 		int i = 0;
 		inst.flights = new ArrayList<>();
-		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 1, 0, 8218, ++i);
-		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 1, 0, 8219, ++i);
-		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 2, 0, 8208, ++i);
-		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 2, 0, 8209, ++i);
+		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 1, 0, 8218, true, ++i);
+		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 1, 0, 8219, false, ++i);
+		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 2, 0, 8208, true, ++i);
+		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 2, 0, 8209, false, ++i);
 	}
 	
 

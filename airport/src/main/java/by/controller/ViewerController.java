@@ -63,9 +63,9 @@ public class ViewerController {
         Airline airline = airlineService.getDefaultAirline();
         model.addAttribute("airline", airline.toString());
         
-        Flight flight = flightService.getByIcaoNumber("B28219");
+        Flight flight = flightService.getByIcaoNumber("B28219");//IATA number
         model.addAttribute("flightb2", (flight==null?"not found":flight.toString()  ));
-        flight = flightService.getByIcaoNumber("BRU8219");
+        flight = flightService.getByIcaoNumber("BRU8219");//ICAO number
         model.addAttribute("flightbru", (flight==null?"not found":flight.toString()  ));
         
         

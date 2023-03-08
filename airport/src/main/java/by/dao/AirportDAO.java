@@ -5,6 +5,6 @@ import java.util.List;
 import by.dao.model.flight.Airport;
 
 public interface AirportDAO extends AirEntityDAO<Integer, Airport> {
-	public List<Airport> getAirports();
-	public Airport getAirportByIcaoCode(String icaoCode);
+	public List<Airport> findAirports();
+	public Airport findAirportByIcaoCode(String icaoCode);
 }

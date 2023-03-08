@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import by.dao.model.FlightDAO;
+import by.dao.FlightDAO;
 import by.dao.model.flight.Flight;
 import by.services.FlightService;
 

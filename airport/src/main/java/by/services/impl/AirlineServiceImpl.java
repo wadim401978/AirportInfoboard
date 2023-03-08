@@ -26,12 +26,12 @@ public class AirlineServiceImpl implements AirlineService {
 
 	@Override
 	public Airline getByIcaoCode(String icaoCode) {
-		return dao.getAirlineByIcaoCode(icaoCode);
+		return dao.findAirlineByIcaoCode(icaoCode);
 	}
 
 	@Override
 	public List<Airline> getAll() {
-		return dao.getAirlines();
+		return dao.findAirlines();
 	}
 
 	@Override

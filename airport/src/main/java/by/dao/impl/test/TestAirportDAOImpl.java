@@ -17,22 +17,22 @@ public class TestAirportDAOImpl implements AirportDAO  {
 	}
 
 	@Override
-	public String getNameByLang(Language lang, Airport obj) {
+	public String readName(Language lang, Airport obj) {
 		return obj.getNames().get(lang);
 	}
 
 	@Override
-	public void setNameByLang(String name, Language lang, Airport obj) {
+	public void saveNameByLang(String name, Language lang, Airport obj) {
 		obj.getNames().put(lang, name);
 	}
 
 	@Override
-	public List<Airport> getAirports() {
+	public List<Airport> findAirports() {
 		return TestDataSet.getInstance().getAirports();
 	}
 
 	@Override
-	public Airport getAirportByIcaoCode(String icaoCode) {
+	public Airport findAirportByIcaoCode(String icaoCode) {
 		return TestDataSet.getInstance().getAirportMap().get(icaoCode);
 	}
 	

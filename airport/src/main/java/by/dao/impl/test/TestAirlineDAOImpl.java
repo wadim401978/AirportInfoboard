@@ -10,12 +10,12 @@ import by.dao.model.flight.Airline;
 public class TestAirlineDAOImpl implements AirlineDAO {
 
 	@Override
-	public String getNameByLang(Language lang, Airline obj) {
+	public String readName(Language lang, Airline obj) {
 		return obj.getNames().get(lang);
 	}
 
 	@Override
-	public void setNameByLang(String name, Language lang, Airline obj) {
+	public void saveNameByLang(String name, Language lang, Airline obj) {
 		obj.getNames().put(lang, name);
 	}
 
@@ -27,12 +27,12 @@ public class TestAirlineDAOImpl implements AirlineDAO {
 	}
 
 	@Override
-	public List<Airline> getAirlines() {
+	public List<Airline> findAirlines() {
 		return TestDataSet.getInstance().getAirlines();
 	}
 
 	@Override
-	public Airline getAirlineByIcaoCode(String icaoCode) {
+	public Airline findAirlineByIcaoCode(String icaoCode) {
 		return TestDataSet.getInstance().getAirlineMap().get(icaoCode);
 	}
 

@@ -2,7 +2,7 @@ package by.dao.impl.test;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
-import by.dao.model.FlightDAO;
+import by.dao.FlightDAO;
 import by.dao.model.flight.Flight;
 
 @Repository

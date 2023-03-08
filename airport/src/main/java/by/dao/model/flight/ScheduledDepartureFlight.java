@@ -1,11 +1,17 @@
 package by.dao.model.flight;
 
 import java.time.LocalTime;
+import java.util.Date;
 
 public class ScheduledDepartureFlight extends ScheduledFlight {
 
-    private LocalTime regTime;
-    private LocalTime depScheduledTime;
+    public ScheduledDepartureFlight(int id, Flight flight, Date scheduledDate) {
+		super(id, flight, scheduledDate);
+	}
+
+	private LocalTime regTime;
+    
+    
 
     public LocalTime getRegTime() {
         return regTime;
@@ -15,11 +21,4 @@ public class ScheduledDepartureFlight extends ScheduledFlight {
         this.regTime = regTime;
     }
 
-    public LocalTime getDepScheduledTime() {
-        return depScheduledTime;
-    }
-
-    public void setDepScheduledTime(LocalTime depScheduledTime) {
-        this.depScheduledTime = depScheduledTime;
-    }
 }

@@ -1,8 +1,6 @@
 package by.dao.model.flight;
 
 import java.util.Map;
-
-import by.dao.model.AirEntity;
 import by.dao.model.common.Language;
 
 public class Airport extends AirEntity{

@@ -1,7 +1,7 @@
-package by.dao.model;
+package by.dao.model.flight;
 
 import java.util.Map;
-
+import by.dao.model.Entity;
 import by.dao.model.common.Language;
 
 public abstract class AirEntity extends Entity {

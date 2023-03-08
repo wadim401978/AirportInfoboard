@@ -1,0 +1,15 @@
+airport.name = Аэропорт Витебск
+
+status.arrival.waiting = ожидается вылет
+status.arrival.delay = задерживается до ${time} 
+status.arrival.expectedat = ожидается в ${time}
+status.arrival.landed = совершил посадку 
+status.arrival.cancelled = отменён
+
+status.departure.checkin.at = начало регистрации в ${time}
+status.departure.checkin.now = идёт регистрация
+status.departure.checkin = регистрация закончена
+status.departure.delayed = вылет задерживается до ${time} 
+status.departure.cancelled = отменён
+
+my.name= Вадим

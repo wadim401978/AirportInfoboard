@@ -113,7 +113,15 @@
 
   <build>
     <finalName>airport</finalName>
-
+			<!--resources>
+				<resource>
+					<directory>src/main/resources</directory>
+					<filtering>false</filtering>
+					<excludes>
+						<exclude>**/viewer.properties</exclude>
+					</excludes>
+				</resource>
+			</resources-->
     <plugins>
 
       <plugin>
@@ -136,6 +144,37 @@
           <uriEncoding>UTF-8</uriEncoding>
         </configuration>
       </plugin>
+      
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <native2ascii encoding="UTF8" 
+                                    src="src/main/resources"
+                                    dest="${project.build.outputDirectory}" 
+                                    includes="**/*.utf8"
+                                    ext=".properties" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>ant</groupId>
+                        <artifactId>ant-nodeps</artifactId>
+                        <version>1.6.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+      
     </plugins>
   </build>
 </project>
