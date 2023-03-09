@@ -11,7 +11,7 @@
     </head>
 <body>
     <h2>${title}</h2>
-    ${code}<br>
+    ${langTag}<br>
     ${airport}<br>
     ${airline}<br>
     ${flightb2}<br>

@@ -1,5 +1,11 @@
 package by.controller;
 
+import java.text.DateFormat;
+import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.ResourceBundle;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -8,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import by.dao.model.flight.Airline;
 import by.dao.model.flight.Airport;
 import by.dao.model.flight.Flight;
+import by.dao.model.flight.ScheduledArrivalFlight;
 import by.services.AirlineService;
 import by.services.AirportService;
 import by.services.FlightService;
 import by.services.LanguageService;
+import by.services.ScheduledArrivalFlightService;
+import by.services.ScheduledDepartureFlightService;
 
 @Controller
 public class ViewerController {
@@ -20,18 +29,21 @@ public class ViewerController {
 	private AirportService airportService;
 	private AirlineService airlineService;
 	private FlightService flightService;
+	private ScheduledArrivalFlightService arrivalService;
+	private ScheduledDepartureFlightService departureService;
 	
 	
 	
-//	@Autowired(required = true)
-//	public ViewerController(LanguageService langService, AirportService airportService, AirlineService airlineService) {
-//		super();
-//		this.langService = langService;
-//		this.airportService = airportService;
-//		this.airlineService = airlineService;
-//	}
+	@Autowired(required = true)
+	public void setArrivalService(ScheduledArrivalFlightService arrivalService) {
+		this.arrivalService = arrivalService;
+	}
+	
+	@Autowired(required = true)
+	public void setDepartureService(ScheduledDepartureFlightService departureService) {
+		this.departureService = departureService;
+	}
 
-	
 	@Autowired(required = true)
 	public void setLangService(LanguageService langService) {
 		this.langService = langService;
@@ -56,7 +68,7 @@ public class ViewerController {
     public String arr(ModelMap model) {
         model.addAttribute("title", "Arrivals");
         model.addAttribute("text", "Таблица прилёта");
-        model.addAttribute("code", langService.getDefaultLang().toString());
+        model.addAttribute("langTag", langService.getDefaultLang().toString());
         Airport airport = airportService.getAll().get(0);
         model.addAttribute("airport", airport.toString());
         
@@ -68,6 +80,18 @@ public class ViewerController {
         flight = flightService.getByIcaoNumber("BRU8219");//ICAO number
         model.addAttribute("flightbru", (flight==null?"not found":flight.toString()  ));
         
+        ScheduledArrivalFlight arrival = arrivalService.getAll().get(0);
+		String pattern = ResourceBundle.getBundle("viewer").getString(arrival.getStatus().property);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR, 11);
+		cal.set(Calendar.MINUTE, 40);
+		cal.set(Calendar.YEAR, 2023);
+		cal.set(Calendar.MONTH, 04);
+		cal.set(Calendar.DATE, 22);
+		
+		Date date = cal.getTime();
+		model.addAttribute("arrival", MessageFormat.format(pattern, DateFormat.getTimeInstance().format(date)));
         
         return "arr";
     }

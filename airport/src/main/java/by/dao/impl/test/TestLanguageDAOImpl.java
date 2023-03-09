@@ -17,8 +17,8 @@ public class TestLanguageDAOImpl implements LanguageDAO {
 
 
 	@Override
-	public Language findLangByCode(String code) {
-		return TestDataSet.getInstance().getLangMap().get(code);
+	public Language findLangByTag(String tag) {
+		return TestDataSet.getInstance().getLangMap().get(tag);
 	}
 
 

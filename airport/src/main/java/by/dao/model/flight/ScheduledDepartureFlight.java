@@ -1,24 +1,22 @@
 package by.dao.model.flight;
 
-import java.time.LocalTime;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ScheduledDepartureFlight extends ScheduledFlight {
+	private DepartureStatus status;
 
-    public ScheduledDepartureFlight(int id, Flight flight, Date scheduledDate) {
+    public ScheduledDepartureFlight(int id, Flight flight, LocalDateTime scheduledDate, DepartureStatus status) {
 		super(id, flight, scheduledDate);
+		this.setStatus(status);
 	}
 
-	private LocalTime regTime;
-    
-    
+	public DepartureStatus getStatus() {
+		return status;
+	}
 
-    public LocalTime getRegTime() {
-        return regTime;
-    }
+	public void setStatus(DepartureStatus status) {
+		this.status = status;
+	}
 
-    public void setRegTime(LocalTime regTime) {
-        this.regTime = regTime;
-    }
 
 }

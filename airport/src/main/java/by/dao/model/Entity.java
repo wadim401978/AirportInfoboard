@@ -18,5 +18,12 @@ public abstract class Entity {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "(" + this.getClass().getSimpleName() + "_id = " + getId()+ ") ";
+	}
+	
+	
 	
 }

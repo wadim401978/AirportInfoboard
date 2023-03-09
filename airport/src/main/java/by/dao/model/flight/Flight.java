@@ -4,20 +4,20 @@ import by.dao.model.Entity;
 
 public class Flight extends Entity {
     private Airline airline;
-    private Airport aiport;
+    private Airport airport;
     private int number;
     private boolean isArrival = false;
     
-    public Flight(int id, boolean isArrival, Airport aiport, Airline airline, int number) {
+    public Flight(int id, boolean isArrival, Airport airport, Airline airline, int number) {
 		super(id);
 		this.airline = airline;
-		this.aiport = aiport;
+		this.airport = airport;
 		this.number = number;
 		this.isArrival = isArrival;
 	}
 
-    public Airport getAiport() {
-        return aiport;
+    public Airport getAirport() {
+        return airport;
     }
 
     
@@ -41,7 +41,11 @@ public class Flight extends Entity {
 
 	@Override
 	public String toString() {
-		return (isArrival()?"Arrival":"Departure") + ": " + getIcaoNumber() + "/" + getIataNumber() + ": " + getAiport().toString();
+		return super.toString()
+				+ (isArrival()?"Arrival":"Departure") 
+				+ ": " + getIcaoNumber() + "/" + getIataNumber() + ": " 
+				+ getAirline().toStringNames() + "; " 
+				+ "(" + getAirport().getIataCode() + ") " + getAirport().toStringNames();
 	}
 
 }

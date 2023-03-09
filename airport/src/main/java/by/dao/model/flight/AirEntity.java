@@ -47,20 +47,24 @@ public abstract class AirEntity extends Entity {
 	public void setIcaoCode(String icaoCode) {
 		this.icaoCode = icaoCode;
 	}
-
-	@Override
-	public String toString() {
+	
+	public String toStringNames() {
 		Map<Language, String> map = this.getNames();
 		String names = null;
 		if (map==null||map.isEmpty()) {
 			names = "[name is empty]";
 		} else {
-			names = "/";
+			names = "=";
 			for (Map.Entry<Language, String> entry : map.entrySet()) {
-				names += (entry.getValue() + "/");
+				names += (entry.getValue() + "=");
 			}
 		}
-		return "(id = " + getId()+ ") " + this.getClass().getSimpleName() + " " + names + " " + getIataCode() + "/" + getIcaoCode() + " | " + hashCode() + " ";
+		return names;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() +  toStringNames() + " " + getIataCode() + "/" + getIcaoCode() + " ";
 	}
     
 	

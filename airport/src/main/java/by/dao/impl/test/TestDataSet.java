@@ -74,17 +74,17 @@ public final class TestDataSet {
 		inst.langMap = new HashMap<String, Language>();
 		int i = 0;
 		Language lang = new Language(++i, "русский", "ru");
-		inst.langMap.put(lang.getCode(), lang);
+		inst.langMap.put(lang.getLangTag(), lang);
 		inst.languages = new ArrayList<>();
 		inst.languages.add(lang);
 		lang = new Language(++i, "английский-english", "en");
-		inst.langMap.put(lang.getCode(), lang);
+		inst.langMap.put(lang.getLangTag(), lang);
 		inst.languages.add(lang);
 		lang = new Language(++i, "белорусский-беларуская", "be");
-		inst.langMap.put(lang.getCode(), lang);
+		inst.langMap.put(lang.getLangTag(), lang);
 		inst.languages.add(lang);
 		lang = new Language(++i, "испанский-espanol", "es");
-		inst.langMap.put(lang.getCode(), lang);
+		inst.langMap.put(lang.getLangTag(), lang);
 		inst.languages.add(lang);
 	}
 	

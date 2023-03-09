@@ -1,21 +1,19 @@
 package by.dao.model.flight;
 
 import by.dao.model.Entity;
-import by.dao.model.common.Language;
-import java.util.Date;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public abstract class ScheduledFlight extends Entity {
     private Flight flight;
-    private Date scheduledDate;
-    private Date actualDate;
-    private Map<Language, String> comment;
+    private LocalDateTime scheduledDate;
+    private LocalTime statusTime;
 
-    public ScheduledFlight(int id, Flight flight, Date scheduledDate) {
+    public ScheduledFlight(int id, Flight flight, LocalDateTime scheduledDate) {
 		super(id);
 		this.flight = flight;
 		this.scheduledDate = scheduledDate;
-		this.actualDate = scheduledDate;
+		this.setStatusTime(LocalTime.of(scheduledDate.getHour(), scheduledDate.getMinute()));
 	}
 
 	public Flight getFlight() {
@@ -26,30 +24,20 @@ public abstract class ScheduledFlight extends Entity {
         this.flight = flight;
     }
 
-    public Map<Language, String> getComment() {
-        return comment;
-    }
-
-    public void setComment(Map<Language, String> comment) {
-        this.comment = comment;
-    }
-
-	public Date getScheduledDate() {
+	public LocalDateTime getScheduledDate() {
 		return scheduledDate;
 	}
 
-	public void setScheduledDate(Date scheduledDate) {
+	public void setScheduledDate(LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
 
-	public Date getActualDate() {
-		return actualDate;
+	public LocalTime getStatusTime() {
+		return statusTime;
 	}
 
-	public void setActualDate(Date actualDate) {
-		this.actualDate = actualDate;
+	public void setStatusTime(LocalTime statusTime) {
+		this.statusTime = statusTime;
 	}
-
-    
     
 }

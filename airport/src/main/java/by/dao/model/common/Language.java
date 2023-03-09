@@ -4,12 +4,12 @@ import by.dao.model.Entity;
 
 public class Language extends Entity{
     private String name;
-    private String code;
+    private String tag;
     
-    public Language(int id, String name, String code) {
+    public Language(int id, String name, String langTag) {
 		setId(id);
 		this.name = name;
-		this.code = code;
+		this.tag = langTag;
 	}
 
 
@@ -25,18 +25,18 @@ public class Language extends Entity{
         this.name = name;
     }
 
-	public String getCode() {
-		return code;
+	public String getLangTag() {
+		return tag;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setLangTag(String langTag) {
+		this.tag = langTag;
 	}
 
 
 	@Override
 	public String toString() {
-		return getId()+ ") " + getCode() + ": " + getName() + " / " + hashCode();
+		return super.toString() + getLangTag() + ": " + getName();
 	}
 	
 	
