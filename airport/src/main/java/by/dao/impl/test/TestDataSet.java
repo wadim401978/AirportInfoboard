@@ -1,26 +1,35 @@
 package by.dao.impl.test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import by.dao.model.common.Language;
 import by.dao.model.flight.Airline;
 import by.dao.model.flight.Airport;
+import by.dao.model.flight.ArrivalStatus;
 import by.dao.model.flight.Flight;
+import by.dao.model.flight.ScheduledArrivalFlight;
 
 public final class TestDataSet {
 	private static TestDataSet instance;
 	
-	private Map<String, Language> langMap;
-	private List<Language> languages;
-	private Map<String, Airport> airportMap;
-	private List<Airport> airports;
-	private Map<String, Airline> airlineMap;
-	private List<Airline> airlines;
-	private Map<String, Flight> flightMap;
-	private List<Flight> flights;
+	private Map<String, Language> langMap = null;
+	private List<Language> languages = null;
+	private Map<String, Airport> airportMap = null;
+	private List<Airport> airports = null;
+	private Map<String, Airline> airlineMap = null;
+	private List<Airline> airlines = null;
+	private Map<String, Flight> flightMap = null;
+	private List<Flight> flights = null;
+//	private Map<String, ScheduledArrivalFlight> flightMap = null;
+	private List<ScheduledArrivalFlight> arrivals = null;
+	private final ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
 	
 	
 	private TestDataSet() {
@@ -29,10 +38,11 @@ public final class TestDataSet {
 	public static TestDataSet getInstance() {
 		if (instance==null) {
 			instance = new TestDataSet();
-			setLang(instance);
-			setAirports(instance);
-			setAirlines(instance);
-			setFlights(instance);
+			setLang();
+			setAirports();
+			setAirlines();
+			setFlights();
+			setArrivals();
 		}
 		return instance;
 	}
@@ -69,82 +79,153 @@ public final class TestDataSet {
 	public List<Flight> getFlights() {
 		return flights;
 	}
+	
+	public List<ScheduledArrivalFlight> getArrivals() {
+		return arrivals;
+	}
 
-	private static void setLang(TestDataSet inst) {
-		inst.langMap = new HashMap<String, Language>();
-		int i = 0;
-		Language lang = new Language(++i, "русский", "ru");
-		inst.langMap.put(lang.getLangTag(), lang);
-		inst.languages = new ArrayList<>();
+
+	private static void generateLangDefinitions(Language lang) {
+		TestDataSet inst = getInstance();
+		
+		if(inst.languages==null) {
+			inst.languages = new ArrayList<>();
+		}
 		inst.languages.add(lang);
-		lang = new Language(++i, "английский-english", "en");
+		
+		if(inst.langMap == null) {
+			inst.langMap = new HashMap<String, Language>();
+		}
 		inst.langMap.put(lang.getLangTag(), lang);
-		inst.languages.add(lang);
-		lang = new Language(++i, "белорусский-беларуская", "be");
-		inst.langMap.put(lang.getLangTag(), lang);
-		inst.languages.add(lang);
-		lang = new Language(++i, "испанский-espanol", "es");
-		inst.langMap.put(lang.getLangTag(), lang);
-		inst.languages.add(lang);
+
 	}
 	
-	private static void generateAirportDefinitions(TestDataSet inst, List<Airport> airports, Map<String, Airport> airportMap, Airport airport, String ru, String en) {
+	private static void setLang() {
+		int i = 0;
+		generateLangDefinitions(new Language(++i, "русский", "ru"));
+		generateLangDefinitions(new Language(++i, "английский-english", "en"));
+		generateLangDefinitions(new Language(++i, "белорусский-беларуская", "be"));
+		generateLangDefinitions(new Language(++i, "испанский-espanol", "es"));
+		
+		
+//		inst.langMap = new HashMap<String, Language>();
+//		
+//		Language lang = new Language(++i, "русский", "ru");
+//		inst.langMap.put(lang.getLangTag(), lang);
+//		inst.languages = new ArrayList<>();
+//		inst.languages.add(lang);
+//		lang = new Language(++i, "английский-english", "en");
+//		inst.langMap.put(lang.getLangTag(), lang);
+//		inst.languages.add(lang);
+//		lang = new Language(++i, "белорусский-беларуская", "be");
+//		inst.langMap.put(lang.getLangTag(), lang);
+//		inst.languages.add(lang);
+//		lang = new Language(++i, "испанский-espanol", "es");
+//		inst.langMap.put(lang.getLangTag(), lang);
+//		inst.languages.add(lang);
+	}
+	
+	private static void generateAirportDefinitions(Airport airport, String ru, String en) {
+		TestDataSet inst = getInstance();
 		Map<Language, String> nameMap = new HashMap<Language, String>();
 		nameMap.put(inst.langMap.get("ru"), ru);
 		nameMap.put(inst.langMap.get("en"), en);
 		airport.setNames(nameMap);
 		
-		airports.add(airport);
-		airportMap.put(airport.getIcaoCode(), airport);
+		if(inst.airports==null) {
+			inst.airports = new ArrayList<>();
+		}
+		inst.airports.add(airport);
+		
+		if(inst.airportMap == null) {
+			inst.airportMap = new HashMap<String, Airport>();
+		}
+		inst.airportMap.put(airport.getIcaoCode(), airport);
 	}
 	
-	private static void setAirports(TestDataSet inst) {
-		inst.airportMap = new HashMap<String, Airport>();
+	private static void setAirports() {
 		int i = 0;
-		
-		inst.airports = new ArrayList<>();
-		generateAirportDefinitions(inst, inst.airports, inst.airportMap, new Airport(++i, "VTB", "UMII", null), "Витебск", "Vitebsk");
-		generateAirportDefinitions(inst, inst.airports, inst.airportMap, new Airport(++i, "HRG", "HEGN", null), "Хургада", "Hurghada");
-		generateAirportDefinitions(inst, inst.airports, inst.airportMap, new Airport(++i, "SSH", "HESH", null), "Шарм-эль-Шех", "Sharm-ash-Sheikh");
+		generateAirportDefinitions(new Airport(++i, "VTB", "UMII", null), "Витебск", "Vitebsk");
+		generateAirportDefinitions(new Airport(++i, "HRG", "HEGN", null), "Хургада", "Hurghada");
+		generateAirportDefinitions(new Airport(++i, "SSH", "HESH", null), "Шарм-эль-Шех", "Sharm-ash-Sheikh");
 		
 	}
 	
 	
-	private static void generateAirlineDefinitions(TestDataSet inst, List<Airline> airlines, Map<String, Airline> airlineMap, Airline airline, String ru, String en) {
+	private static void generateAirlineDefinitions(Airline airline, String ru, String en) {
+		TestDataSet inst = getInstance();
 		Map<Language, String> nameMap = new HashMap<Language, String>();
 		nameMap.put(inst.langMap.get("ru"), ru);
 		nameMap.put(inst.langMap.get("en"), en);
 		airline.setNames(nameMap);
 		
-		airlines.add(airline);
-		airlineMap.put(airline.getIcaoCode(), airline);
-	}
-	
-	private static void setAirlines(TestDataSet inst) {
-		inst.airlineMap = new HashMap<String, Airline>();
-		int i = 0;
+		if(inst.airlines==null) {
+			inst.airlines = new ArrayList<>();
+		}
+		inst.airlines.add(airline);
 		
-		inst.airlines = new ArrayList<>();
-		generateAirlineDefinitions(inst, inst.airlines, inst.airlineMap, new Airline(++i, "B2", "BRU", null, "belavia.jpg"), "Белавиа", "Belavia");
-		generateAirlineDefinitions(inst, inst.airlines, inst.airlineMap, new Airline(++i, "SU", "AFL", null, "aeroflot.jpg"), "Аэрофлот", "Aeroflot");
+		if(inst.airlineMap == null) {
+			inst.airlineMap = new HashMap<String, Airline>();
+		}
+		inst.airlineMap.put(airline.getIcaoCode(), airline);
+	}
+	
+	private static void setAirlines() {
+		int i = 0;
+		generateAirlineDefinitions(new Airline(++i, "B2", "BRU", null, "belavia.jpg"), "Белавиа", "Belavia");
+		generateAirlineDefinitions(new Airline(++i, "SU", "AFL", null, "aeroflot.jpg"), "Аэрофлот", "Aeroflot");
 		
 	}
 	
-	private static void generateFlightDefinitions(TestDataSet inst, List<Flight> flights, Map<String, Flight> flightMap, int apId, int alId, int num, boolean isArr, int incr) {
-		Airline al = TestDataSet.getInstance().airlines.get(alId);
-		Flight flight = new Flight(incr, isArr, TestDataSet.getInstance().airports.get(apId), al, num);
-		flights.add(flight);
-		flightMap.put(al.getIcaoCode()+num, flight);
+	private static void generateFlightDefinitions(int flightId, int aPortId, int aLineId, int flightNum, boolean isArr) {
+		TestDataSet inst = getInstance();
+		Airline airline = inst.airlines.get(aLineId);
+		Airport airport = inst.airports.get(aPortId);
+		Flight flight = new Flight(flightId, isArr, airport, airline, flightNum);
+		
+		if(inst.flights==null) {
+			inst.flights = new ArrayList<>();
+		}
+		inst.flights.add(flight);
+		
+		if(inst.flightMap == null) {
+			inst.flightMap = new HashMap<String, Flight>();
+		}
+		inst.flightMap.put(airline.getIcaoCode()+flightNum, flight);
 	}
 	
-	private static void setFlights(TestDataSet inst) {
-		inst.flightMap = new HashMap<String, Flight>();
+	private static void setFlights() {
 		int i = 0;
-		inst.flights = new ArrayList<>();
-		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 1, 0, 8218, true, ++i);
-		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 1, 0, 8219, false, ++i);
-		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 2, 0, 8208, true, ++i);
-		generateFlightDefinitions(inst, inst.flights, inst.flightMap, 2, 0, 8209, false, ++i);
+		generateFlightDefinitions(++i, 1, 0, 8218, true);
+		generateFlightDefinitions(++i, 1, 0, 8219, false);
+		generateFlightDefinitions(++i, 2, 0, 8208, true);
+		generateFlightDefinitions(++i, 2, 0, 8209, false);
+	}
+	
+	private static void setArrivals() {
+		TestDataSet inst = getInstance();
+		int i = 0;
+		inst.arrivals = new ArrayList<>();
+		Flight flight0 = inst.getFlights().get(0);
+		Flight flight2 = inst.getFlights().get(2);
+		LocalDate lDate = LocalDate.of(2023, 04, 22);
+		LocalTime tTime0 = LocalTime.of(11, 25);
+		LocalTime tTime2 = LocalTime.of(13, 45);
+		
+		LocalDateTime ldt = LocalDateTime.of(lDate, tTime0);
+		Date date = Date.from(ldt.toInstant(inst.offset));
+		tTime0 = LocalTime.of(11, 30);
+		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight0, date, tTime0, ArrivalStatus.EXPECTED));
+		
+		ldt = LocalDateTime.of(lDate, tTime2);
+		date = Date.from(ldt.toInstant(inst.offset));
+		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight2, date, ArrivalStatus.EXPECTED));
+		
+		lDate = LocalDate.of(2023, 04, 23);
+		ldt = LocalDateTime.of(lDate, tTime0);
+		date = Date.from(ldt.toInstant(inst.offset));
+		tTime0 = LocalTime.of(12, 40);
+		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight0, date, tTime0, ArrivalStatus.DELAYED));
 	}
 	
 

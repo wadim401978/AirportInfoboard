@@ -75,23 +75,28 @@ public class ViewerController {
         Airline airline = airlineService.getDefaultAirline();
         model.addAttribute("airline", airline.toString());
         
-        Flight flight = flightService.getByIcaoNumber("B28219");//IATA number
+        Flight flight = flightService.getByIcaoNumber("B28218");//IATA number
         model.addAttribute("flightb2", (flight==null?"not found":flight.toString()  ));
-        flight = flightService.getByIcaoNumber("BRU8219");//ICAO number
+        flight = flightService.getByIcaoNumber("BRU8218");//ICAO number
         model.addAttribute("flightbru", (flight==null?"not found":flight.toString()  ));
         
         ScheduledArrivalFlight arrival = arrivalService.getAll().get(0);
-		String pattern = ResourceBundle.getBundle("viewer").getString(arrival.getStatus().property);
+//        ScheduledArrivalFlight arrival = arrivalService.getAllByFlight(flight).get(0);
+        String pattern = ResourceBundle.getBundle("viewer").getString(arrival.getStatus().property);
+        model.addAttribute("arrival", arrival.toString()
+        		+ MessageFormat.format(pattern, arrival.getStatusTimeFormatted()));
 		
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR, 11);
-		cal.set(Calendar.MINUTE, 40);
-		cal.set(Calendar.YEAR, 2023);
-		cal.set(Calendar.MONTH, 04);
-		cal.set(Calendar.DATE, 22);
+//		Calendar cal = Calendar.getInstance();
+//		cal.set(Calendar.HOUR, 11);
+//		cal.set(Calendar.MINUTE, 40);
+//		cal.set(Calendar.YEAR, 2023);
+//		cal.set(Calendar.MONTH, 04);
+//		cal.set(Calendar.DATE, 22);
+//		String pattern = ResourceBundle.getBundle("viewer").getString(arrival.getStatus().property);	
+//		Date date = cal.getTime();
+//		model.addAttribute("arrival", MessageFormat.format(pattern, DateFormat.getTimeInstance().format(date)));
 		
-		Date date = cal.getTime();
-		model.addAttribute("arrival", MessageFormat.format(pattern, DateFormat.getTimeInstance().format(date)));
+		
         
         return "arr";
     }

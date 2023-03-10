@@ -16,6 +16,7 @@
     ${airline}<br>
     ${flightb2}<br>
     ${flightbru}<br>
+    ${arrival}<br>
     <fmt:message key="my.name" bundle="${viewer}" />
 </body>
 </html>
