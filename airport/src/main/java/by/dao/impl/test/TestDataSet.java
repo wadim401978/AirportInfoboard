@@ -13,8 +13,14 @@ import by.dao.model.common.Language;
 import by.dao.model.flight.Airline;
 import by.dao.model.flight.Airport;
 import by.dao.model.flight.ArrivalStatus;
+import by.dao.model.flight.DepartureStatus;
 import by.dao.model.flight.Flight;
 import by.dao.model.flight.ScheduledArrivalFlight;
+import by.dao.model.flight.ScheduledDepartureFlight;
+import by.services.ScheduledArrivalFlightService;
+import by.services.ScheduledDepartureFlightService;
+import by.services.impl.ScheduledArrivalFlightServiceImpl;
+import by.services.impl.ScheduledDepartureFlightServiceImpl;
 
 public final class TestDataSet {
 	private static TestDataSet instance;
@@ -27,8 +33,9 @@ public final class TestDataSet {
 	private List<Airline> airlines = null;
 	private Map<String, Flight> flightMap = null;
 	private List<Flight> flights = null;
-//	private Map<String, ScheduledArrivalFlight> flightMap = null;
 	private List<ScheduledArrivalFlight> arrivals = null;
+	private List<ScheduledDepartureFlight> departures = null;
+
 	private final ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
 	
 	
@@ -43,6 +50,7 @@ public final class TestDataSet {
 			setAirlines();
 			setFlights();
 			setArrivals();
+			setDepartures();
 		}
 		return instance;
 	}
@@ -83,6 +91,10 @@ public final class TestDataSet {
 	public List<ScheduledArrivalFlight> getArrivals() {
 		return arrivals;
 	}
+	
+	public List<ScheduledDepartureFlight> getDepartures() {
+		return departures;
+	}
 
 
 	private static void generateLangDefinitions(Language lang) {
@@ -107,22 +119,6 @@ public final class TestDataSet {
 		generateLangDefinitions(new Language(++i, "белорусский-беларуская", "be"));
 		generateLangDefinitions(new Language(++i, "испанский-espanol", "es"));
 		
-		
-//		inst.langMap = new HashMap<String, Language>();
-//		
-//		Language lang = new Language(++i, "русский", "ru");
-//		inst.langMap.put(lang.getLangTag(), lang);
-//		inst.languages = new ArrayList<>();
-//		inst.languages.add(lang);
-//		lang = new Language(++i, "английский-english", "en");
-//		inst.langMap.put(lang.getLangTag(), lang);
-//		inst.languages.add(lang);
-//		lang = new Language(++i, "белорусский-беларуская", "be");
-//		inst.langMap.put(lang.getLangTag(), lang);
-//		inst.languages.add(lang);
-//		lang = new Language(++i, "испанский-espanol", "es");
-//		inst.langMap.put(lang.getLangTag(), lang);
-//		inst.languages.add(lang);
 	}
 	
 	private static void generateAirportDefinitions(Airport airport, String ru, String en) {
@@ -204,6 +200,7 @@ public final class TestDataSet {
 	
 	private static void setArrivals() {
 		TestDataSet inst = getInstance();
+		ScheduledArrivalFlightService service = new ScheduledArrivalFlightServiceImpl();
 		int i = 0;
 		inst.arrivals = new ArrayList<>();
 		Flight flight0 = inst.getFlights().get(0);
@@ -215,7 +212,8 @@ public final class TestDataSet {
 		LocalDateTime ldt = LocalDateTime.of(lDate, tTime0);
 		Date date = Date.from(ldt.toInstant(inst.offset));
 		tTime0 = LocalTime.of(11, 30);
-		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight0, date, tTime0, ArrivalStatus.EXPECTED));
+		Date tDate = service.getDateWithLocalTime(date, tTime2);
+		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight0, date, tDate, ArrivalStatus.EXPECTED));
 		
 		ldt = LocalDateTime.of(lDate, tTime2);
 		date = Date.from(ldt.toInstant(inst.offset));
@@ -225,7 +223,37 @@ public final class TestDataSet {
 		ldt = LocalDateTime.of(lDate, tTime0);
 		date = Date.from(ldt.toInstant(inst.offset));
 		tTime0 = LocalTime.of(12, 40);
-		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight0, date, tTime0, ArrivalStatus.DELAYED));
+		tDate = service.getDateWithLocalTime(date, tTime0);
+		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight0, date, tDate, ArrivalStatus.DELAYED));
+	}
+	
+	private static void setDepartures() {
+		TestDataSet inst = getInstance();
+		ScheduledDepartureFlightService service = new ScheduledDepartureFlightServiceImpl();
+		int i = 0;
+		inst.departures = new ArrayList<>();
+		Flight flight1 = inst.getFlights().get(1);
+		Flight flight3 = inst.getFlights().get(3);
+		LocalDate lDate = LocalDate.of(2023, 04, 22);
+		LocalTime tTime1 = LocalTime.of(14, 25);
+		LocalTime tTime3 = LocalTime.of(16, 50);
+		
+		LocalDateTime ldt = LocalDateTime.of(lDate, tTime1);
+		Date date = Date.from(ldt.toInstant(inst.offset));
+		tTime1 = LocalTime.of(14, 35);
+		Date tDate = service.getDateWithLocalTime(date, tTime3);
+		inst.departures.add(new ScheduledDepartureFlight(++i, flight1, date, tDate, DepartureStatus.CHECKIN_AT));
+		
+		ldt = LocalDateTime.of(lDate, tTime3);
+		date = Date.from(ldt.toInstant(inst.offset));
+		inst.departures.add(new ScheduledDepartureFlight(++i, flight3, date, DepartureStatus.CHECKIN_NOW));
+		
+		lDate = LocalDate.of(2023, 04, 23);
+		ldt = LocalDateTime.of(lDate, tTime1);
+		date = Date.from(ldt.toInstant(inst.offset));
+		tTime1 = LocalTime.of(15, 41);
+		tDate = service.getDateWithLocalTime(date, tTime1);
+		inst.departures.add(new ScheduledDepartureFlight(++i, flight1, date, tDate, DepartureStatus.CANCELLED));
 	}
 	
 

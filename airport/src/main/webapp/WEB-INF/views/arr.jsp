@@ -5,18 +5,14 @@
 <fmt:setBundle basename="viewer" var="viewer" />
 <html>
     <head>
-        <title>${title}</title>
+        <title><fmt:message key="title.arrivals" bundle="${viewer}" /></title>
         <meta charset="utf-8">
         <link type="text/css" href="css/viewer.css" rel="stylesheet">
     </head>
 <body>
-    <h2>${title}</h2>
-    ${langTag}<br>
-    ${airport}<br>
-    ${airline}<br>
-    ${flightb2}<br>
-    ${flightbru}<br>
+    <h2><fmt:message key="title.arrivals" bundle="${viewer}" /></h2>
+    ${arrivalToString}<br>
     ${arrival}<br>
-    <fmt:message key="my.name" bundle="${viewer}" />
+    
 </body>
 </html>

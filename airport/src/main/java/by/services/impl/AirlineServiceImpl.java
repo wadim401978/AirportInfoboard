@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import by.dao.AirlineDAO;
 import by.dao.model.flight.Airline;
 import by.services.AirlineService;
 
-@Service
+@Service(value = "airlineService")
 public class AirlineServiceImpl implements AirlineService {
 	
 	private AirlineDAO dao;

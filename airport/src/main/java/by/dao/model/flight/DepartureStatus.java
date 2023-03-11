@@ -5,7 +5,7 @@ public enum DepartureStatus {
 	CHECKIN_NOW(2, "status.departure.checkin.now"), 
 	CHECKIN_FINISHED(3, "status.departure.checkin.finished"), 
 	DELAYED(4, "status.departure.delayed.till"), 
-	CANCELLED(5, "status.departure.cancelled ");
+	CANCELLED(5, "status.departure.cancelled");
 	
 	public int id;
 	public String property;

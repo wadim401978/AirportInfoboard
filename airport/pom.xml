@@ -145,7 +145,7 @@
         </configuration>
       </plugin>
       
-            <plugin>
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -173,7 +173,7 @@
                         <version>1.6.5</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin-->
       
     </plugins>
   </build>

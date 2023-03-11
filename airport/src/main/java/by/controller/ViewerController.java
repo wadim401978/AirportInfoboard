@@ -1,20 +1,14 @@
 package by.controller;
 
-import java.text.DateFormat;
 import java.text.MessageFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import by.dao.model.flight.Airline;
-import by.dao.model.flight.Airport;
-import by.dao.model.flight.Flight;
 import by.dao.model.flight.ScheduledArrivalFlight;
+import by.dao.model.flight.ScheduledDepartureFlight;
 import by.services.AirlineService;
 import by.services.AirportService;
 import by.services.FlightService;
@@ -25,15 +19,17 @@ import by.services.ScheduledDepartureFlightService;
 @Controller
 public class ViewerController {
 	
-	private LanguageService langService;
-	private AirportService airportService;
-	private AirlineService airlineService;
-	private FlightService flightService;
 	private ScheduledArrivalFlightService arrivalService;
 	private ScheduledDepartureFlightService departureService;
 	
+//	@Autowired
+//	private ApplicationContext context;
 	
-	
+//	@Autowired(required = true)
+//	public void setContext(ApplicationContext context) {
+//		this.context = context;
+//	}
+
 	@Autowired(required = true)
 	public void setArrivalService(ScheduledArrivalFlightService arrivalService) {
 		this.arrivalService = arrivalService;
@@ -44,58 +40,19 @@ public class ViewerController {
 		this.departureService = departureService;
 	}
 
-	@Autowired(required = true)
-	public void setLangService(LanguageService langService) {
-		this.langService = langService;
-	}
-	
-	@Autowired(required = true)
-	public void setAirportService(AirportService airportService) {
-		this.airportService = airportService;
-	}
-	
-	@Autowired(required = true)
-	public void setAirlineService(AirlineService airlineService) {
-		this.airlineService = airlineService;
-	}
-	
-	@Autowired(required = true)
-	public void setFlightService(FlightService flightService) {
-		this.flightService = flightService;
-	}
 
 	@RequestMapping("/arr.html")
     public String arr(ModelMap model) {
         model.addAttribute("title", "Arrivals");
         model.addAttribute("text", "Таблица прилёта");
-        model.addAttribute("langTag", langService.getDefaultLang().toString());
-        Airport airport = airportService.getAll().get(0);
-        model.addAttribute("airport", airport.toString());
         
-        Airline airline = airlineService.getDefaultAirline();
-        model.addAttribute("airline", airline.toString());
-        
-        Flight flight = flightService.getByIcaoNumber("B28218");//IATA number
-        model.addAttribute("flightb2", (flight==null?"not found":flight.toString()  ));
-        flight = flightService.getByIcaoNumber("BRU8218");//ICAO number
-        model.addAttribute("flightbru", (flight==null?"not found":flight.toString()  ));
-        
-        ScheduledArrivalFlight arrival = arrivalService.getAll().get(0);
-//        ScheduledArrivalFlight arrival = arrivalService.getAllByFlight(flight).get(0);
+        List<ScheduledArrivalFlight> arrivals = arrivalService.getAll();
+        ScheduledArrivalFlight arrival = arrivals.get(0);
         String pattern = ResourceBundle.getBundle("viewer").getString(arrival.getStatus().property);
-        model.addAttribute("arrival", arrival.toString()
-        		+ MessageFormat.format(pattern, arrival.getStatusTimeFormatted()));
-		
-//		Calendar cal = Calendar.getInstance();
-//		cal.set(Calendar.HOUR, 11);
-//		cal.set(Calendar.MINUTE, 40);
-//		cal.set(Calendar.YEAR, 2023);
-//		cal.set(Calendar.MONTH, 04);
-//		cal.set(Calendar.DATE, 22);
-//		String pattern = ResourceBundle.getBundle("viewer").getString(arrival.getStatus().property);	
-//		Date date = cal.getTime();
-//		model.addAttribute("arrival", MessageFormat.format(pattern, DateFormat.getTimeInstance().format(date)));
-		
+        model.addAttribute("arrivals", arrivals);
+        model.addAttribute("arrival", arrival);
+        model.addAttribute("arrivalToString", arrival.toString()
+        		+ MessageFormat.format(pattern, arrivalService.getTimeFormatted(arrival.getStatusTime())));
 		
         
         return "arr";
@@ -105,6 +62,14 @@ public class ViewerController {
     public String dep(ModelMap model) {
         model.addAttribute("title", "Departures");
         model.addAttribute("text", "Таблица вылета");
+        List<ScheduledDepartureFlight> departures = departureService.getAll();
+        ScheduledDepartureFlight departure = departures.get(0);
+        String pattern = ResourceBundle.getBundle("viewer").getString(departure.getStatus().property);
+        model.addAttribute("departures", departures);
+        model.addAttribute("departure", departure);
+        model.addAttribute("departureToString", departure.toString()
+        		+ MessageFormat.format(pattern, departureService.getTimeFormatted(departure.getStatusTime())));
+        
         return "dep";
     }
 

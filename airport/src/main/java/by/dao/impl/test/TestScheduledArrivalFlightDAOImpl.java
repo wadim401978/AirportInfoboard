@@ -1,7 +1,10 @@
 package by.dao.impl.test;
 
-//import java.time.LocalDateTime;
-//import java.time.ZoneOffset;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +26,7 @@ public class TestScheduledArrivalFlightDAOImpl implements ScheduledArrivalFlight
 		List<ScheduledArrivalFlight> arrivals = new ArrayList<>();
 		List<ScheduledArrivalFlight> allArrivals = findAll();
 		for (ScheduledArrivalFlight arrival : allArrivals) {
-			if(arrival.getFlight().getIcaoNumber() == flight.getIcaoNumber()) {
+			if(flight.getIcaoNumber().equals(arrival.getFlight().getIcaoNumber())) {
 				arrivals.add(arrival);
 			}
 		}
@@ -31,35 +34,14 @@ public class TestScheduledArrivalFlightDAOImpl implements ScheduledArrivalFlight
 	}
 
 	
-//	private Date getConvertedLocalDate(LocalDateTime arrivalDateLocal, ZoneOffset offset, boolean dateOnly) {
-//		int yyyy = arrivalDateLocal.getYear();
-//		int MM = arrivalDateLocal.getMonthValue();
-//		int dd = arrivalDateLocal.getDayOfMonth();
-//		int min, hh, sec;
-//		
-//		if(dateOnly) {
-//			min =0; hh = 0; sec = 0;
-//		} else {
-//			hh = arrivalDateLocal.getHour();
-//			min = arrivalDateLocal.getMinute();
-//			sec = arrivalDateLocal.getSecond();
-//		}
-//		arrivalDateLocal = LocalDateTime.of(yyyy, MM, dd, hh, min, sec);
-//		Date arrivalDate = Date.from(arrivalDateLocal.toInstant(offset)); 
-//		return arrivalDate;
-//	}
-	
 	@Override
 	public List<ScheduledArrivalFlight> findByPeriod(Date startDate, Date endDate) {
 		List<ScheduledArrivalFlight> arrivals = new ArrayList<>();
 		List<ScheduledArrivalFlight> allArrivals = findAll();
-//		ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
 		
 		for (ScheduledArrivalFlight arrival : allArrivals) {
-//			Date arrivalDate = getConvertedLocalDate(arrival.getScheduledDate(), offset, true); 
 			Date arrivalDate = arrival.getScheduledDate(); 
-			
-			if(arrivalDate.getTime() >= startDate.getTime() && arrivalDate.getTime() <= endDate.getTime()) {
+			if(isDateInBand(arrivalDate, startDate, endDate)) {
 				arrivals.add(arrival);
 			}
 		}
@@ -72,13 +54,18 @@ public class TestScheduledArrivalFlightDAOImpl implements ScheduledArrivalFlight
 	public ScheduledArrivalFlight findScheduledFlight(Date date, Flight flight) {
 		List<ScheduledArrivalFlight> allArrivals = findAll();
 		ScheduledArrivalFlight foundArrival = null;
-//		ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
+		
+		ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
+		LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+		LocalDate ld = LocalDate.of(ldt.getYear(), ldt.getMonthValue(), ldt.getDayOfMonth());
+		LocalTime lt = LocalTime.of(0, 0, 0);
+		Date startDate = Date.from(LocalDateTime.of(ld, lt).toInstant(offset));
+		lt = LocalTime.of(23, 59, 59);
+		Date endDate = Date.from(LocalDateTime.of(ld, lt).toInstant(offset));
 		
 		for (ScheduledArrivalFlight arrival : allArrivals) {
-//			Date arrivalDate = getConvertedLocalDate(arrival.getScheduledDate(), offset, true); 
 			Date arrivalDate = arrival.getScheduledDate(); 
-			
-			if(arrival.getFlight().getIcaoNumber() == flight.getIcaoNumber() && arrivalDate.equals(date)) {
+			if(arrival.getFlight().getIcaoNumber().equals(flight.getIcaoNumber()) && isDateInBand(arrivalDate, startDate, endDate)) {
 				foundArrival = arrival;
 				break;
 			}

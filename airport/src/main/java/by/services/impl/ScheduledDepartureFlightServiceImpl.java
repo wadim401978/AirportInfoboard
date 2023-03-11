@@ -1,6 +1,6 @@
 package by.services.impl;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import by.dao.model.flight.Flight;
 import by.dao.model.flight.ScheduledDepartureFlight;
 import by.services.ScheduledDepartureFlightService;
 
-@Service
+@Service(value = "DepartureFlightService")
 public class ScheduledDepartureFlightServiceImpl implements ScheduledDepartureFlightService {
 	
 	private ScheduledDepartureFlightDAO dao;
