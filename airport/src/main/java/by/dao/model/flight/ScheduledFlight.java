@@ -53,8 +53,8 @@ public abstract class ScheduledFlight extends Entity {
 		Flight fl = getFlight();
 		return super.toString()
 				+ ": " + " " + fl.getIcaoNumber() + "/" + fl.getIataNumber() + ": " 
-				+ fl.getAirline().toStringNames() + "; " 
-				+ "(" + fl.getAirport().getIataCode() + ") " + fl.getAirport().toStringNames() + " | ";
+				+ fl.getAirline().getName() + "; " 
+				+ "(" + fl.getAirport().getIataCode() + ") " + fl.getAirport().getName() + " | ";
 	}
     
 }

@@ -5,18 +5,20 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import by.dao.AirlineDAO;
+import by.dao.DAO;
 import by.dao.model.flight.Airline;
 import by.services.AirlineService;
 
-@Service(value = "airlineService")
+@Service(value = "AirlineService")
 public class AirlineServiceImpl implements AirlineService {
 	
 	private AirlineDAO dao;
 	private ResourceBundle initialResourceBundle;
 	
+	@Override
 	@Autowired
-	public void setDao(AirlineDAO dao) {
-		this.dao = dao;
+	public void setDao(DAO<Airline> dao) {
+		this.dao = (AirlineDAO)dao;
 	}
 
 	public AirlineServiceImpl() {

@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import by.dao.DAO;
 import by.dao.LanguageDAO;
 import by.dao.model.common.Language;
 import by.services.LanguageService;
 
-@Service
+@Service(value = "LanguageService")
 public class LanguageServiceImpl implements LanguageService {
 	
 	private LanguageDAO dao;
@@ -18,9 +19,10 @@ public class LanguageServiceImpl implements LanguageService {
 		this.initialResourceBundle = ResourceBundle.getBundle("initial");
 	}
 
+	@Override
 	@Autowired
-	public void setDao(LanguageDAO dao) {
-		this.dao = dao;
+	public void setDao(DAO<Language> dao) {
+		this.dao = (LanguageDAO)dao;
 	}
 	
 

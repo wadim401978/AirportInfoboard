@@ -9,6 +9,10 @@ public enum ArrivalStatus {
 	public int id;
 	public String property;
 	
+	public String getProperty() {
+		return property;
+	}
+	
 	private ArrivalStatus(int id, String property) {
 		this.id = id;
 		this.property = property;

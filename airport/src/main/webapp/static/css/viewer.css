@@ -5,3 +5,13 @@ body {
 h2 {
     color:blue;
 }
+
+table.schedule td {
+	border: 1px solid blue;
+	background: white;
+	padding: 10px;
+}
+
+table.schedule thead td {
+	text-align: center;
+}

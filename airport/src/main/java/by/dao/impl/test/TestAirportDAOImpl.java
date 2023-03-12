@@ -6,7 +6,7 @@ import by.dao.AirportDAO;
 import by.dao.model.common.Language;
 import by.dao.model.flight.Airport;
 
-@Repository
+@Repository(value = "TestAirportDAO")
 public class TestAirportDAOImpl implements AirportDAO  {
 
 	@Override

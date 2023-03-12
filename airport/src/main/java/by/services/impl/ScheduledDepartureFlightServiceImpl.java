@@ -6,15 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import by.dao.DAO;
 import by.dao.ScheduledDepartureFlightDAO;
 import by.dao.model.flight.Flight;
 import by.dao.model.flight.ScheduledDepartureFlight;
 import by.services.ScheduledDepartureFlightService;
 
-@Service(value = "DepartureFlightService")
+@Service(value = "ScheduledDepartureFlightService")
 public class ScheduledDepartureFlightServiceImpl implements ScheduledDepartureFlightService {
 	
 	private ScheduledDepartureFlightDAO dao;
+	
+	@Override
+	@Autowired
+	public void setDao(DAO<ScheduledDepartureFlight> dao) {
+		this.dao = (ScheduledDepartureFlightDAO)dao;
+	}
 
 	@Override
 	public List<ScheduledDepartureFlight> getAllByFlight(Flight flight) {
@@ -44,11 +51,6 @@ public class ScheduledDepartureFlightServiceImpl implements ScheduledDepartureFl
         } else {
             dao.update(obj);
         }
-	}
-
-	@Autowired
-	public void setDao(ScheduledDepartureFlightDAO dao) {
-		this.dao = dao;
 	}
 
 }

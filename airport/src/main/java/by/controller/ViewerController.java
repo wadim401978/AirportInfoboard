@@ -9,10 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import by.dao.model.flight.ScheduledArrivalFlight;
 import by.dao.model.flight.ScheduledDepartureFlight;
-import by.services.AirlineService;
-import by.services.AirportService;
-import by.services.FlightService;
-import by.services.LanguageService;
 import by.services.ScheduledArrivalFlightService;
 import by.services.ScheduledDepartureFlightService;
 
@@ -22,14 +18,6 @@ public class ViewerController {
 	private ScheduledArrivalFlightService arrivalService;
 	private ScheduledDepartureFlightService departureService;
 	
-//	@Autowired
-//	private ApplicationContext context;
-	
-//	@Autowired(required = true)
-//	public void setContext(ApplicationContext context) {
-//		this.context = context;
-//	}
-
 	@Autowired(required = true)
 	public void setArrivalService(ScheduledArrivalFlightService arrivalService) {
 		this.arrivalService = arrivalService;
@@ -44,16 +32,8 @@ public class ViewerController {
 	@RequestMapping("/arr.html")
     public String arr(ModelMap model) {
         model.addAttribute("title", "Arrivals");
-        model.addAttribute("text", "Таблица прилёта");
-        
         List<ScheduledArrivalFlight> arrivals = arrivalService.getAll();
-        ScheduledArrivalFlight arrival = arrivals.get(0);
-        String pattern = ResourceBundle.getBundle("viewer").getString(arrival.getStatus().property);
         model.addAttribute("arrivals", arrivals);
-        model.addAttribute("arrival", arrival);
-        model.addAttribute("arrivalToString", arrival.toString()
-        		+ MessageFormat.format(pattern, arrivalService.getTimeFormatted(arrival.getStatusTime())));
-		
         
         return "arr";
     }

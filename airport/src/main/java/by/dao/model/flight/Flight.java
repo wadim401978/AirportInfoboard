@@ -44,8 +44,8 @@ public class Flight extends Entity {
 		return super.toString()
 				+ (isArrival()?"Arrival":"Departure") 
 				+ ": " + getIcaoNumber() + "/" + getIataNumber() + ": " 
-				+ getAirline().toStringNames() + "; " 
-				+ "(" + getAirport().getIataCode() + ") " + getAirport().toStringNames();
+				+ getAirline().getName() + "; " 
+				+ "(" + getAirport().getIataCode() + ") " + getAirport().getName();
 	}
 
 }

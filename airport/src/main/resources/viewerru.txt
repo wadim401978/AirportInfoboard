@@ -13,4 +13,11 @@ status.departure.delayed.till = вылет задерживается до {0}
 status.departure.cancelled = отменён
 title.departures = Вылетающие рейсы
 
+table.number = Рейс
+table.airport = Город<br>(аэропорт)
+table.date = Дата по<br>расписанию
+table.time = Время по<br>расписанию
+table.airline = Авиакомпания
+table.status = Статус рейса
+
 my.name= Вадим

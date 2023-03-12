@@ -6,12 +6,8 @@ import by.dao.model.common.Language;
 public class Airline extends AirEntity{
     private String logo;
 
-    public Airline() {
-		super();
-	}
-
-	public Airline(int id, String iataCode, String icaoCode, Map<Language, String> names, String logo) {
-		super(id, iataCode, icaoCode, names);
+	public Airline(int id, String iataCode, String icaoCode, Map<Language, String> names, Language defaultLanguage, String logo) {
+		super(id, iataCode, icaoCode, names, defaultLanguage);
 		this.logo = logo;
 	}
 
@@ -19,10 +15,6 @@ public class Airline extends AirEntity{
         return logo;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-    
 	@Override
 	public String toString() {
 		return super.toString() + " (" + getLogo() + ")";

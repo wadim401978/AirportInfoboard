@@ -35,6 +35,7 @@ public final class TestDataSet {
 	private List<Flight> flights = null;
 	private List<ScheduledArrivalFlight> arrivals = null;
 	private List<ScheduledDepartureFlight> departures = null;
+	private Language defaultLanguage = null;
 
 	private final ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
 	
@@ -109,6 +110,9 @@ public final class TestDataSet {
 			inst.langMap = new HashMap<String, Language>();
 		}
 		inst.langMap.put(lang.getLangTag(), lang);
+		if (lang.getLangTag() == "ru") {
+			inst.defaultLanguage = lang;
+		}
 
 	}
 	
@@ -141,9 +145,10 @@ public final class TestDataSet {
 	
 	private static void setAirports() {
 		int i = 0;
-		generateAirportDefinitions(new Airport(++i, "VTB", "UMII", null), "Витебск", "Vitebsk");
-		generateAirportDefinitions(new Airport(++i, "HRG", "HEGN", null), "Хургада", "Hurghada");
-		generateAirportDefinitions(new Airport(++i, "SSH", "HESH", null), "Шарм-эль-Шех", "Sharm-ash-Sheikh");
+		Language lang = getInstance().defaultLanguage;
+		generateAirportDefinitions(new Airport(++i, "VTB", "UMII", null, lang), "Витебск", "Vitebsk");
+		generateAirportDefinitions(new Airport(++i, "HRG", "HEGN", null, lang), "Хургада", "Hurghada");
+		generateAirportDefinitions(new Airport(++i, "SSH", "HESH", null, lang), "Шарм-эль-Шех", "Sharm-ash-Sheikh");
 		
 	}
 	
@@ -168,8 +173,9 @@ public final class TestDataSet {
 	
 	private static void setAirlines() {
 		int i = 0;
-		generateAirlineDefinitions(new Airline(++i, "B2", "BRU", null, "belavia.jpg"), "Белавиа", "Belavia");
-		generateAirlineDefinitions(new Airline(++i, "SU", "AFL", null, "aeroflot.jpg"), "Аэрофлот", "Aeroflot");
+		Language lang = getInstance().defaultLanguage;
+		generateAirlineDefinitions(new Airline(++i, "B2", "BRU", null, lang, "belavia.jpg"), "Белавиа", "Belavia");
+		generateAirlineDefinitions(new Airline(++i, "SU", "AFL", null, lang, "aeroflot.jpg"), "Аэрофлот", "Aeroflot");
 		
 	}
 	

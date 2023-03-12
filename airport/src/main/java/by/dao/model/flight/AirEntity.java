@@ -8,18 +8,15 @@ public abstract class AirEntity extends Entity {
     private Map<Language, String> names;
     private String iataCode;
     private String icaoCode;
+    private Language defaultLanguage;
 
     
-	public AirEntity() {
-		super();
-	}
-	
-	
-	public AirEntity(int id, String iataCode, String icaoCode, Map<Language, String> names) {
+	public AirEntity(int id, String iataCode, String icaoCode, Map<Language, String> names, Language defaultLanguage) {
 		super(id);
 		this.names = names;
 		this.iataCode = iataCode;
 		this.icaoCode = icaoCode;
+		this.defaultLanguage = defaultLanguage;
 	}
 
 
@@ -30,25 +27,36 @@ public abstract class AirEntity extends Entity {
 		this.names = names;
 	}
 	
-	
 
 	public String getIataCode() {
 		return iataCode;
-	}
-
-	public void setIataCode(String iataCode) {
-		this.iataCode = iataCode;
 	}
 
 	public String getIcaoCode() {
 		return icaoCode;
 	}
 
-	public void setIcaoCode(String icaoCode) {
-		this.icaoCode = icaoCode;
+	private String getFirstName() {
+		String name = "";
+		Map<Language, String> map = this.getNames();
+		for (Map.Entry<Language, String> entry : map.entrySet()) {
+			name = entry.getValue();
+			break;
+		}
+		return name;
 	}
 	
-	public String toStringNames() {
+	public String getName() {
+		String name = getNames().get(this.defaultLanguage);
+		return name == null ? this.getFirstName() : name;
+	}
+	
+	public String getName(Language lang) {
+		String name = getNames().get(lang);
+		return name == null ? getName() : name;
+	}
+	
+	private String toStringNames() {
 		Map<Language, String> map = this.getNames();
 		String names = null;
 		if (map==null||map.isEmpty()) {
@@ -61,10 +69,11 @@ public abstract class AirEntity extends Entity {
 		}
 		return names;
 	}
-
+	
+	
 	@Override
 	public String toString() {
-		return super.toString() +  toStringNames() + " " + getIataCode() + "/" + getIcaoCode() + " ";
+		return super.toString() +  this.toStringNames() + " " + getIataCode() + "/" + getIcaoCode() + " ";
 	}
     
 	
