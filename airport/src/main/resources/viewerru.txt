@@ -1,4 +1,7 @@
 airport.name = Аэропорт Витебск
+airport.header.international = МЕЖДУНАРОДНЫЙ АЭРОПОРТ
+airport.header.name = ВИТЕБСК
+airport.footer = Государственное предприятие «Белаэронавигация». Витебский филиал
 
 status.arrival.delay = задерживается до {0} 
 status.arrival.expected = ожидается в {0}
@@ -14,9 +17,9 @@ status.departure.cancelled = отменён
 title.departures = Вылетающие рейсы
 
 table.number = Рейс
-table.airport = Город<br>(аэропорт)
-table.date = Дата по<br>расписанию
-table.time = Время по<br>расписанию
+table.airport = Город (аэропорт)
+table.date = Дата по расписанию
+table.time = Время по расписанию
 table.airline = Авиакомпания
 table.status = Статус рейса
 
