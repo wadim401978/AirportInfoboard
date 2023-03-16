@@ -11,7 +11,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import by.dao.ScheduledDepartureFlightDAO;
 import by.dao.model.flight.Flight;
-import by.dao.model.flight.ScheduledArrivalFlight;
 import by.dao.model.flight.ScheduledDepartureFlight;
 
 @Repository
