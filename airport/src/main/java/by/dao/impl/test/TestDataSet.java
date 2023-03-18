@@ -17,6 +17,7 @@ import by.dao.model.flight.DepartureStatus;
 import by.dao.model.flight.Flight;
 import by.dao.model.flight.ScheduledArrivalFlight;
 import by.dao.model.flight.ScheduledDepartureFlight;
+import by.dao.model.infomsg.impl.TextBlock;
 import by.services.ScheduledArrivalFlightService;
 import by.services.ScheduledDepartureFlightService;
 import by.services.impl.ScheduledArrivalFlightServiceImpl;
@@ -36,6 +37,11 @@ public final class TestDataSet {
 	private List<ScheduledArrivalFlight> arrivals = null;
 	private List<ScheduledDepartureFlight> departures = null;
 	private Language defaultLanguage = null;
+	private List<TextBlock> textBlocks = null;
+
+	public List<TextBlock> getInfoBlocks() {
+		return textBlocks;
+	}
 
 	private final ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
 	
@@ -52,6 +58,7 @@ public final class TestDataSet {
 			setFlights();
 			setArrivals();
 			setDepartures();
+			setTextBlocks();
 		}
 		return instance;
 	}
@@ -260,6 +267,30 @@ public final class TestDataSet {
 		tTime1 = LocalTime.of(15, 41);
 		tDate = service.getDateWithLocalTime(date, tTime1);
 		inst.departures.add(new ScheduledDepartureFlight(++i, flight1, date, tDate, DepartureStatus.CANCELLED));
+	}
+	
+	private static void setTextBlocks() {
+		TestDataSet inst = getInstance();
+		inst.textBlocks = new ArrayList<>();
+		String html = "<b>Вниманию "
+				+ "пассажиров!</b>\n"
+				+ "Обращаем ВАШЕ ВНИМАНИЕ, что перед посадкой на борт воздушного судна ВАМ "
+				+ "необходимо пройти предполётный досмотр, в том числе предоставить багаж "
+				+ "и ручную кладь для досмотра в целях авиационной безопасности.";
+		inst.textBlocks.add(new TextBlock(1, html));
+		html = "<b>Вниманию "
+				+ "пассажиров!</b>\n"
+				+ "целях соблюдения норм и правил авиационной безопасности, просим ВАС\n"
+				+ "переложить в багаж, находящиеся в ручной клади любые острые,\n"
+				+ "колюще-режущие предметы, электронные устройства и приборы, а также\n"
+				+ "различные жидкости и аэрозоли. Обращаем ваше внимание на строгое\n"
+				+ "соблюдение правил перевозки опасных и запрещённых предметов на борту\n"
+				+ "воздушного судна в ручной клади и багаже, с которыми вы можете\n"
+				+ "ознакомится на информационных стендах в зале\n"
+				+ "ожидания.\n"
+				+ "";
+		inst.textBlocks.add(new TextBlock(2, html));
+		
 	}
 	
 

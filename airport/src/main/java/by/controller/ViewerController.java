@@ -1,23 +1,35 @@
 package by.controller;
 
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import by.dao.model.flight.ScheduledArrivalFlight;
-import by.dao.model.flight.ScheduledDepartureFlight;
+
+import by.services.LanguageService;
 import by.services.ScheduledArrivalFlightService;
 import by.services.ScheduledDepartureFlightService;
+import by.services.TextBlockService;
 
 @Controller
 public class ViewerController {
 	
 	private ScheduledArrivalFlightService arrivalService;
 	private ScheduledDepartureFlightService departureService;
+	private TextBlockService textBlockService;
+	private LanguageService langService;
 	
+	
+	@Autowired(required = true)
+	public void setLangService(LanguageService langService) {
+		this.langService = langService;
+	}
+
+	@Autowired(required = true)
+	public void setTextBlockService(TextBlockService textBlockService) {
+		this.textBlockService = textBlockService;
+	}
+
 	@Autowired(required = true)
 	public void setArrivalService(ScheduledArrivalFlightService arrivalService) {
 		this.arrivalService = arrivalService;
@@ -31,46 +43,36 @@ public class ViewerController {
 
 	@RequestMapping("/arr.html")
     public String arr(ModelMap model) {
-        model.addAttribute("title", "Arrivals");
-        List<ScheduledArrivalFlight> arrivals = arrivalService.getAll();
-        model.addAttribute("arrivals", arrivals);
-        
+		model.addAttribute("lang", langService.getLangByTag("ru"));
+        model.addAttribute("date", arrivalService.getDateFormatted(new Date()));
+        model.addAttribute("arrivals", arrivalService.getAll());
         return "arr";
     }
 
     @RequestMapping("/dep.html")
     public String dep(ModelMap model) {
-        model.addAttribute("title", "Departures");
-        model.addAttribute("text", "Таблица вылета");
-        List<ScheduledDepartureFlight> departures = departureService.getAll();
-        ScheduledDepartureFlight departure = departures.get(0);
-        String pattern = ResourceBundle.getBundle("viewer").getString(departure.getStatus().property);
-        model.addAttribute("departures", departures);
-        model.addAttribute("departure", departure);
-        model.addAttribute("departureToString", departure.toString()
-        		+ MessageFormat.format(pattern, departureService.getTimeFormatted(departure.getStatusTime())));
-        
+    	model.addAttribute("lang", langService.getLangByTag("en"));
+        model.addAttribute("departures", departureService.getAll());
+        model.addAttribute("date", departureService.getDateFormatted(new Date()));
         return "dep";
     }
 
     @RequestMapping("/arrdep.html")
     public String arrdep(ModelMap model) {
-        model.addAttribute("title", "Arrivals-Departures");
-        model.addAttribute("text", "Таблица прилёта-вылета");
+        model.addAttribute("text", "Under construction");
         return "arrdep";
     }
 
     @RequestMapping("/info.html")
     public String info(ModelMap model) {
-        model.addAttribute("title", "Infomsg");
-        model.addAttribute("text", "Информационные объявления");
+        model.addAttribute("title", "Информационные объявления");
+        model.addAttribute("text", "under construction");
+        model.addAttribute("blocks", textBlockService.getAll());
         return "info";
     }
 
     @RequestMapping("/index.html")
     public String index(ModelMap model) {
-        model.addAttribute("title", "Airport Vitebsk!");
-        model.addAttribute("text", "Аэропорт Витебск!");
         return "index";
     }
 
@@ -78,7 +80,6 @@ public class ViewerController {
 //    public String indexRedirect(ModelMap model) {
 //        return "redirect:index.html";
 //    }
-
-
+    
 
 }

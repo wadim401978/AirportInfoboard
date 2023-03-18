@@ -10,6 +10,10 @@ public enum DepartureStatus {
 	public int id;
 	public String property;
 	
+	public String getProperty() {
+		return property;
+	}
+
 	private DepartureStatus(int id, String property) {
 		this.id = id;
 		this.property = property;

@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setBundle basename="viewer" var="viewer" />
-<html>
-    <head>
-        <title><fmt:message key="title.departures" bundle="${viewer}" /></title>
-        <meta charset="utf-8">
-        <link type="text/css" href="css/viewer.css" rel="stylesheet">
-    </head>
-<body>
-    <h2><fmt:message key="title.departures" bundle="${viewer}" /></h2>
-    ${departureToString}<br>
-    ${departure}<br>
-    
-</body>
-</html>
+<%@taglib prefix="ui" tagdir="/WEB-INF/tags"%><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set value="en" var="loc"/><fmt:setLocale value="${loc}"/><fmt:setBundle basename="viewer" var="viewer_bundle"/>
+<c:set var="title" scope="page"><fmt:message key="title.departures" bundle="${viewer_bundle}" /></c:set>
+<c:set value="true" var="hasNavbar" />
+<ui:html locale="${loc}" title="${title}" hasNavbar="${hasNavbar}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <ui:table locale="${loc}" flights="${departures}"/>
+</ui:html>
