@@ -40,4 +40,9 @@ public class FlightServiceImpl implements FlightService {
 		return dao.getFlightByIcaoNumber(icao);
 	}
 
+	@Override
+	public Flight get(int id) {
+		return dao.read(id);
+	}
+
 }

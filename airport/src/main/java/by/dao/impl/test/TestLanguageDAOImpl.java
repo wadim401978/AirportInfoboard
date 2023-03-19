@@ -12,7 +12,11 @@ public class TestLanguageDAOImpl implements LanguageDAO {
 	public Language read(Integer id) {
 		id--;
 		if (id < 0) id = 0;
-		return TestDataSet.getInstance().getLanguages().get(id);
+		List<Language> list = TestDataSet.getInstance().getLanguages();
+		if (id >= list.size()) {
+			return null;
+		}
+		return list.get(id);
 	}
 
 

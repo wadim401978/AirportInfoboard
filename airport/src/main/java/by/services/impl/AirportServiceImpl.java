@@ -50,6 +50,11 @@ public class AirportServiceImpl implements AirportService {
 		return getByIcaoCode(initialResourceBundle.getString("airport.base.ICAO"));
 	}
 
+	@Override
+	public Airport get(int id) {
+		return dao.read(id);
+	}
+
 	
 	
 }

@@ -51,4 +51,9 @@ public class LanguageServiceImpl implements LanguageService {
 		return  dao.findLangByTag(tag);
 	}
 
+	@Override
+	public Language get(int id) {
+		return dao.read(id);
+	}
+
 }

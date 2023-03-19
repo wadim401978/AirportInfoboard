@@ -53,4 +53,9 @@ public class ScheduledDepartureFlightServiceImpl implements ScheduledDepartureFl
         }
 	}
 
+	@Override
+	public ScheduledDepartureFlight get(int id) {
+		return dao.read(id);
+	}
+
 }

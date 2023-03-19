@@ -1,11 +1,16 @@
 package by.controller;
 
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import by.dao.model.common.Language;
 import by.services.LanguageService;
 import by.services.ScheduledArrivalFlightService;
 import by.services.ScheduledDepartureFlightService;
@@ -57,11 +62,27 @@ public class ViewerController {
         return "dep";
     }
 
-    @RequestMapping("/arrdep.html")
+    @RequestMapping(value = "/arrdep.html", method = RequestMethod.GET)
     public String arrdep(ModelMap model) {
+    	model.addAttribute("lang", langService.getLangByTag("ru"));
         model.addAttribute("text", "Under construction");
         return "arrdep";
     }
+    
+    @RequestMapping(value = "/arrdep.html", method = RequestMethod.POST)
+    public String arrdeppost(ModelMap model, HttpServletRequest req) {
+    	model.addAttribute("lang", langService.getLangByTag("ru"));
+    	int langId = Integer.parseInt(req.getParameter("langid"));
+    	Language lang = langService.get(++langId);
+    	if(lang==null) {
+    		lang = langService.get(1);
+    	} 
+    	model.addAttribute("lang", lang);
+        model.addAttribute("text", "Under construction");
+        return "arrdep";
+    }
+    
+    
 
     @RequestMapping("/info.html")
     public String info(ModelMap model) {

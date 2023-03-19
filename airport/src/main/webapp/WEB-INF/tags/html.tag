@@ -21,11 +21,13 @@
 	    <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
 	    <link href="css/viewer.css" type="text/css" rel="stylesheet"/>
 	    <link href="css/fonts.css" type="text/css" rel="stylesheet"/>
-        
+	    <script type="text/javascript" src="script/jquery-3.6.4.js"></script>
+ 	    <script type="text/javascript" src="script/viewer.js"></script>
+
     </head>
-  <body class="d-flex flex-column h-100  ">
+  <body class="d-flex flex-column h-100" >
 	<header class="text-white bd-blue-900  pb-1">
-		<div class="container-fluid d-flex flex-wrap justify-content-center  ">
+		<div class="container-fluid d-flex flex-wrap justify-content-center" id="body">
 			<div
 				class=" align-items-center mb-1 mb-lg-0 me-lg-auto text-decoration-none float-start Archangelsk">
 				<div class="d-block fs-3">
@@ -60,12 +62,12 @@
       <jsp:doBody />
 	</main>
 
-	<footer class="footer mt-auto pt-3 bd-gray-300 bg-gradient text-blue-900 d-block">
+	<div class="footer mt-auto pt-3 bd-gray-300 bg-gradient text-blue-900 d-block" id="footer">
 	  <div class="w-100 bd-blue-900" style="margin-top:-17px; padding-top:4px;"></div>
 
 	  <div class="container Archangelsk">
 		<span class="fs-4 text-blue-700"><fmt:message key="airport.footer" bundle="${viewer_bundle}" /></span>
 	  </div>
-	</footer>
+	</div>
   </body>
 </html>

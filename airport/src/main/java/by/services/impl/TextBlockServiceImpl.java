@@ -38,5 +38,10 @@ public class TextBlockServiceImpl implements TextBlockService {
 		return dao.findTextBlocks();
 	}
 
+	@Override
+	public TextBlock get(int id) {
+		return dao.read(id);
+	}
+
 
 }

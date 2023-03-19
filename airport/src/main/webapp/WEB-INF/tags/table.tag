@@ -24,10 +24,7 @@
 		    			</td>
 		    			<td>
 		    					<span class="yellow">
-		    					${flight_sch.flight.airport.name} 
-		    					<fmt:message key="${flight_sch.flight.airport.name}" >
-		    					<fmt:param value="${lang}"/>
-			    				</fmt:message>
+		    					${flight_sch.flight.airport.names[lang]} 
 		    					</span>
 		    					<span class="white">(${flight_sch.flight.airport.iataCode})</span>
 		    			</td>
@@ -36,7 +33,7 @@
 		    				<span class="yellow"><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}"/></span>
 		    			</td>
 		    			<td>
-		    				<span class="yellow">${flight_sch.flight.airline.name}</span>
+		    				<span class="yellow">${flight_sch.flight.airline.names[lang]}</span>
 		    			</td>
 		    			<td>
 			    				<span class="cyan">

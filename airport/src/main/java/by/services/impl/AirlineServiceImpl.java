@@ -49,6 +49,11 @@ public class AirlineServiceImpl implements AirlineService {
 	public Airline getDefaultAirline() {
 		return getByIcaoCode(initialResourceBundle.getString("airline.base.ICAO"));
 	}
+
+	@Override
+	public Airline get(int id) {
+		return dao.read(id);
+	}
 	
 	
 
