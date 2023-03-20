@@ -56,4 +56,9 @@ public class LanguageServiceImpl implements LanguageService {
 		return dao.read(id);
 	}
 
+	@Override
+	public List<Language> getActiveLanguages() {
+		return dao.findActiveLanguages();
+	}
+
 }

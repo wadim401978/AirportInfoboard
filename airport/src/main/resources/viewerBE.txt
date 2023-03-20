@@ -1,0 +1,8 @@
+airport.name = Аэрапорт Вiцебск
+airport.header.international = МIЖНАРОДНЫ АЭРАПОРТ
+airport.header.name = ВIЦЕБСК
+
+status.arrival.landed = здейсниу пасадку 
+
+table.number = Рэйс
+table.airport = Горад (аэрапорт)

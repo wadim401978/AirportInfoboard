@@ -5,49 +5,42 @@ function test() {
 	alert('Hello, world!')
 }
 
-function ContentRotator(counter) {
-	//	++counter;
+function ContentRotator(url, counter) {
 
-	let url = "arrdep.html"
-	//  test();
 	$.ajax({
-		url: url, //url страницы (action_ajax_form.php)
-		type: "POST", //метод отправки
-		dataType: "html", //формат данных
+		url: url, 
+		type: "POST", 
+		dataType: "html", 
 		cache: false,
-//		context: document,
+		context: document,
 		data: { langid: "" + counter },
-		//		data: $("#goodform").serialize(),
-		success: function(msg) { //Данные отправлены успешно
-			console.log('good');
-			
-//			console.log(div1);
-//						$("main").replaceWith("<main>" + counter + "</main>");
-
+		success: function(msg) { 
+			console.log('ok. DocumentFragment.length=' + $(msg).length);
 		},
 		error: function(response) { // Данные не отправлены
-			console.log('bad');
+			console.log('bad: ' + response.statusText);
 		}
 	}).done(function(msg) {
-//		var body = $("#body", msg);
-//		$('#body').html(body);
-//		var div1 = $("#div1", msg);
-//		$('#div1').html(div1);
-//		var footer = $("#footer", msg);
-//		$('#footer').html(footer);
-
-$("#div1").load("arrdep.html #div1");		
-		console.log(msg);
-		
-//		var main = $("main", msg);
-//		$('main').html(main);
-		
-		
+		for(i=0;i<$(msg).length;i++) {
+			if($(msg)[i].nodeName=="TITLE"||$(msg)[i].nodeName=="FOOTER"||$(msg)[i].nodeName=="MAIN"||$(msg)[i].nodeName=="HEADER") {
+//				console.log($(msg)[i].nodeName + ": " + $(msg)[i].innerHTML);
+				if($(msg)[i].nodeName=="MAIN") {
+					$('main').html($(msg)[i].innerHTML);
+				}
+				if($(msg)[i].nodeName=="TITLE") {
+					$('TITLE').html($(msg)[i].innerHTML);
+				}
+				if($(msg)[i].nodeName=="HEADER") {
+					$('HEADER').html($(msg)[i].innerHTML);
+				}
+				if($(msg)[i].nodeName=="FOOTER") {
+					$('FOOTER').html($(msg)[i].innerHTML);
+				}
+			}
+			
+		}
 		
 	});
-
-	//let post = JSON.stringify(postObj)
-
 
 }
 
@@ -59,20 +52,12 @@ var getKeys = function(obj) {
 	return keys;
 }
 
-
-
-$(document).ready(function() {
-	//	ContentRotator();
-	//	setInterval(ContentRotator, 4000);
-	
-//	counter = 0;
-//	let timerId = setInterval(() => ContentRotator(++counter), 3000);
-	
-	
+function runInterval(url, timeOut) {
 	let i = 0;
 	setInterval(function() {
 		if(i<4) {++i;} else {i=0;}
-		ContentRotator(i);
-	}, 1000);
+		ContentRotator(url, i);
+	}, timeOut);
 	
-});
+}
+

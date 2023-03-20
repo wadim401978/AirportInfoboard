@@ -1,5 +1,6 @@
 package by.dao.impl.test;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import by.dao.LanguageDAO;
@@ -29,6 +30,19 @@ public class TestLanguageDAOImpl implements LanguageDAO {
 	@Override
 	public List<Language> findLanguages() {
 		return TestDataSet.getInstance().getLanguages();
+	}
+
+
+	@Override
+	public List<Language> findActiveLanguages() {
+		List<Language> all = this.findLanguages();
+		List<Language> activelang = new ArrayList<Language>();
+		for(Language lang : all) {
+			if(lang.isActive()) {
+				activelang.add(lang);
+			}
+		}
+		return activelang;
 	}
 
 }

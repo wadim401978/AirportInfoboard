@@ -7,9 +7,6 @@
 	    <h2>${title}</h2>
 	    ${text} ${lang}
 	    <input type="button" onclick="test()" value="Hello, world!">
-	    <form action="arrdep.html" method="post" id="goodform">
-	    	<input type="hidden" name="langid" value="${lang.id}">
-	    	<input type="submit" value="change language">
-	    </form>
+	    <ui:timeOutForm/>
     </div>
 </ui:html>

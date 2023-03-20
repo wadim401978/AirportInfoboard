@@ -27,21 +27,6 @@ main  {
 
 /* TABLE
 ---------------------------------------------------*/
-table.schedule {
-	width: 100%;
-	margin: 0;
-	
-}
-
-table.schedule td {
-	padding:10px 25px;
-}
-
-table.schedule tbody td {
-	border: 1px dashed var(--bs-white);
-	background-color: #031633;
-}
-
 span.yellow {
 	color: #f9f06b;
 }
@@ -54,28 +39,70 @@ span.cyan {
 	color: #04fac8;
 }
 
+
+
+
+table.schedule td {
+	padding:10px 25px;
+}
+
+table.schedule tbody td {
+	border: 1px dashed var(--bs-white);
+	background-color: #031633;
+}
+
 table.schedule thead td {
 	color: var(--bs-body-color);
 /* 	color: #04fac8; */
 }
 
-table.schedule td div {
-	height: 50px;
-	overflow: hidden;
-	margin: auto;
+table.schedule {
+	table-layout:fixed; 
+	width: 1599px;
+	margin: 0;
 }
 
-table.schedule thead td.flight {
-	width: 15.5%;
+
+table.schedule td.flight {
+	max-width: 280px;
+	width: 280px;
+}
+table.schedule td.airport {
+		max-width: 390px;
+		width: 390px;
+		table-layout:fixed; 
+}
+table.schedule td.time {
+	width: 260px;
+}
+table.schedule td.status {
+	width: 480px;
 }
 
-table.schedule thead td.time {
-	width: 13%;
+
+@media (min-width: 1919px) {
+	table.schedule  {
+		width: 1919px; 
+	}
+	table.schedule td.flight   {
+		max-width: 297px; 
+		width: 297px; 
+	}
+	table.schedule td.airport {
+		max-width: 576px;
+		width: 576px;
+		table-layout:fixed; 
+	}
+	table.schedule td.time {
+		width: 250px;
+	}
+	table.schedule td.status {
+		width: 576px;
+	}
+	
 }
 
-table.schedule thead td.status {
-	width: 30%;
-}
+
 
 td.center {
 	text-align: center;

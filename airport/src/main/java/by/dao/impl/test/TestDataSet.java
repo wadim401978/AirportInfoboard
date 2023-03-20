@@ -125,10 +125,10 @@ public final class TestDataSet {
 	
 	private static void setLang() {
 		int i = 0;
-		generateLangDefinitions(new Language(++i, "русский", "ru"));
-		generateLangDefinitions(new Language(++i, "английский-english", "en"));
-		generateLangDefinitions(new Language(++i, "белорусский-беларуская", "be"));
-		generateLangDefinitions(new Language(++i, "испанский-espanol", "es"));
+		generateLangDefinitions(new Language(++i, "русский", "ru", true));
+		generateLangDefinitions(new Language(++i, "английский-english", "en", true));
+		generateLangDefinitions(new Language(++i, "белорусский-беларуская", "be", false));
+		generateLangDefinitions(new Language(++i, "испанский-espanol", "es", false));
 		
 	}
 	

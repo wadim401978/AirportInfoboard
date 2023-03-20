@@ -23,6 +23,13 @@
 	    <link href="css/fonts.css" type="text/css" rel="stylesheet"/>
 	    <script type="text/javascript" src="script/jquery-3.6.4.js"></script>
  	    <script type="text/javascript" src="script/viewer.js"></script>
+ 	    <c:if test="${timeOutSource!= null}" >
+ 	    <script type="text/javascript">
+	 	   $(document).ready(function() {
+	 			runInterval("${timeOutSource}", ${timeOutValue});
+	 		});
+		</script>
+		</c:if>
 
     </head>
   <body class="d-flex flex-column h-100" >
@@ -62,12 +69,12 @@
       <jsp:doBody />
 	</main>
 
-	<div class="footer mt-auto pt-3 bd-gray-300 bg-gradient text-blue-900 d-block" id="footer">
+	<footer class="footer mt-auto pt-3 bd-gray-300 bg-gradient text-blue-900 d-block" id="footer">
 	  <div class="w-100 bd-blue-900" style="margin-top:-17px; padding-top:4px;"></div>
 
 	  <div class="container Archangelsk">
 		<span class="fs-4 text-blue-700"><fmt:message key="airport.footer" bundle="${viewer_bundle}" /></span>
 	  </div>
-	</div>
+	</footer>
   </body>
 </html>

@@ -5,11 +5,23 @@ import by.dao.model.Entity;
 public class Language extends Entity{
     private String name;
     private String tag;
+    private boolean active;
     
-    public Language(int id, String name, String langTag) {
-		setId(id);
+    public boolean isActive() {
+		return active;
+	}
+
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+
+	public Language(int id, String name, String tag, boolean active) {
+		super(id);
 		this.name = name;
-		this.tag = langTag;
+		this.tag = tag;
+		this.active = active;
 	}
 
 
