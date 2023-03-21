@@ -52,10 +52,10 @@ var getKeys = function(obj) {
 	return keys;
 }
 
-function runInterval(url, timeOut) {
-	let i = 0;
+function runInterval(url, timeOut, langCount) {
+	let i = 1;
 	setInterval(function() {
-		if(i<4) {++i;} else {i=0;}
+		if(i<langCount) {++i;} else {i=1;}
 		ContentRotator(url, i);
 	}, timeOut);
 	

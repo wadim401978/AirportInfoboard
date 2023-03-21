@@ -58,16 +58,20 @@ public class ViewerController {
     private void setGetRequestModelAttributes(ModelMap model, String timeOutSource) {
     	this.initialResourceBundle = getInitialResourceBundle();
     	model.addAttribute("lang", langService.getDefaultLang());
+    	model.addAttribute("langCount", langService.getActiveLanguages().size());
+    	
     	model.addAttribute("timeOutSource", timeOutSource);
     	model.addAttribute("timeOutValue", initialResourceBundle.getString("timeout"));
     }
     
     private void setPostRequestModelAttributes(ModelMap model, HttpServletRequest req) {
     	int langId = Integer.parseInt(req.getParameter("langid"));
-    	Language lang = langService.get(++langId);
-    	if(lang==null) {
-    		lang = langService.get(1);
-    	} 
+//    	Language lang = langService.get(++langId);
+//    	if(lang==null) {
+//    		lang = langService.get(1);
+//    	} 
+    	
+    	Language lang = langService.getNextActiveLanguage(langId);
     	model.addAttribute("lang", lang);
     }
     

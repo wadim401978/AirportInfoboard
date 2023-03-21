@@ -1,5 +1,6 @@
 package by.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,31 @@ public class LanguageServiceImpl implements LanguageService {
 
 	@Override
 	public List<Language> getActiveLanguages() {
-		return dao.findActiveLanguages();
+		List<Language> list = dao.findActiveLanguages();
+		if(list==null) {
+			list = new ArrayList<Language>();
+		}
+		return list;
+	}
+
+	@Override
+	public Language getNextActiveLanguage(int id) {
+		Language activeLang = null;
+		List<Language> activeList = getActiveLanguages();
+		if(activeList.isEmpty()) {
+			activeLang = getDefaultLang();
+		} else {
+			for(Language lang : activeList) {
+				if(lang.getId() > id) {
+					activeLang = lang;
+					break;
+				}
+			}
+			if(activeLang==null) {
+				activeLang = activeList.get(0);
+			}
+		}
+		return activeLang;
 	}
 
 }

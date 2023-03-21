@@ -26,7 +26,7 @@
  	    <c:if test="${timeOutSource!= null}" >
  	    <script type="text/javascript">
 	 	   $(document).ready(function() {
-	 			runInterval("${timeOutSource}", ${timeOutValue});
+	 			runInterval("${timeOutSource}", ${timeOutValue}, ${langCount});
 	 		});
 		</script>
 		</c:if>

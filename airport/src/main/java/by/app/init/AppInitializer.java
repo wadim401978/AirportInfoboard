@@ -33,7 +33,6 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Filter[] getServletFilters() {
         return new Filter[] {
-//        		new CharacterEncodingFilter("UTF-8")
         		new AppCharacterEncodingFilter("UTF-8", "text/html;charset=UTF-8")
         };
     }
