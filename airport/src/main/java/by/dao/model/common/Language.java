@@ -1,32 +1,15 @@
 package by.dao.model.common;
 
-import by.dao.model.Entity;
+import by.dao.model.ActiveEntity;
 
-public class Language extends Entity{
+public class Language extends ActiveEntity{
     private String name;
     private String tag;
-    private boolean active;
-    
-    public boolean isActive() {
-		return active;
-	}
-
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
 
 	public Language(int id, String name, String tag, boolean active) {
-		super(id);
+		super(id, active);
 		this.name = name;
 		this.tag = tag;
-		this.active = active;
-	}
-
-
-	public Language() {
-		super();
 	}
 
 	public String getName() {

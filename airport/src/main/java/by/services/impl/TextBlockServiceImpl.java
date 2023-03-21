@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import by.dao.DAO;
 import by.dao.TextBlockDAO;
-import by.dao.model.infomsg.impl.TextBlock;
+import by.dao.model.infomsg.TextBlock;
 import by.services.TextBlockService;
 
 @Service(value = "TextBlockService")
@@ -35,7 +35,7 @@ public class TextBlockServiceImpl implements TextBlockService {
 
 	@Override
 	public List<TextBlock> getAll() {
-		return dao.findTextBlocks();
+		return dao.findAllBlocks();
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import java.util.List;
 
 import by.dao.model.common.Language;
 
-public interface LanguageService extends Service<Language> {
+public interface LanguageService extends EntityService<Language> {
 	public Language getDefaultLang();
 	public Language getLangByTag(String tag);
 	public List<Language> getActiveLanguages();

@@ -2,15 +2,13 @@ package by.dao.model.infomsg;
 
 import java.io.File;
 
-public abstract class Media implements InfoBlock {
+public abstract class Media extends InfoBlock {
 	private File file;
-	private String html;
 
-	@Override
-	public String getHtml() {
-		return this.html;
-	}
-
+	public Media(int id, String html, boolean active, File file) {
+	super(id, html, active);
+	this.file = file;
+}
 
 	public File getFile() {
 		return file;

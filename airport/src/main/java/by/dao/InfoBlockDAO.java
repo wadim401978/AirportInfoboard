@@ -2,8 +2,7 @@ package by.dao;
 
 import java.util.List;
 
-import by.dao.model.infomsg.InfoBlock;
-
-public interface InfoBlockDAO<T extends InfoBlock> extends GenericDAO<Integer, InfoBlock> {
-	public List<T> findInfoBlocks();
+public interface InfoBlockDAO<ID, T> extends GenericDAO<ID, T> {
+	public List<T> findAllBlocks();
+	public List<T> findActiveBlocks();
 }

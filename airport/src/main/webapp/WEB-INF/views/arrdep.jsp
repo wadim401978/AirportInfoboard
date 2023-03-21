@@ -6,7 +6,6 @@
     <div class="p-4" id="div1">
 	    <h2>${title}</h2>
 	    ${text} ${lang}
-	    <input type="button" onclick="test()" value="Hello, world!">
 	    <ui:timeOutForm/>
     </div>
 </ui:html>

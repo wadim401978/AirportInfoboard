@@ -3,16 +3,15 @@ package by.controller;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import by.dao.model.common.Language;
+import com.google.gson.Gson;
+
 import by.dao.model.flight.ScheduledArrivalFlight;
 import by.dao.model.flight.ScheduledDepartureFlight;
 import by.services.LanguageService;
@@ -59,6 +58,8 @@ public class ViewerController {
     	this.initialResourceBundle = getInitialResourceBundle();
     	model.addAttribute("lang", langService.getDefaultLang());
     	model.addAttribute("langCount", langService.getActiveLanguages().size());
+    	String json = new Gson().toJson(langService.getIds(langService.getActiveLanguages()));
+    	model.addAttribute("activeLangs", json);
     	
     	model.addAttribute("timeOutSource", timeOutSource);
     	model.addAttribute("timeOutValue", initialResourceBundle.getString("timeout"));
@@ -66,13 +67,7 @@ public class ViewerController {
     
     private void setPostRequestModelAttributes(ModelMap model, HttpServletRequest req) {
     	int langId = Integer.parseInt(req.getParameter("langid"));
-//    	Language lang = langService.get(++langId);
-//    	if(lang==null) {
-//    		lang = langService.get(1);
-//    	} 
-    	
-    	Language lang = langService.getNextActiveLanguage(langId);
-    	model.addAttribute("lang", lang);
+    	model.addAttribute("lang", langService.getNextActiveLanguage(langId));
     }
     
     
@@ -138,9 +133,8 @@ public class ViewerController {
 
     @RequestMapping("/info.html")
     public String info(ModelMap model) {
-        model.addAttribute("title", "Информационные объявления");
-        model.addAttribute("text", "under construction");
-        model.addAttribute("blocks", textBlockService.getAll());
+    	setGetRequestModelAttributes(model, "info.html");
+        model.addAttribute("block", textBlockService.get(0).getHtml());
         return "info";
     }
 

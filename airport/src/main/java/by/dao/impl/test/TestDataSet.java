@@ -17,7 +17,7 @@ import by.dao.model.flight.DepartureStatus;
 import by.dao.model.flight.Flight;
 import by.dao.model.flight.ScheduledArrivalFlight;
 import by.dao.model.flight.ScheduledDepartureFlight;
-import by.dao.model.infomsg.impl.TextBlock;
+import by.dao.model.infomsg.TextBlock;
 import by.services.ScheduledArrivalFlightService;
 import by.services.ScheduledDepartureFlightService;
 import by.services.impl.ScheduledArrivalFlightServiceImpl;
@@ -272,15 +272,15 @@ public final class TestDataSet {
 	private static void setTextBlocks() {
 		TestDataSet inst = getInstance();
 		inst.textBlocks = new ArrayList<>();
-		String html = "<b>Вниманию "
-				+ "пассажиров!</b>\n"
-				+ "Обращаем ВАШЕ ВНИМАНИЕ, что перед посадкой на борт воздушного судна ВАМ "
+		String html = "<div class='fs-1'><b>Вниманию "
+				+ "пассажиров!</b></div>\n"
+				+ "<div class='p-5'>Обращаем ВАШЕ ВНИМАНИЕ, что перед посадкой на борт воздушного судна ВАМ "
 				+ "необходимо пройти предполётный досмотр, в том числе предоставить багаж "
-				+ "и ручную кладь для досмотра в целях авиационной безопасности.";
-		inst.textBlocks.add(new TextBlock(1, html));
-		html = "<b>Вниманию "
-				+ "пассажиров!</b>\n"
-				+ "целях соблюдения норм и правил авиационной безопасности, просим ВАС\n"
+				+ "и ручную кладь для досмотра в целях авиационной безопасности.</div>";
+		inst.textBlocks.add(new TextBlock(1, html, true));
+		html = "<h2><b>Вниманию "
+				+ "пассажиров!</b></h2>\n"
+				+ "В целях соблюдения норм и правил авиационной безопасности, просим ВАС\n"
 				+ "переложить в багаж, находящиеся в ручной клади любые острые,\n"
 				+ "колюще-режущие предметы, электронные устройства и приборы, а также\n"
 				+ "различные жидкости и аэрозоли. Обращаем ваше внимание на строгое\n"
@@ -289,7 +289,7 @@ public final class TestDataSet {
 				+ "ознакомится на информационных стендах в зале\n"
 				+ "ожидания.\n"
 				+ "";
-		inst.textBlocks.add(new TextBlock(2, html));
+		inst.textBlocks.add(new TextBlock(2, html, true));
 		
 	}
 	
