@@ -1,5 +1,6 @@
 package by.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,6 @@ public class TextBlockServiceImpl implements TextBlockService {
         }
 	}
 
-
-
-
 	@Override
 	public List<TextBlock> getAll() {
 		return dao.findAllBlocks();
@@ -43,5 +41,13 @@ public class TextBlockServiceImpl implements TextBlockService {
 		return dao.read(id);
 	}
 
+	@Override
+	public List<TextBlock> getActiveBlocks() {
+		List<TextBlock> list = dao.findActiveBlocks();
+		if (list==null) {
+			list = new ArrayList<>();
+		}
+		return list;
+	}
 
 }

@@ -280,6 +280,13 @@ public final class TestDataSet {
 		inst.textBlocks.add(new TextBlock(1, html, true));
 		html = "<h2><b>Вниманию "
 				+ "пассажиров!</b></h2>\n"
+				+ "Electronic registration of foreigners is carried out through the\n"
+				+ "unified portal for electronic services (portal.gov.by)\n"
+				+ "";
+		inst.textBlocks.add(new TextBlock(2, html, false));
+		
+		html = "<h2><b>Вниманию "
+				+ "пассажиров!</b></h2>\n"
 				+ "В целях соблюдения норм и правил авиационной безопасности, просим ВАС\n"
 				+ "переложить в багаж, находящиеся в ручной клади любые острые,\n"
 				+ "колюще-режущие предметы, электронные устройства и приборы, а также\n"
@@ -289,7 +296,7 @@ public final class TestDataSet {
 				+ "ознакомится на информационных стендах в зале\n"
 				+ "ожидания.\n"
 				+ "";
-		inst.textBlocks.add(new TextBlock(2, html, true));
+		inst.textBlocks.add(new TextBlock(3, html, true));
 		
 	}
 	

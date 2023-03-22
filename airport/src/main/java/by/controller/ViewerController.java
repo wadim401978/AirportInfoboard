@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import by.dao.model.flight.ScheduledArrivalFlight;
 import by.dao.model.flight.ScheduledDepartureFlight;
+import by.dao.model.infomsg.TextBlock;
 import by.services.LanguageService;
 import by.services.ScheduledArrivalFlightService;
 import by.services.ScheduledDepartureFlightService;
@@ -58,8 +59,17 @@ public class ViewerController {
     	this.initialResourceBundle = getInitialResourceBundle();
     	model.addAttribute("lang", langService.getDefaultLang());
     	model.addAttribute("langCount", langService.getActiveLanguages().size());
-    	String json = new Gson().toJson(langService.getIds(langService.getActiveLanguages()));
-    	model.addAttribute("activeLangs", json);
+    	Gson json = new Gson();
+    	String str = json.toJson(langService.getIds(langService.getActiveLanguages()));
+    	model.addAttribute("activeLangs", str);
+    	
+    	List<TextBlock> tbList = textBlockService.getActiveBlocks();
+    	if(tbList.isEmpty()) {
+    		str = json.toJson(tbList.toArray());
+    	} else {
+    		str = json.toJson(textBlockService.getIds(tbList));
+    	}
+    	model.addAttribute("announcments", str);
     	
     	model.addAttribute("timeOutSource", timeOutSource);
     	model.addAttribute("timeOutValue", initialResourceBundle.getString("timeout"));
@@ -131,10 +141,18 @@ public class ViewerController {
     
     
 
-    @RequestMapping("/info.html")
+    @RequestMapping(value = "/info.html", method = RequestMethod.GET)
     public String info(ModelMap model) {
     	setGetRequestModelAttributes(model, "info.html");
-        model.addAttribute("block", textBlockService.get(0).getHtml());
+        model.addAttribute("block", textBlockService.get(0));
+        return "info";
+    }
+
+    @RequestMapping(value = "/info.html", method = RequestMethod.POST)
+    public String infoPost(ModelMap model, HttpServletRequest req) {
+    	info(model);
+    	int blockId = Integer.parseInt(req.getParameter("blockid"));
+    	model.addAttribute("block",textBlockService.getNextActiveBlock(blockId));
         return "info";
     }
 
