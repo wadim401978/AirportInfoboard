@@ -3,23 +3,22 @@
  */
 
 function change(msg) {
-		for(i=0;i<$(msg).length;i++) {
-			if($(msg)[i].nodeName=="TITLE"||$(msg)[i].nodeName=="FOOTER"||$(msg)[i].nodeName=="MAIN"||$(msg)[i].nodeName=="HEADER") {
-//				console.log($(msg)[i].nodeName + ": " + $(msg)[i].innerHTML);
-				if($(msg)[i].nodeName=="MAIN") {
-					$('main').html($(msg)[i].innerHTML);
-				}
-				if($(msg)[i].nodeName=="TITLE") {
-					$('TITLE').html($(msg)[i].innerHTML);
-				}
-				if($(msg)[i].nodeName=="HEADER") {
-					$('HEADER').html($(msg)[i].innerHTML);
-				}
-				if($(msg)[i].nodeName=="FOOTER") {
-					$('FOOTER').html($(msg)[i].innerHTML);
-				}
+	for (i = 0; i < $(msg).length; i++) {
+		if ($(msg)[i].nodeName == "TITLE" || $(msg)[i].nodeName == "FOOTER" || $(msg)[i].nodeName == "MAIN" || $(msg)[i].nodeName == "HEADER") {
+			if ($(msg)[i].nodeName == "MAIN") {
+				$('main').html($(msg)[i].innerHTML);
+			}
+			if ($(msg)[i].nodeName == "TITLE") {
+				$('TITLE').html($(msg)[i].innerHTML);
+			}
+			if ($(msg)[i].nodeName == "HEADER") {
+				$('HEADER').html($(msg)[i].innerHTML);
+			}
+			if ($(msg)[i].nodeName == "FOOTER") {
+				$('FOOTER').html($(msg)[i].innerHTML);
 			}
 		}
+	}
 }
 
 function ContentRotator(url, param) {
@@ -42,47 +41,16 @@ function ContentRotator(url, param) {
 	});
 }
 
-
-
-//function runInterval(langUrl, timeOut, activeLangs, announcments) {
-//	let langArrayId = 0;
-//	let annArrayId;
-//	let infoUrl = "info.html";
-////	console.log("n: " + announcments);
-//	jsonActiveLangs = JSON.parse(activeLangs);
-//	jsonAnnouncments = JSON.parse(announcments);
-//	if(jsonAnnouncments.length==0) {
-//		annArrayId = -1;
-//	} else {
-//		annArrayId = 0;
-//	}
-//	console.log("ann: " + jsonAnnouncments[0]);
-//	setInterval(function() {
-//		if (jsonActiveLangs.length > 0) {
-//			
-//			langArrayId++;
-//			if (langArrayId >= jsonActiveLangs.length) {
-//				langArrayId = 0;
-//			}
-//				param = JSON.stringify({ langid: "" + jsonActiveLangs[langArrayId] });
-//				url = langUrl;
-//			
-//			
-//			ContentRotator(url, param);
-//		}
-//	}, timeOut);
-//}
-
-function runInterval(langUrl, timeOut, activeLangs, announcments) {
-	let langArrayId = 0;//langs array increment index
+function runInterval(langUrl, timeOut, languagesArray, announcmentsArray) {
+	let languageIndex = 0;//langs array increment index
 	let hasAnnouncments; 
-	
-	let annId = 0;//announcments array increment index
+	let announcmentIndex = -1;//announcments array increment index
 	let infoUrl = "info.html";
-//	console.log("n: " + announcments);
-	jsonActiveLangs = JSON.parse(activeLangs);
-	jsonAnnouncments = JSON.parse(announcments);
-	if(jsonAnnouncments.length==0) {
+	
+	jsonActiveLangs = JSON.parse(languagesArray);
+	jsonAnnouncments = JSON.parse(announcmentsArray);
+	
+	if(jsonAnnouncments.length == 0) {
 		hasAnnouncments = false;
 	} else {
 		hasAnnouncments = true;
@@ -91,54 +59,32 @@ function runInterval(langUrl, timeOut, activeLangs, announcments) {
 	
 	setInterval(function() {
 		if (jsonActiveLangs.length > 0) {
-			console.log("setInterval: " + langArrayId);
-//			langArrayId++;
-			if (langArrayId >= jsonActiveLangs.length) {
-//				langArrayId = 0;
-//				langArrayId = -1;
+			if (languageIndex >= jsonActiveLangs.length) {
 				if(hasAnnouncments) {
-					langArrayId = -1;
+					languageIndex = -1;
 				} else {
-					langArrayId = 0;
+					languageIndex = 0;
+				}
+			}
+			
+			if (languageIndex == -1) {
+				announcmentIndex++;
+				if(announcmentIndex >= jsonAnnouncments.length) {
+					announcmentIndex = 0;
 				}
 				
-				
-				
-			}
-			
-			if (langArrayId == -1) {
-				param = JSON.stringify({ blockid: "" + jsonAnnouncments[annId] });
+				console.log("announcmentIndex: " + announcmentIndex);
+				param = JSON.stringify({ blockid: "" + jsonAnnouncments[announcmentIndex] });
 				url = infoUrl;
-				//?????
-					if(annId > jsonAnnouncments.length) {
-						annId = 0;
-					} else {
-						annId++;
-					}
 				
-//				langArrayId = 0;
 			} else {
-				param = JSON.stringify({ langid: "" + jsonActiveLangs[langArrayId] });
+				param = JSON.stringify({ langid: "" + jsonActiveLangs[languageIndex] });
 				url = langUrl;
 			}
-			console.log("sum++: " + langArrayId);
 			
 			ContentRotator(url, param);
-			langArrayId++;
+			languageIndex++;
 		}
 		
 	}, timeOut);
 }
-
-
-
-//var getKeys = function(obj) {
-//	var keys = [];
-//	for (var key in obj) {
-//		keys.push(key);
-//	}
-//	return keys;
-//}
-
-
-

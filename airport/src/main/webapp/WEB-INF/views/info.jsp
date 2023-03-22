@@ -33,7 +33,7 @@
 			<form action="${timeOutSource}" method="post" id="timeOutForm">
 				<input type="hidden" name="blockid" value="${block.id}"> 
 				<input type="hidden" name="block" value="${block}">
-				<input type="submit" value="next block">
+				<!-- input type="submit" value="next block"-->
 			</form>
 		</div>
 	</main>
