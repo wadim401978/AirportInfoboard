@@ -8,11 +8,7 @@
 	<ul>
 		<li><a href="arr.html"><fmt:message key="title.arrivals" bundle="${viewer_bundle}" /></a></li>
 		<li><a href="dep.html"><fmt:message key="title.departures" bundle="${viewer_bundle}" /></a></li>
-		<li><a href="arrdep.html">Таблица прилёта-вылета
-				(чередующиеся)</a></li>
-		<li><a href="info.html">Информационные объявления</a></li>
 		<li><a href="admin.html">Панель оператора</a></li>
-
 	</ul>
     </div>
 </ui:html>

@@ -21,12 +21,8 @@ import by.services.ScheduledDepartureFlightService;
 import by.services.TextBlockService;
 
 @Controller
-public class ViewerController {
+public class ViewerController extends AbstractController {
 	
-	private ScheduledArrivalFlightService arrivalService;
-	private ScheduledDepartureFlightService departureService;
-	private TextBlockService textBlockService;
-	private LanguageService langService;
 	private ResourceBundle initialResourceBundle;
 
 	private ResourceBundle getInitialResourceBundle() {
@@ -36,21 +32,21 @@ public class ViewerController {
 		return this.initialResourceBundle;
 	}
 
-	
+
 	@Autowired(required = true)
-    public ViewerController(ScheduledArrivalFlightService arrivalService,
+	public ViewerController(ScheduledArrivalFlightService arrivalService,
 			ScheduledDepartureFlightService departureService, TextBlockService textBlockService,
 			LanguageService langService) {
-		super();
-		this.arrivalService = arrivalService;
-		this.departureService = departureService;
-		this.textBlockService = textBlockService;
-		this.langService = langService;
+		super(arrivalService, departureService, textBlockService, langService);
 		this.initialResourceBundle = getInitialResourceBundle();
 	}
 
+
+
 	private void setGetRequestModelAttributes(ModelMap model, String timeOutSource) {
     	this.initialResourceBundle = getInitialResourceBundle();
+    	TextBlockService textBlockService = getTextBlockService();
+    	LanguageService langService = getLangService();
     	model.addAttribute("lang", langService.getDefaultLang());
     	model.addAttribute("langCount", langService.getActiveLanguages().size());
     	Gson json = new Gson();
@@ -71,12 +67,13 @@ public class ViewerController {
     
     private void setPostRequestModelAttributes(ModelMap model, HttpServletRequest req) {
     	int langId = Integer.parseInt(req.getParameter("langid"));
-    	model.addAttribute("lang", langService.getNextActiveLanguage(langId));
+    	model.addAttribute("lang", getLangService().getNextActiveLanguage(langId));
     }
     
     
 	@RequestMapping(value = "/arr.html", method = RequestMethod.GET)
     public String arrival(ModelMap model) {
+		ScheduledArrivalFlightService arrivalService = getArrivalService();
 		List<ScheduledArrivalFlight> arrivals = arrivalService.getAll();
 		Date date = new Date();
 		model.addAttribute("date", arrivalService.getDateFormatted(date));
@@ -106,6 +103,7 @@ public class ViewerController {
 
     @RequestMapping(value = "/dep.html", method = RequestMethod.GET)
     public String departure(ModelMap model) {
+    	ScheduledDepartureFlightService departureService = getDepartureService();
     	List<ScheduledDepartureFlight> departures = departureService.getAll();
     	model.addAttribute("departures", departures);
     	Date date = new Date();
@@ -136,13 +134,11 @@ public class ViewerController {
     	setPostRequestModelAttributes(model, req);
         return "arrdep";
     }
-    
-    
 
     @RequestMapping(value = "/info.html", method = RequestMethod.GET)
     public String info(ModelMap model) {
     	setGetRequestModelAttributes(model, "info.html");
-        model.addAttribute("block", textBlockService.get(0));
+        model.addAttribute("block", getTextBlockService().get(0));
         return "info";
     }
 
@@ -150,7 +146,7 @@ public class ViewerController {
     public String infoPost(ModelMap model, HttpServletRequest req) {
     	info(model);
     	int blockId = Integer.parseInt(req.getParameter("blockid"));
-    	model.addAttribute("block",textBlockService.getNextActiveBlock(blockId));
+    	model.addAttribute("block",getTextBlockService().getNextActiveBlock(blockId));
         return "info";
     }
 
@@ -158,11 +154,12 @@ public class ViewerController {
     public String index(ModelMap model) {
         return "index";
     }
-
-//    @RequestMapping("/")
-//    public String indexRedirect(ModelMap model) {
-//        return "redirect:index.html";
-//    }
     
+    @RequestMapping("/admin.html")
+    public String admin(ModelMap model) {
+        model.addAttribute("title", getInitialResourceBundle().getObject("admin.board"));
+    	return "admin";
+    }
+
 
 }

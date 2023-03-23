@@ -25,13 +25,12 @@ public class Flight extends Entity {
 		return airline;
 	}
 
-
     public String getIcaoNumber() {
-        return getAirline().getIcaoCode() + this.number;
+        return getAirline().getIcaoCode() + number;
     }
 
     public String getIataNumber() {
-        return getAirline().getIataCode() + this.number;
+        return getAirline().getIataCode() + number;
     }
     
 

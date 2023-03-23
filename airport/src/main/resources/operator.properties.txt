@@ -1,0 +1,7 @@
+admin.languages.title = Languages setup/НАСТРОЙКА ЯЗЫКОВ ВОСПРОИЗВЕДЕНИЯ
+admin.airports.title = AIRPORTS SETUP/НАСТРОЙКА АЭРОПОРТОВ
+admin.airlines.title = AIRLINES SETUP/НАСТРОЙКА АВИАКОМПАНИЙ
+admin.flights.title = FLIGHTS SETUP/НАСТРОЙКА РЕЙСОВ (НОМЕРОВ)
+admin.arrivals.title = ARRIVALS SETUP/НАСТРОЙКА ПРИБЫТИЙ
+admin.departures.title = DEPARTURES SETUP/НАСТРОЙКА ВЫЛЕТОВ
+admin.announcments.title = ANNOUNCMENT SETUP/НАСТРОЙКА ОБЪЯВЛЕНИЙ

@@ -57,8 +57,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
-/*   --bs-body-color: #fff; */
-/*   --bs-body-bg: #031633; */
+/*   -----AIRPORT INFOBOARD CUSTOMIZED----- */
+   --bs-nightair-bg: #031633; 
   
   
 }

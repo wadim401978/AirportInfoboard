@@ -1,0 +1,16 @@
+main  {
+	width:1024px;
+  	padding: 0px 0px 30px;
+  	margin:  0px auto 0px; 
+  	background-color: var(--bs-white);
+  	display: block;
+}  
+
+body {
+	background-color: var(--bs-nightair-bg);
+}  
+
+header{
+	color : var(--bs-white);
+	text-align: center;
+}
