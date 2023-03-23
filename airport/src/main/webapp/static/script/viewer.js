@@ -41,7 +41,7 @@ function ContentRotator(url, param) {
 	});
 }
 
-function runInterval(langUrl, timeOut, languagesArray, announcmentsArray) {
+function runRotator(langUrl, timeOut, languagesArray, announcmentsArray) {
 	let languageIndex = 0;//langs array increment index
 	let hasAnnouncments; 
 	let announcmentIndex = -1;//announcments array increment index
@@ -87,4 +87,17 @@ function runInterval(langUrl, timeOut, languagesArray, announcmentsArray) {
 		}
 		
 	}, timeOut);
+}
+
+function runClock() {
+	let timerId = setTimeout(function tick() {
+		let now = new Date();
+//		console.log(now.toLocaleTimeString());
+		let clock = document.getElementById('clock');
+		if(clock!=null) {
+			clock.innerHTML = now.toLocaleTimeString();
+		}
+		
+		timerId = setTimeout(tick,1000);
+	}, 1000);
 }

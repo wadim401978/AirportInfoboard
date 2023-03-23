@@ -36,26 +36,20 @@ public class ViewerController {
 		return this.initialResourceBundle;
 	}
 
+	
 	@Autowired(required = true)
-	public void setLangService(LanguageService langService) {
-		this.langService = langService;
-	}
-	@Autowired(required = true)
-	public void setTextBlockService(TextBlockService textBlockService) {
+    public ViewerController(ScheduledArrivalFlightService arrivalService,
+			ScheduledDepartureFlightService departureService, TextBlockService textBlockService,
+			LanguageService langService) {
+		super();
+		this.arrivalService = arrivalService;
+		this.departureService = departureService;
 		this.textBlockService = textBlockService;
+		this.langService = langService;
+		this.initialResourceBundle = getInitialResourceBundle();
 	}
 
-	@Autowired(required = true)
-	public void setArrivalService(ScheduledArrivalFlightService arrivalService) {
-		this.arrivalService = arrivalService;
-	}
-	
-	@Autowired(required = true)
-	public void setDepartureService(ScheduledDepartureFlightService departureService) {
-		this.departureService = departureService;
-	}
-	
-    private void setGetRequestModelAttributes(ModelMap model, String timeOutSource) {
+	private void setGetRequestModelAttributes(ModelMap model, String timeOutSource) {
     	this.initialResourceBundle = getInitialResourceBundle();
     	model.addAttribute("lang", langService.getDefaultLang());
     	model.addAttribute("langCount", langService.getActiveLanguages().size());
@@ -84,7 +78,9 @@ public class ViewerController {
 	@RequestMapping(value = "/arr.html", method = RequestMethod.GET)
     public String arrival(ModelMap model) {
 		List<ScheduledArrivalFlight> arrivals = arrivalService.getAll();
-		model.addAttribute("date", arrivalService.getDateFormatted(new Date()));
+		Date date = new Date();
+		model.addAttribute("date", arrivalService.getDateFormatted(date));
+		model.addAttribute("time", arrivalService.getTimeFormattedSec(date));
         model.addAttribute("arrivals", arrivals);
         setGetRequestModelAttributes(model, "arr.html");
         model.addAttribute("emptyRows", getEmptyRowsNumber(arrivals.size()));
@@ -112,7 +108,9 @@ public class ViewerController {
     public String departure(ModelMap model) {
     	List<ScheduledDepartureFlight> departures = departureService.getAll();
     	model.addAttribute("departures", departures);
-        model.addAttribute("date", departureService.getDateFormatted(new Date()));
+    	Date date = new Date();
+        model.addAttribute("date", departureService.getDateFormatted(date));
+        model.addAttribute("time", departureService.getTimeFormattedSec(date));
         setGetRequestModelAttributes(model, "dep.html");
         model.addAttribute("emptyRows", getEmptyRowsNumber(departures.size()));
         return "dep";

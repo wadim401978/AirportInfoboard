@@ -26,8 +26,8 @@
  	    <c:if test="${timeOutSource!= null}" >
  	    <script type="text/javascript">
 	 	   $(document).ready(function() {
-	 			runInterval("${timeOutSource}", ${timeOutValue}, "${activeLangs}", "${announcments}");
-// 	 			runInterval("${timeOutSource}", ${timeOutValue}, "${activeLangs}");
+	 			runRotator("${timeOutSource}", ${timeOutValue}, "${activeLangs}", "${announcments}");
+	 			runClock();
 	 		});
 		</script>
 		</c:if>

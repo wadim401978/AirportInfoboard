@@ -38,6 +38,13 @@ public interface ScheduledFlightService<T> extends Service<T> {
 		return getDateAsLocalTime(date).format(DateTimeFormatter.ofPattern("HH:mm"));
 	}
 	
+	public default String getTimeFormattedSec(Date date) {
+		if(date==null) {
+			return "";
+		}
+		return getDateAsLocalTime(date).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+	}
+	
 	//4
 	public default String getDateFormatted(Date date) {
 		return LocalDateTime

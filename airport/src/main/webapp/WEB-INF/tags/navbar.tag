@@ -4,7 +4,7 @@
 		  <div class="navbar-collapse collapse Archangelsk pb-lg-1" >
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 			  <li class="nav-item VAIR-bdi-blue-900 ">
-				<span class="nav-link bd-blue-900 bd-blue-900 " >14:25:39</span>
+				<span class="nav-link bd-blue-900 bd-blue-900 " id="clock" style="width:100px;">${time}</span>
 			  </li> 
 			  <li class="nav-item VAIR-bdi-blue-900">
 				<span class="nav-link bd-blue-900 " >${date}</span>
