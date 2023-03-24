@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import by.services.AirlineService;
 import by.services.AirportService;
@@ -49,43 +48,43 @@ public class OperatorController extends AbstractController {
         model.addAttribute("title", getOperatorResourceBundle().getObject(title));
     }
 
-	@GetMapping("/langs.html")
+    @RequestMapping("/langs.html")
     public String langs(ModelMap model) {
         setListParameters(model, getLangService(), "admin.languages.title");
 		return "admin/langs";
     }
 	
-	@GetMapping("/airports.html")
+    @RequestMapping("/airports.html")
     public String airports(ModelMap model) {
         setListParameters(model, airportService, "admin.airports.title");
 		return "admin/airports";
     }
 	
-	@GetMapping("/airlines.html")
+    @RequestMapping("/airlines.html")
     public String airlines(ModelMap model) {
         setListParameters(model, airlineService, "admin.airlines.title");
 		return "admin/airlines";
     }
 	
-	@GetMapping("/flights.html")
+    @RequestMapping("/flights.html")
     public String flights(ModelMap model) {
         setListParameters(model, flightService, "admin.flights.title");
 		return "admin/flights";
     }
 	
-	@GetMapping("/arrivals.html")
+    @RequestMapping("/arrivals.html")
     public String arrivals(ModelMap model) {
         setListParameters(model, getArrivalService(), "admin.arrivals.title");
 		return "admin/arrivals";
     }
 	
-	@GetMapping("/departures.html")
+    @RequestMapping("/departures.html")
     public String departures(ModelMap model) {
         setListParameters(model, getDepartureService(), "admin.departures.title");
 		return "admin/departures";
     }
 	
-	@GetMapping("/announcments.html")
+    @RequestMapping("/announcments.html")
     public String announcments(ModelMap model) {
         setListParameters(model, getTextBlockService(), "admin.announcments.title");
 		return "admin/announcments";

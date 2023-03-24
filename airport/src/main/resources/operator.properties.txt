@@ -5,3 +5,22 @@ admin.flights.title = FLIGHTS SETUP/НАСТРОЙКА РЕЙСОВ (НОМЕР�
 admin.arrivals.title = ARRIVALS SETUP/НАСТРОЙКА ПРИБЫТИЙ
 admin.departures.title = DEPARTURES SETUP/НАСТРОЙКА ВЫЛЕТОВ
 admin.announcments.title = ANNOUNCMENT SETUP/НАСТРОЙКА ОБЪЯВЛЕНИЙ
+
+admin.language = ЯЗЫК
+admin.airport = АЭРОПОРТ
+admin.airline = АВИАКОМПАНИЯ
+admin.flight = НОМЕР РЕЙСА
+admin.arrival = ПРИЛЁТ
+admin.departure = ВЫЛЕТ
+
+admin.name = Наименование
+admin.tag = Обозначение
+admin.ICAO.code = ICAO код
+admin.IATA.code = IATA код
+admin.ICAO.number = ICAO номер
+admin.IATA.number = IATA номер
+admin.status = Статус
+admin.date.scheduled = Дата по расписанию
+admin.time.status = Время в статусе
+
+

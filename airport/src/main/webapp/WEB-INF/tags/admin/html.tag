@@ -12,10 +12,12 @@
 		<header class="p-2">
 			<h2 class="fs-4">${title}</h2>
 		</header>
-		<main>
+		<main class="flex-shrink-0 fs-5">
 			<jsp:doBody/>
 		</main>
-		<footer class="footer mt-auto pt-3 d-block"></footer>
+		<footer class="footer mt-auto pt-3 d-block" id="footer">
+			<div class="w-100 bd-blue-900" style="margin-top:-17px; padding-top:4px;"></div>
+		</footer>
 		
 	</body>
 </html>

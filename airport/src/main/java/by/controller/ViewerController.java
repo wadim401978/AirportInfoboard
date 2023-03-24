@@ -3,15 +3,15 @@ package by.controller;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import com.google.gson.Gson;
-
 import by.dao.model.flight.ScheduledArrivalFlight;
 import by.dao.model.flight.ScheduledDepartureFlight;
 import by.dao.model.infomsg.TextBlock;
@@ -65,13 +65,14 @@ public class ViewerController extends AbstractController {
     	model.addAttribute("timeOutValue", initialResourceBundle.getString("timeout"));
     }
     
-    private void setPostRequestModelAttributes(ModelMap model, HttpServletRequest req) {
-    	int langId = Integer.parseInt(req.getParameter("langid"));
+    
+	private void setPostRequestModelAttributes(ModelMap model, String sLangId) {
+    	int langId = Integer.parseInt(sLangId);
     	model.addAttribute("lang", getLangService().getNextActiveLanguage(langId));
     }
     
     
-	@RequestMapping(value = "/arr.html", method = RequestMethod.GET)
+	@GetMapping("/arr.html")
     public String arrival(ModelMap model) {
 		ScheduledArrivalFlightService arrivalService = getArrivalService();
 		List<ScheduledArrivalFlight> arrivals = arrivalService.getAll();
@@ -84,11 +85,11 @@ public class ViewerController extends AbstractController {
         return "arr";
     }
 	
-
-	@RequestMapping(value = "/arr.html", method = RequestMethod.POST)
-    public String arrivalPost(ModelMap model, HttpServletRequest req) {
+	
+	@PostMapping("/arr.html")
+    public String arrivalPost(ModelMap model, @RequestParam(value = "langid") String langId) {
 		arrival(model);
-        setPostRequestModelAttributes(model, req);
+		setPostRequestModelAttributes(model, langId);
         return "arr";
     }
 	
@@ -101,7 +102,7 @@ public class ViewerController extends AbstractController {
         return emptyRows;
 	}
 
-    @RequestMapping(value = "/dep.html", method = RequestMethod.GET)
+	@GetMapping("/dep.html")
     public String departure(ModelMap model) {
     	ScheduledDepartureFlightService departureService = getDepartureService();
     	List<ScheduledDepartureFlight> departures = departureService.getAll();
@@ -114,24 +115,24 @@ public class ViewerController extends AbstractController {
         return "dep";
     }
 
-    @RequestMapping(value = "/dep.html", method = RequestMethod.POST)
-    public String departurePost(ModelMap model, HttpServletRequest req) {
+	@PostMapping("/dep.html")
+    public String departurePost(ModelMap model, @RequestParam(value = "langid") String langId) {
     	departure(model);
-        setPostRequestModelAttributes(model, req);
+        setPostRequestModelAttributes(model, langId);
         return "dep";
     }
 
-    @RequestMapping(value = "/arrdep.html", method = RequestMethod.GET)
+    @GetMapping("/arrdep.html")
     public String arrdep(ModelMap model) {
         model.addAttribute("text", "Under construction");
         setGetRequestModelAttributes(model, "arrdep.html");
         return "arrdep";
     }
     
-    @RequestMapping(value = "/arrdep.html", method = RequestMethod.POST)
-    public String arrdeppost(ModelMap model, HttpServletRequest req) {
+    @PostMapping("/arrdep.html")
+    public String arrdeppost(ModelMap model, @RequestParam(value = "langid") String langId)  {
     	arrdep(model);
-    	setPostRequestModelAttributes(model, req);
+    	setPostRequestModelAttributes(model, langId);
         return "arrdep";
     }
 
@@ -142,10 +143,10 @@ public class ViewerController extends AbstractController {
         return "info";
     }
 
-    @RequestMapping(value = "/info.html", method = RequestMethod.POST)
-    public String infoPost(ModelMap model, HttpServletRequest req) {
+    @PostMapping("/info.html")
+    public String infoPost(ModelMap model, @RequestParam(value = "blockid") String blockid) {
     	info(model);
-    	int blockId = Integer.parseInt(req.getParameter("blockid"));
+    	int blockId = Integer.parseInt(blockid);
     	model.addAttribute("block",getTextBlockService().getNextActiveBlock(blockId));
         return "info";
     }
@@ -160,6 +161,5 @@ public class ViewerController extends AbstractController {
         model.addAttribute("title", getInitialResourceBundle().getObject("admin.board"));
     	return "admin";
     }
-
 
 }
