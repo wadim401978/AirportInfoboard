@@ -14,6 +14,10 @@ public abstract class ScheduledFlight extends Entity {
 		this.scheduledDate = scheduledDate;
 		this.setStatusTime(scheduledDate);
 	}
+    
+    public ScheduledFlight() {
+    	
+    }
 
 
 	public ScheduledFlight(int id, Flight flight, Date scheduledDate, Date statusTime) {

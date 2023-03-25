@@ -10,6 +10,10 @@ public abstract class InfoBlock extends ActiveEntity {
 		this.html = html;
 	}
 	
+	public InfoBlock() {
+		
+	}
+	
 	public String getHtml() {
 		return html;
 	}

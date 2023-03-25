@@ -8,41 +8,43 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import by.dao.model.common.Language;
-import by.services.LanguageService;
+import by.dao.model.infomsg.TextBlock;
+import by.services.TextBlockService;
 
 
 @Controller
-@RequestMapping("/admin/lang")
-public class LanguageController {
+@RequestMapping("/admin/announcment")
+public class AnnouncmentController {
 	
-	private LanguageService langService;
+	private TextBlockService announcmentService;
 	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
-	public LanguageController(LanguageService langService) {
+	public AnnouncmentController(TextBlockService announcmentService) {
 		super();
-		this.langService = langService;
+		this.announcmentService = announcmentService;
 		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
+    
+    private String getTitle() {
+    	return operatorResourceBundle.getObject("admin.announcment") +": ";
+    }
 
 	@RequestMapping(value = "/{id}.html")
     public String lang(ModelMap model, @PathVariable("id") int id) {
-		Language lang = langService.get(id);
-		String title = operatorResourceBundle.getObject("admin.language") +": " + lang.getName();
+		TextBlock announcment = announcmentService.get(id);
+		String title = getTitle() + announcment.getId();
     	model.addAttribute("title", title);
-    	model.addAttribute("language", lang);
-		return "admin/lang";
+    	model.addAttribute("announcment", announcment);
+		return "admin/announcment";
     }
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
-		String title = operatorResourceBundle.getObject("admin.language") + ": "
-				+ operatorResourceBundle.getObject("admin.new.title");
+		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
     	model.addAttribute("title", title);
-    	model.addAttribute("language", new Language(0, null, null, false));
-		return "admin/lang";
+    	model.addAttribute("announcment", new TextBlock());
+		return "admin/announcment";
     }
 
 }

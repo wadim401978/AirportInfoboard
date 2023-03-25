@@ -8,41 +8,43 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import by.dao.model.common.Language;
-import by.services.LanguageService;
+import by.dao.model.flight.Airline;
+import by.services.AirlineService;
 
 
 @Controller
-@RequestMapping("/admin/lang")
-public class LanguageController {
+@RequestMapping("/admin/airline")
+public class AirlineController {
 	
-	private LanguageService langService;
+	private AirlineService airlineService;
 	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
-	public LanguageController(LanguageService langService) {
+	public AirlineController(AirlineService airlineService) {
 		super();
-		this.langService = langService;
+		this.airlineService = airlineService;
 		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
+    
+    private String getTitle() {
+    	return operatorResourceBundle.getObject("admin.airline") +": ";
+    }
 
 	@RequestMapping(value = "/{id}.html")
     public String lang(ModelMap model, @PathVariable("id") int id) {
-		Language lang = langService.get(id);
-		String title = operatorResourceBundle.getObject("admin.language") +": " + lang.getName();
+		Airline airline = airlineService.get(id);
+		String title = getTitle() + airline.getName();
     	model.addAttribute("title", title);
-    	model.addAttribute("language", lang);
-		return "admin/lang";
+    	model.addAttribute("airline", airline);
+		return "admin/airline";
     }
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
-		String title = operatorResourceBundle.getObject("admin.language") + ": "
-				+ operatorResourceBundle.getObject("admin.new.title");
+		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
     	model.addAttribute("title", title);
-    	model.addAttribute("language", new Language(0, null, null, false));
-		return "admin/lang";
+    	model.addAttribute("airline", new Airline());
+		return "admin/airline";
     }
 
 }

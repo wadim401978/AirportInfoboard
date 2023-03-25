@@ -15,13 +15,22 @@ public class Flight extends Entity {
 		this.number = number;
 		this.isArrival = isArrival;
 	}
+    
+    public Flight() {
+    	
+    }
 
     public Airport getAirport() {
         return airport;
     }
-
     
-    public Airline getAirline() {
+    
+    
+    public int getNumber() {
+		return number;
+	}
+
+	public Airline getAirline() {
 		return airline;
 	}
 

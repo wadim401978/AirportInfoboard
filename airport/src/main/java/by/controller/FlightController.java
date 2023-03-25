@@ -8,41 +8,43 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import by.dao.model.common.Language;
-import by.services.LanguageService;
+import by.dao.model.flight.Flight;
+import by.services.FlightService;
 
 
 @Controller
-@RequestMapping("/admin/lang")
-public class LanguageController {
+@RequestMapping("/admin/flight")
+public class FlightController {
 	
-	private LanguageService langService;
+	private FlightService flightService;
 	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
-	public LanguageController(LanguageService langService) {
+	public FlightController(FlightService flightService) {
 		super();
-		this.langService = langService;
+		this.flightService = flightService;
 		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
+    
+    private String getTitle() {
+    	return operatorResourceBundle.getObject("admin.flight") +": ";
+    }
 
 	@RequestMapping(value = "/{id}.html")
     public String lang(ModelMap model, @PathVariable("id") int id) {
-		Language lang = langService.get(id);
-		String title = operatorResourceBundle.getObject("admin.language") +": " + lang.getName();
+		Flight flight = flightService.get(id);
+		String title = getTitle() + flight.getIataNumber() + "|" + flight.getIcaoNumber();
     	model.addAttribute("title", title);
-    	model.addAttribute("language", lang);
-		return "admin/lang";
+    	model.addAttribute("flight", flight);
+		return "admin/flight";
     }
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
-		String title = operatorResourceBundle.getObject("admin.language") + ": "
-				+ operatorResourceBundle.getObject("admin.new.title");
+		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
     	model.addAttribute("title", title);
-    	model.addAttribute("language", new Language(0, null, null, false));
-		return "admin/lang";
+    	model.addAttribute("flight", new Flight());
+		return "admin/flight";
     }
 
 }

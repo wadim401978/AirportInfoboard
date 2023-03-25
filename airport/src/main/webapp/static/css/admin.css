@@ -1,23 +1,42 @@
-main  {
-	width:1024px;
-  	padding: 0px 0px 30px;
-  	margin:  0px auto 0px; 
-  	background-color: var(--bs-white);
-  	display: block;
+body   {
+	background-color: var(--bs-nightair-bg);
+	min-height: 100%;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
 }  
 
-body {
-	background-color: var(--bs-nightair-bg);
+main  {
+	--main-width: 1024px;
+	width: var(--main-width);
+  	margin:  0px auto 0px; 
+  	background-color: var(--bs-white);
+  	border-radius: 30px;
+  	padding: 0;
 }  
+
 
 header{
 	color : var(--bs-white);
 	text-align: center;
 }
 
+header h2 {
+	color:var(--bs-yellow);
+	font-weight: bold;
+}
+
+footer {
+	height: 45px;
+}
+
 table.admin td {
 	padding: 15px;
-	border-bottom: 1px dashed;
+	font-weight: bold;
+
+}
+
+table.dashed tr {
+	border-bottom: 1px dashed;	
 }
 
 table.admin {
@@ -30,6 +49,100 @@ a {
 	font-weight: bold;
 }
 
-li {
-	padding: 15px;
+input[type=button], input[type=reset], input[type=submit] {
+	background-color: var(--bs-nightair-bg);
+	border: none;
+	border-radius: 10px;
+	padding: 7px 15px;
+	color: white; 
+	font-weight: bold;	
+}
+
+input[type=button]:hover, input[type=reset]:hover, input[type=submit]:hover {
+	color:var(--bs-yellow);
+}
+
+input[type=text], select {
+	background-color: #cfe2ff;	
+	border-radius: 7px;	
+	padding: 7px 20px;
+	border: none;
+	color:var(--bs-nightair-bg);
+	width:calc(var(--main-width)/2);
+	width:calc(var(--main-width)/2);
+}
+
+
+input.langtag {
+	width:80px;
+}
+
+/*---TABS---*/
+li.up li {
+	padding: 10px;
+}
+
+.tabs {
+	list-style-type: none;
+	padding: 0;
+	width:var(--main-width);
+	margin: 0;
+	position: relative;
+}
+
+.tabs:after {
+	content: "";
+	clear: both;
+	display: block;
+	height: 240px;
+}
+
+.tabs li.up {
+	float: left;
+}
+
+.tabs li.up > input {
+	display: none;
+}
+
+.tabs li.up > label {
+	display: inline-block;
+	width:calc(var(--main-width)/2);
+	height: 50px;
+	line-height: 30px;
+	padding: 10px 30px;
+	text-align:center;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	font-weight: bold;
+	color: darkblue;
+}
+
+.tabs li.up:last-child > label {
+	border-radius: 0 30px 0 0;
+}
+
+.tabs .tab-content {
+	display: none;
+	position: absolute;
+	left: 0;
+	padding: 20px;
+	overflow-y: auto;
+}
+
+label {
+	background-color: #cfe2ff;
+}
+
+/* Функциональность: */
+.tabs li.up > input:checked + label {
+	background-color: white;	
+}
+
+.tabs li.up > input:checked ~ .tab-content {
+	display: block;
+	
 }

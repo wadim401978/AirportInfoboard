@@ -18,6 +18,9 @@ public abstract class AirEntity extends Entity {
 		this.icaoCode = icaoCode;
 		this.defaultLanguage = defaultLanguage;
 	}
+	public AirEntity() {
+		
+	}
 
 
 	public Map<Language, String> getNames() {

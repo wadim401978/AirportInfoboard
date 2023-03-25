@@ -72,6 +72,8 @@ public class TestScheduledDepartureFlightDAOImpl implements ScheduledDepartureFl
 
 	@Override
 	public ScheduledDepartureFlight read(Integer id) {
+		id--;
+		if (id < 0) id = 0;
 		return TestDataSet.getInstance().getDepartures().get(id);
 	}
 	

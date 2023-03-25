@@ -12,6 +12,8 @@ public class TestTextBlockDAOImpl implements TextBlockDAO, ActiveItemsDAO<TextBl
 
 	@Override
 	public TextBlock read(Integer id) {
+		id--;
+		if (id < 0) id = 0;
 		return TestDataSet.getInstance().getInfoBlocks().get(id);
 	}
 

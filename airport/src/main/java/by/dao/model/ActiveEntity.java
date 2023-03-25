@@ -7,6 +7,10 @@ public class ActiveEntity extends Entity {
 		super(id);
 		this.active = active;
 	}
+	
+	public ActiveEntity() {
+		
+	}
 
 	public boolean isActive() {
 		return active;

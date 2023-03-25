@@ -10,6 +10,10 @@ public class Airline extends AirEntity{
 		super(id, iataCode, icaoCode, names, defaultLanguage);
 		this.logo = logo;
 	}
+	
+	public Airline() {
+		
+	}
 
 	public String getLogo() {
         return logo;

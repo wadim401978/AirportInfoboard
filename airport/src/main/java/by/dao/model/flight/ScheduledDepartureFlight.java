@@ -9,6 +9,10 @@ public class ScheduledDepartureFlight extends ScheduledFlight {
 		super(id, flight, scheduledDate);
 		this.setStatus(status);
 	}
+    
+    public ScheduledDepartureFlight() {
+    	
+    }
 
     public ScheduledDepartureFlight(int id, Flight flight, Date scheduledDate, Date statusTime, DepartureStatus status) {
 		super(id, flight, scheduledDate);
