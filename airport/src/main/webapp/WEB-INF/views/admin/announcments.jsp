@@ -27,7 +27,7 @@
 							</c:choose>
 						</a>
 					</td>
-					<td><a href="announcment/${item.id}.html"> <span>${item.html}</span>
+					<td><a href="announcment/${item.id}.html"> <span>${item.html}</span></a>
 					</td>
 					<td><input type="checkbox" name="delete${item.id}"></td>
 				</tr>

@@ -27,6 +27,7 @@
 				</td>
 			</tr>
 			</c:forEach>
+			<tr>
 				<td colspan="2">
     				<input type="hidden" name="langid" value="0" >
     				<input type="text" name="lang" value="" class="langtag" disabled="disabled">
@@ -36,13 +37,7 @@
 				</td>
 			</tr>
 			
-    		<tr>
-    			<td colspan="2">
-    				<input type="submit" value="OK">
-    				<input type="button" value="Cancel" onclick="history.back();">
-    			</td>
-    		</tr>
-			
+			<ui:itemButtons/>			
 		</table>
     </form>
 </div>
