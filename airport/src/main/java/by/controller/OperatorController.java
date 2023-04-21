@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import by.services.AirlineService;
 import by.services.AirportService;
@@ -48,11 +49,12 @@ public class OperatorController extends AbstractController {
         model.addAttribute("title", getOperatorResourceBundle().getObject(title));
     }
 
-    @RequestMapping("/langs.html")
+    @GetMapping(path = "/langs.html")
     public String langs(ModelMap model) {
         setListParameters(model, getLangService(), "admin.languages.title");
 		return "admin/langs";
     }
+	
 	
     @RequestMapping("/airports.html")
     public String airports(ModelMap model) {

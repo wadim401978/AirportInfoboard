@@ -6,7 +6,7 @@
     	<table class="admin">
     		<tr>
     			<td style="width: 180px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
-    			<td><input type="text" name="id" value="${airport.id}" disabled="disabled"></td>
+    			<td><input type="text" name="id" value="${airport.id}" readonly="readonly"></td>
     		</tr>
     		<tr>
     			<td style="width: 180px;"><fmt:message key="admin.ICAO.code" bundle="${op}"/>:</td>

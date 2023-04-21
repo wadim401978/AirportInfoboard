@@ -86,4 +86,9 @@ public class LanguageServiceImpl implements LanguageService {
 		return activeLang;
 	}
 
+	@Override
+	public void remove(int id) {
+		dao.delete(id);
+	}
+
 }

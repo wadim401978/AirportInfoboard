@@ -55,6 +55,11 @@ public class AirportServiceImpl implements AirportService {
 		return dao.read(id);
 	}
 
+	@Override
+	public void remove(int id) {
+		dao.delete(id);
+	}
+
 	
 	
 }

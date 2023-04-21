@@ -50,4 +50,9 @@ public class TextBlockServiceImpl implements TextBlockService {
 		return list;
 	}
 
+	@Override
+	public void remove(int id) {
+		dao.delete(id);
+	}
+
 }

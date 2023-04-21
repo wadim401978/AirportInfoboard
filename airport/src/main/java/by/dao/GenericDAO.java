@@ -5,7 +5,9 @@ public interface GenericDAO<ID, T> extends DAO<T> {
 
     T read(ID id);
 
-    default void update(T obj) {}
+    default void update(T obj) {
+    	
+    }
 
     default void delete(ID id) {}
 

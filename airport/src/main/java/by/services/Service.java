@@ -9,4 +9,5 @@ public interface Service<T> {
 	public List<T> getAll();
 	public void save(T obj);
 	public T get(int id);
+	public void remove(int id);
 }

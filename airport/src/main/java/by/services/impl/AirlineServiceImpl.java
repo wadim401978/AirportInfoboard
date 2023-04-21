@@ -54,6 +54,11 @@ public class AirlineServiceImpl implements AirlineService {
 	public Airline get(int id) {
 		return dao.read(id);
 	}
+
+	@Override
+	public void remove(int id) {
+		dao.delete(id);
+	}
 	
 	
 

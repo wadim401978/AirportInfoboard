@@ -2,7 +2,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setBundle basename="operator" var="op"/>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <a href="../admin.html">Back to admin board</a><form method="post" action="${pageContext.request.contextPath}/admin/langs.html">
+    <a href="../admin.html">Back to admin board</a><form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html">
 	<table class="admin dashed">
 		<thead>
 			<tr>
@@ -34,7 +34,7 @@
 						</a>
 					</td>
 					
-					<td><input type="checkbox" name="delete${item.id}"></td>
+					<td><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
 			<tr style="border: none;">

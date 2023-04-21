@@ -45,4 +45,9 @@ public class FlightServiceImpl implements FlightService {
 		return dao.read(id);
 	}
 
+	@Override
+	public void remove(int id) {
+		dao.delete(id);
+	}
+
 }
