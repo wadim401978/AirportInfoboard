@@ -1,4 +1,4 @@
-package by.controller;
+package by.controllers;
 
 import java.util.ResourceBundle;
 
@@ -8,43 +8,43 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import by.dao.model.flight.Flight;
-import by.services.FlightService;
+import by.dao.model.flight.Airport;
+import by.services.AirportService;
 
 
 @Controller
-@RequestMapping("/admin/flight")
-public class FlightController {
+@RequestMapping("/admin/airport")
+public class AirportController {
 	
-	private FlightService flightService;
+	private AirportService airportService;
 	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
-	public FlightController(FlightService flightService) {
+	public AirportController(AirportService airportService) {
 		super();
-		this.flightService = flightService;
+		this.airportService = airportService;
 		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
     
     private String getTitle() {
-    	return operatorResourceBundle.getObject("admin.flight") +": ";
+    	return operatorResourceBundle.getObject("admin.airport") +": ";
     }
 
 	@RequestMapping(value = "/{id}.html")
     public String lang(ModelMap model, @PathVariable("id") int id) {
-		Flight flight = flightService.get(id);
-		String title = getTitle() + flight.getIataNumber() + "|" + flight.getIcaoNumber();
+		Airport airport = airportService.get(id);
+		String title = getTitle() + airport.getName();
     	model.addAttribute("title", title);
-    	model.addAttribute("flight", flight);
-		return "admin/flight";
+    	model.addAttribute("airport", airport);
+		return "admin/airport";
     }
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
 		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
     	model.addAttribute("title", title);
-    	model.addAttribute("flight", new Flight());
-		return "admin/flight";
+    	model.addAttribute("airport", new Airport());
+		return "admin/airport";
     }
 
 }

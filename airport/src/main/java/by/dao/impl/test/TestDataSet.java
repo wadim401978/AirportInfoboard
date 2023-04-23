@@ -116,8 +116,8 @@ public final class TestDataSet {
 		if(inst.langMap == null) {
 			inst.langMap = new HashMap<String, Language>();
 		}
-		inst.langMap.put(lang.getLangTag(), lang);
-		if (lang.getLangTag() == "ru") {
+		inst.langMap.put(lang.getTag(), lang);
+		if (lang.getTag() == "ru") {
 			inst.defaultLanguage = lang;
 		}
 

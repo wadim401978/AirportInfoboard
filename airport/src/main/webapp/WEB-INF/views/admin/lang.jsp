@@ -15,7 +15,7 @@
     		</tr>
     		<tr>
     			<td><fmt:message key="admin.tag" bundle="${op}"/>:</td>
-    			<td><input type="text" name="tag" value="${language.langTag}"></td>
+    			<td><input type="text" name="tag" value="${language.tag}"></td>
     		</tr>
     		<tr>
     			<td><fmt:message key="admin.active" bundle="${op}"/>:</td>

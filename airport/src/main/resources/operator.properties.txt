@@ -1,12 +1,12 @@
-admin.languages.title = Languages setup/НАСТРОЙКА ЯЗЫКОВ ВОСПРОИЗВЕДЕНИЯ
-admin.airports.title = AIRPORTS SETUP/НАСТРОЙКА АЭРОПОРТОВ
-admin.airlines.title = AIRLINES SETUP/НАСТРОЙКА АВИАКОМПАНИЙ
-admin.flights.title = FLIGHTS SETUP/НАСТРОЙКА РЕЙСОВ (НОМЕРОВ)
-admin.arrivals.title = ARRIVALS SETUP/НАСТРОЙКА ПРИБЫТИЙ
-admin.departures.title = DEPARTURES SETUP/НАСТРОЙКА ВЫЛЕТОВ
-admin.announcments.title = ANNOUNCMENT SETUP/НАСТРОЙКА ОБЪЯВЛЕНИЙ
-admin.tables.title = Tables/Таблицы
-admin.references.title = References/Справочники
+admin.languages.title = НАСТРОЙКА ЯЗЫКОВ ВОСПРОИЗВЕДЕНИЯ
+admin.airports.title = НАСТРОЙКА АЭРОПОРТОВ
+admin.airlines.title = НАСТРОЙКА АВИАКОМПАНИЙ
+admin.flights.title = НАСТРОЙКА РЕЙСОВ (НОМЕРОВ)
+admin.arrivals.title = НАСТРОЙКА ПРИБЫТИЙ
+admin.departures.title = НАСТРОЙКА ВЫЛЕТОВ
+admin.announcments.title = НАСТРОЙКА ОБЪЯВЛЕНИЙ
+admin.tables.title = Таблицы
+admin.references.title = Справочники
 admin.new.title = Создать новый
 
 admin.language = ЯЗЫК
@@ -35,5 +35,8 @@ admin.date.scheduled = Дата по расписанию
 admin.time.scheduled = Время по расписанию
 admin.time.status = Время в статусе
 
+admin.back.to.board = Вернуться в административную панель
 
+admin.language.error.name.empty = Наименование языка не может быть пустым
+admin.language.error.tag.empty = Обозначение языка не может быть пустым
 

@@ -20,18 +20,18 @@ public class Language extends ActiveEntity{
         this.name = name;
     }
 
-	public String getLangTag() {
+	public String getTag() {
 		return tag;
 	}
 
-	public void setLangTag(String langTag) {
+	public void setTag(String langTag) {
 		this.tag = langTag;
 	}
 
 
 	@Override
 	public String toString() {
-		return super.toString() + getLangTag() + ": " + getName();
+		return super.toString() + getTag() + ": " + getName();
 	}
 	
 	

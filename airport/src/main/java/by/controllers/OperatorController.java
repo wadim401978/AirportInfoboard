@@ -1,7 +1,8 @@
-package by.controller;
+package by.controllers;
 
-import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,14 @@ import by.services.TextBlockService;
 
 @Controller
 @RequestMapping("/admin")
+@PropertySource("classpath:operator.properties")
 public class OperatorController extends AbstractController {
-	private ResourceBundle operatorResourceBundle;
 	private AirportService airportService;
 	private AirlineService airlineService;
 	private FlightService flightService;
+	
+	@Autowired
+	private Environment env;
 	
 	@Autowired(required = true)
 	public OperatorController(ScheduledArrivalFlightService arrivalService,
@@ -32,21 +36,12 @@ public class OperatorController extends AbstractController {
 		this.airportService = airportService;
 		this.airlineService = airlineService;
 		this.flightService = flightService;
-		this.operatorResourceBundle =getOperatorResourceBundle();
 	}
 
 
-	private ResourceBundle getOperatorResourceBundle() {
-		if(this.operatorResourceBundle==null) {
-			this.operatorResourceBundle = ResourceBundle.getBundle("operator");
-		}
-		return this.operatorResourceBundle;
-	}
-
-    
     private <T> void setListParameters(ModelMap model, Service<T> service, String title) {
 		model.addAttribute("items", service.getAll());
-        model.addAttribute("title", getOperatorResourceBundle().getObject(title));
+        model.addAttribute("title", env.getProperty(title));
     }
 
     @GetMapping(path = "/langs.html")
@@ -91,7 +86,5 @@ public class OperatorController extends AbstractController {
         setListParameters(model, getTextBlockService(), "admin.announcments.title");
 		return "admin/announcments";
     }
-	
-	
 	
 }

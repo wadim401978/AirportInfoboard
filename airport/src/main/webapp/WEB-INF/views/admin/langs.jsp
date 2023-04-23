@@ -2,7 +2,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setBundle basename="operator" var="op"/>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <a href="../admin.html">Back to admin board</a><form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html">
+    <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a><form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html">
 	<table class="admin dashed">
 		<thead>
 			<tr>
@@ -17,7 +17,7 @@
 			<!-- 14 rows -->
 			<c:forEach items="${items}" var="item">
 				<tr>
-					<td  style="text-align:center;"><a href="lang/${item.id}.html"> <span>${item.langTag}</span></a>
+					<td  style="text-align:center;"><a href="lang/${item.id}.html"> <span>${item.tag}</span></a>
 					</td>
 					<td><a href="lang/${item.id}.html"> <span>${item.name}</span></a>
 					</td>

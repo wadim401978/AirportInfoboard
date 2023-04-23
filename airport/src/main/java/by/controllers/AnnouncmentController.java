@@ -1,4 +1,4 @@
-package by.controller;
+package by.controllers;
 
 import java.util.ResourceBundle;
 
@@ -8,43 +8,43 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import by.dao.model.flight.ScheduledDepartureFlight;
-import by.services.ScheduledDepartureFlightService;
+import by.dao.model.infomsg.TextBlock;
+import by.services.TextBlockService;
 
 
 @Controller
-@RequestMapping("/admin/departure")
-public class DepartureController {
+@RequestMapping("/admin/announcment")
+public class AnnouncmentController {
 	
-	private ScheduledDepartureFlightService departureService;
+	private TextBlockService announcmentService;
 	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
-	public DepartureController(ScheduledDepartureFlightService departureService) {
+	public AnnouncmentController(TextBlockService announcmentService) {
 		super();
-		this.departureService = departureService;
+		this.announcmentService = announcmentService;
 		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
     
     private String getTitle() {
-    	return operatorResourceBundle.getObject("admin.departure") +": ";
+    	return operatorResourceBundle.getObject("admin.announcment") +": ";
     }
 
 	@RequestMapping(value = "/{id}.html")
     public String lang(ModelMap model, @PathVariable("id") int id) {
-		ScheduledDepartureFlight departure = departureService.get(id);
-		String title = getTitle() + departure.getFlight().getIataNumber() + " " + departure.getScheduledDate();
+		TextBlock announcment = announcmentService.get(id);
+		String title = getTitle() + announcment.getId();
     	model.addAttribute("title", title);
-    	model.addAttribute("departure", departure);
-		return "admin/departure";
+    	model.addAttribute("announcment", announcment);
+		return "admin/announcment";
     }
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
 		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
     	model.addAttribute("title", title);
-    	model.addAttribute("departure", new ScheduledDepartureFlight());
-		return "admin/departure";
+    	model.addAttribute("announcment", new TextBlock());
+		return "admin/announcment";
     }
 
 }

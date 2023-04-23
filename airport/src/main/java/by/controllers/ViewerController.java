@@ -1,9 +1,11 @@
-package by.controller;
+package by.controllers;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,30 +23,33 @@ import by.services.ScheduledDepartureFlightService;
 import by.services.TextBlockService;
 
 @Controller
+@PropertySource("classpath:initial.properties")
 public class ViewerController extends AbstractController {
 	
-	private ResourceBundle initialResourceBundle;
+//	private ResourceBundle initialResourceBundle;
 
-	private ResourceBundle getInitialResourceBundle() {
-		if(this.initialResourceBundle==null) {
-			this.initialResourceBundle = ResourceBundle.getBundle("initial");
-		}
-		return this.initialResourceBundle;
-	}
-
+//	private ResourceBundle getInitialResourceBundle() {
+//		if(this.initialResourceBundle==null) {
+//			this.initialResourceBundle = ResourceBundle.getBundle("initial");
+//		}
+//		return this.initialResourceBundle;
+//	}
+	
+	@Autowired
+	private Environment env;
 
 	@Autowired(required = true)
 	public ViewerController(ScheduledArrivalFlightService arrivalService,
 			ScheduledDepartureFlightService departureService, TextBlockService textBlockService,
 			LanguageService langService) {
 		super(arrivalService, departureService, textBlockService, langService);
-		this.initialResourceBundle = getInitialResourceBundle();
+//		this.initialResourceBundle = getInitialResourceBundle();
 	}
 
 
 
 	private void setGetRequestModelAttributes(ModelMap model, String timeOutSource) {
-    	this.initialResourceBundle = getInitialResourceBundle();
+//    	this.initialResourceBundle = getInitialResourceBundle();
     	TextBlockService textBlockService = getTextBlockService();
     	LanguageService langService = getLangService();
     	model.addAttribute("lang", langService.getDefaultLang());
@@ -62,7 +67,8 @@ public class ViewerController extends AbstractController {
     	model.addAttribute("announcments", str);
     	
     	model.addAttribute("timeOutSource", timeOutSource);
-    	model.addAttribute("timeOutValue", initialResourceBundle.getString("timeout"));
+//    	model.addAttribute("timeOutValue", initialResourceBundle.getString("timeout"));
+    	model.addAttribute("timeOutValue", env.getProperty("timeout"));
     }
     
     
@@ -94,7 +100,8 @@ public class ViewerController extends AbstractController {
     }
 	
 	private int getEmptyRowsNumber(int listSize) {
-		int rowsNumber = Integer.parseInt(getInitialResourceBundle().getString("rows.number"));
+//		int rowsNumber = Integer.parseInt(getInitialResourceBundle().getString("rows.number"));
+		int rowsNumber = Integer.parseInt(env.getProperty("rows.number"));
         int emptyRows = 0;
         if (rowsNumber >= listSize) {
         	emptyRows = rowsNumber - listSize;
@@ -158,7 +165,8 @@ public class ViewerController extends AbstractController {
     
     @RequestMapping("/admin.html")
     public String admin(ModelMap model) {
-        model.addAttribute("title", getInitialResourceBundle().getObject("admin.board"));
+//        model.addAttribute("title", getInitialResourceBundle().getObject("admin.board"));
+        model.addAttribute("title", env.getProperty("admin.board"));
     	return "admin";
     }
 

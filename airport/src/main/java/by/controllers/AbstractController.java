@@ -1,4 +1,4 @@
-package by.controller;
+package by.controllers;
 
 import by.services.LanguageService;
 import by.services.ScheduledArrivalFlightService;

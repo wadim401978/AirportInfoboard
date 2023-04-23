@@ -13,8 +13,8 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @Import(DBConfig.class)
-//@ComponentScan(basePackages = {"by.controller", "by.dao.impl.test", "by.services.impl"})
-@ComponentScan(basePackages = {"by.controller", "by.dao.impl.jdbc", "by.services.impl"})
+//@ComponentScan(basePackages = {"by.controllers", "by.dao.impl.test", "by.services.impl"})
+@ComponentScan(basePackages = {"by.controllers", "by.dao.impl.jdbc", "by.services.impl"})
 public class WebMvcConfig {
     @Bean
     public InternalResourceViewResolver resolver() {
