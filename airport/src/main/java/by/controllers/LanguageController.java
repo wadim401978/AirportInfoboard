@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import by.controllers.validators.LanguageValidator;
 import by.dao.model.common.Language;
 import by.services.LanguageService;
@@ -36,24 +38,46 @@ public class LanguageController {
 		super();
 		this.service = langService;
 	}
+    
+    private String getTitle(int id, String name) {
+    	if (id == 0) {
+    		return env.getProperty("admin.language") + ": "
+    				+ env.getProperty("admin.new.title");
+    	} else {
+    		return env.getProperty("admin.language") +": " + name;
+    	}
+    }
 
-	@RequestMapping(value = "/{id}.html")
+	@RequestMapping(value = "/{id}.html", method = RequestMethod.GET)
     public String getLang(ModelMap model, @PathVariable("id") int id) {
 		Language lang = service.get(id);
-		String title = env.getProperty("admin.language") +": " + lang.getName();
-    	model.addAttribute("title", title);
-    	model.addAttribute("language", lang);
+		model.addAttribute("language", lang);
+		
+//		String title = env.getProperty("admin.language") +": " + lang.getName();
+    	model.addAttribute("title", getTitle(id, lang.getName()));
+    	
 		return "admin/lang";
     }
     
 	@GetMapping(path = "/add.html")
     public String createNewLang(ModelMap model) {
-		String title = env.getProperty("admin.language") + ": "
-				+ env.getProperty("admin.new.title");
-    	model.addAttribute("title", title);
-    	model.addAttribute("language", new Language(0, null, null, false));
+		Language lang = new Language(0, null, null, false);
+		model.addAttribute("language", lang);
+		
+//		String title = env.getProperty("admin.language") + ": "
+//				+ env.getProperty("admin.new.title");
+    	model.addAttribute("title", getTitle(0, lang.getName()));
+    	
+    	
 		return "admin/lang";
     }
+	
+	public String redirectLang(ModelMap model) {
+		Language lang = (Language) model.getAttribute("language");
+		model.addAttribute("language", lang);
+    	model.addAttribute("title", getTitle(lang.getId(), lang.getName()));
+		return "admin/lang";
+	}
 
 	@PostMapping(path = "/dlangs.html")
     public String deleteLang(ModelMap model, HttpServletRequest req) {
@@ -67,16 +91,17 @@ public class LanguageController {
     }
 	
     @PostMapping("/save.html")
-    public String saveLang(@ModelAttribute Language lang, BindingResult result) {
+    public String saveLang(@ModelAttribute Language language, BindingResult result, ModelMap model) {
         //TODO validation: TAG and NAME isNotEmpty
     	
-    	validator.validate(lang, result);
-//    	
-//    	if (result.hasErrors()) {
-//    		return "admin/lang";
-//    	}
+    	validator.validate(language, result);
     	
-    	service.save(lang);
+    	if (result.hasErrors()) {
+    		model.addAttribute("language", language);
+    		return redirectLang(model);
+    	}
+    	
+    	service.save(language);
 		return "redirect:../langs.html";
     }
 
