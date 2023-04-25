@@ -3,7 +3,6 @@ package by.app.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@Import(DBConfig.class)
 //@ComponentScan(basePackages = {"by.controllers", "by.dao.impl.test", "by.services.impl"})
 @ComponentScan(basePackages = {"by.controllers", "by.dao.impl.jdbc", "by.services.impl"})
 public class WebMvcConfig {
@@ -30,6 +28,7 @@ public class WebMvcConfig {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:viewer");
         messageSource.addBasenames("classpath:initial");
+        messageSource.addBasenames("classpath:operator");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

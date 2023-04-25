@@ -5,7 +5,15 @@ import by.dao.model.Entity;
 import by.dao.model.common.Language;
 
 public abstract class AirEntity extends Entity {
-    private Map<Language, String> names;
+    public void setIataCode(String iataCode) {
+		this.iataCode = iataCode;
+	}
+	public void setIcaoCode(String icaoCode) {
+		this.icaoCode = icaoCode;
+	}
+
+
+	private Map<Language, String> names;
     private String iataCode;
     private String icaoCode;
     private Language defaultLanguage;

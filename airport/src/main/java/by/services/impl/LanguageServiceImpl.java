@@ -25,7 +25,6 @@ public class LanguageServiceImpl implements LanguageService {
 	public void setDao(DAO<Language> dao) {
 		this.dao = (LanguageDAO)dao;
 	}
-	
 
 	@Override
 	public List<Language> getAll() {

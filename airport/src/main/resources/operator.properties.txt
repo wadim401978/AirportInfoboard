@@ -37,6 +37,6 @@ admin.time.status = Время в статусе
 
 admin.back.to.board = Вернуться в административную панель
 
-admin.language.error.name.empty = Наименование языка не может быть пустым
-admin.language.error.tag.empty = Обозначение языка не может быть пустым
-
+admin.error.name.empty = Наименование не может быть пустым
+admin.error.language.tag.empty = Обозначение языка не может быть пустым
+admin.error.duplicated.field = Недопустимое значение т.к. задано в другой записи

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import by.controllers.validators.LanguageValidator;
 import by.dao.model.common.Language;
 import by.services.LanguageService;
@@ -52,10 +52,7 @@ public class LanguageController {
     public String getLang(ModelMap model, @PathVariable("id") int id) {
 		Language lang = service.get(id);
 		model.addAttribute("language", lang);
-		
-//		String title = env.getProperty("admin.language") +": " + lang.getName();
     	model.addAttribute("title", getTitle(id, lang.getName()));
-    	
 		return "admin/lang";
     }
     
@@ -63,12 +60,7 @@ public class LanguageController {
     public String createNewLang(ModelMap model) {
 		Language lang = new Language(0, null, null, false);
 		model.addAttribute("language", lang);
-		
-//		String title = env.getProperty("admin.language") + ": "
-//				+ env.getProperty("admin.new.title");
     	model.addAttribute("title", getTitle(0, lang.getName()));
-    	
-    	
 		return "admin/lang";
     }
 	
@@ -91,9 +83,7 @@ public class LanguageController {
     }
 	
     @PostMapping("/save.html")
-    public String saveLang(@ModelAttribute Language language, BindingResult result, ModelMap model) {
-        //TODO validation: TAG and NAME isNotEmpty
-    	
+    public String saveLang(@ModelAttribute("language") Language language, BindingResult result, ModelMap model) {
     	validator.validate(language, result);
     	
     	if (result.hasErrors()) {
@@ -101,7 +91,15 @@ public class LanguageController {
     		return redirectLang(model);
     	}
     	
-    	service.save(language);
+    	try {
+    		service.save(language);
+		} catch (DuplicateKeyException e) {
+			result.rejectValue("tag", "admin.error.duplicated.field");
+			return redirectLang(model);
+		} catch (Exception e) {
+			return redirectLang(model);
+		}
+    	
 		return "redirect:../langs.html";
     }
 

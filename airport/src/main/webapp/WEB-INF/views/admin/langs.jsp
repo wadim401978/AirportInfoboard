@@ -2,7 +2,8 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setBundle basename="operator" var="op"/>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a><form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html">
+    <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
+    <form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html">
 	<table class="admin dashed">
 		<thead>
 			<tr>
