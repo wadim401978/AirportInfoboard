@@ -6,6 +6,10 @@ public class Language extends ActiveEntity{
     private String name;
     private String tag;
 
+	public Language() {
+		super();
+	}
+
 	public Language(int id, String name, String tag, boolean active) {
 		super(id, active);
 		this.name = name;

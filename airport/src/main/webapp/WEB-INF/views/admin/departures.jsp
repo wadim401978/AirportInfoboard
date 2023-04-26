@@ -3,7 +3,8 @@
 <fmt:setBundle basename="viewer" var="viewer_bundle" />
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <a href="../admin.html">Back to admin board</a>
+    <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
+    <form method="post" action="${pageContext.request.contextPath}/admin/lang/ddepartures.html">
 	<table class="admin dashed">
 		<thead>
 			<tr>
@@ -55,5 +56,6 @@
 			</tr>
 		</tbody>
 	</table>
+	</form>
     </div>
 </ui:html>

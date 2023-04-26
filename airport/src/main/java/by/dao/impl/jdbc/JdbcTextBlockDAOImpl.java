@@ -10,7 +10,7 @@ import by.dao.model.infomsg.TextBlock;
 
 @Transactional
 @Repository
-public class JdbcTextBlockDAOImpl implements TextBlockDAO {
+public class JdbcTextBlockDAOImpl extends JdbcAbstractDao implements TextBlockDAO {
 
 	@Override
 	public List<TextBlock> findAllBlocks() {

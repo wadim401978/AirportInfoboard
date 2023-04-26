@@ -1,9 +1,10 @@
 <%@taglib prefix="ui" tagdir="/WEB-INF/tags/admin"%><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setBundle basename="operator" var="op"/>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <fmt:setBundle basename="viewer" var="viewer_bundle" />
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <form action="${pageContext.request.contextPath}/admin/departures.html" >
+    <form:form action="${pageContext.request.contextPath}/admin/departures.html" >
     	<table class="admin">
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
@@ -44,8 +45,8 @@
     				<input type="button" value="..." name="addStatusTime"  alt="select time">
     			</td>
     		</tr>
-    		<ui:itemButtons/>	
+    		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/departures.html"/>	
     	</table>
-    </form>
+    </form:form>
 </div>
 </ui:html>

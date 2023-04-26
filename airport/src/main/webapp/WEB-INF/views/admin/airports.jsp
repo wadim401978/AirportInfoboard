@@ -26,7 +26,7 @@
 							<span>${item.iataCode} (${item.icaoCode})</span>
 						</a>
 					</td>
-					<td><input type="checkbox" name="delete${item.id}"></td>
+					<td><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
 			<tr style="border: none;">

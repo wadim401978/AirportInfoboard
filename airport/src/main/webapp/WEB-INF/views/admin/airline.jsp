@@ -1,8 +1,9 @@
 <%@taglib prefix="ui" tagdir="/WEB-INF/tags/admin"%><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setBundle basename="operator" var="op"/>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <form action="${pageContext.request.contextPath}/admin/airlines.html" >
+    <form:form action="${pageContext.request.contextPath}/admin/airlines.html" >
     	<table class="admin">
     		<tr>
     			<td style="width: 180px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
@@ -20,7 +21,7 @@
 			<tr>
 				<td colspan="2">
     				<input type="hidden" name="langid" value="${entry.key.id}" >
-    				<input type="text" name="lang" value="${entry.key.langTag}" class="langtag" disabled="disabled">
+    				<input type="text" name="lang" value="${entry.key.tag}" class="langtag" disabled="disabled">
     				<input type="button" value="..." name="addLang${entry.key.id}" alt="select lang">
     				<input type="text" name="lang" value="${entry.value}" >
     				<input type="button" value="-" name="delLang${entry.key.id}" alt="del lang">
@@ -37,8 +38,8 @@
 				</td>
 			</tr>
 			
-			<ui:itemButtons/>			
+			<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/airlines.html"/>			
 		</table>
-    </form>
+    </form:form>
 </div>
 </ui:html>

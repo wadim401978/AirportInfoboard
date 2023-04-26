@@ -46,11 +46,33 @@ public class Flight extends Entity {
 	public boolean isArrival() {
 		return isArrival;
 	}
+	
+	
+
+	public void setAirline(Airline airline) {
+		this.airline = airline;
+	}
+
+	public void setAirport(Airport airport) {
+		this.airport = airport;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public void setArrival(boolean isArrival) {
+		this.isArrival = isArrival;
+	}
+	
+	public String getType() {
+		return isArrival()?"Arrival":"Departure";
+	}
 
 	@Override
 	public String toString() {
 		return super.toString()
-				+ (isArrival()?"Arrival":"Departure") 
+				+ getType() 
 				+ ": " + getIcaoNumber() + "/" + getIataNumber() + ": " 
 				+ getAirline().getName() + "; " 
 				+ "(" + getAirport().getIataCode() + ") " + getAirport().getName();

@@ -26,11 +26,14 @@ public abstract class AirEntity extends Entity {
 		this.icaoCode = icaoCode;
 		this.defaultLanguage = defaultLanguage;
 	}
+	
 	public AirEntity() {
 		
 	}
 
 
+	
+	
 	public Map<Language, String> getNames() {
 		return names;
 	}
@@ -66,6 +69,23 @@ public abstract class AirEntity extends Entity {
 		String name = getNames().get(lang);
 		return name == null ? getName() : name;
 	}
+	
+	public void setDefaultLanguageByTag(String tag) {
+		Map<Language, String> map = this.getNames();
+		for (Map.Entry<Language, String> entry : map.entrySet()) {
+			if (entry.getValue().equals(tag)) {
+				this.defaultLanguage = entry.getKey();
+			};
+		}
+	}
+	
+	public Language getDefaultLanguage() {
+		return defaultLanguage;
+	}
+	public void setDefaultLanguage(Language defaultLanguage) {
+		this.defaultLanguage = defaultLanguage;
+	}
+	
 	
 	private String toStringNames() {
 		Map<Language, String> map = this.getNames();

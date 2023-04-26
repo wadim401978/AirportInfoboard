@@ -7,18 +7,19 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import by.dao.model.common.Language;
-import by.dao.model.flight.Airport;
+import by.dao.model.flight.Airline;
 
-public class AirportExtractor implements ResultSetExtractor<Airport> {
+public class AirlineExtractor implements ResultSetExtractor<Airline> {
 
 	@Override
-	public Airport extractData(ResultSet rs) throws SQLException, DataAccessException {
-		Airport airport = new Airport();
+	public Airline extractData(ResultSet rs) throws SQLException, DataAccessException {
+		Airline airline = new Airline();
 		Map<Language, String> names = new HashMap<>();
 		while (rs.next()) {
-			airport.setId(rs.getInt("a.id"));
-			airport.setIcaoCode(rs.getString("a.ICAO"));
-			airport.setIataCode(rs.getString("a.IATA"));
+			airline.setId(rs.getInt("a.id"));
+			airline.setIcaoCode(rs.getString("a.ICAO"));
+			airline.setIataCode(rs.getString("a.IATA"));
+			airline.setLogo(rs.getString("a.path"));
 			Language lang = new Language(
 					rs.getInt("l.id"), 
 					rs.getString("l.name"), 
@@ -26,9 +27,9 @@ public class AirportExtractor implements ResultSetExtractor<Airport> {
 					rs.getBoolean("l.active"));
 			
 			names.put(lang, rs.getString("a18.name"));
-			airport.setNames(names);
+			airline.setNames(names);
 		}
-		return airport;
+		return airline;
 	}
 	
 

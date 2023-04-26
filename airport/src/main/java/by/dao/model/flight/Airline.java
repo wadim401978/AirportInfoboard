@@ -4,7 +4,11 @@ import java.util.Map;
 import by.dao.model.common.Language;
 
 public class Airline extends AirEntity{
-    private String logo;
+    public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	private String logo;
 
 	public Airline(int id, String iataCode, String icaoCode, Map<Language, String> names, Language defaultLanguage, String logo) {
 		super(id, iataCode, icaoCode, names, defaultLanguage);

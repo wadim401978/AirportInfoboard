@@ -3,25 +3,32 @@ package by.dao.impl.jdbc;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import by.dao.FlightDAO;
+import by.dao.impl.jdbc.mapper.FlightExtractor;
+import by.dao.impl.jdbc.mapper.FlightRowMapper;
 import by.dao.model.flight.Flight;
 
-@Transactional
 @Repository
-public class JdbcFlightDAOImpl implements FlightDAO {
+public class JdbcFlightDAOImpl extends JdbcAbstractDao implements FlightDAO {
 
 	@Override
 	public Flight read(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Flight flight = getJdbcTemplate().query(
+				getQuery("flight.select.where.id"), 
+				new FlightExtractor(), 
+				id);
+		flight.getAirline().setDefaultLanguageByTag(getDefaultLangTag());
+		flight.getAirport().setDefaultLanguageByTag(getDefaultLangTag());
+		
+		return flight;
 	}
 
 	@Override
 	public List<Flight> getFlights() {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbcTemplate().query(
+				getQuery("flight.select.all"), 
+				new FlightRowMapper(), 
+				getDefaultLangTag());
 	}
 
 	@Override

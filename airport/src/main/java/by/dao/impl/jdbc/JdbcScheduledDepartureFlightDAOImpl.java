@@ -12,7 +12,7 @@ import by.dao.model.flight.ScheduledDepartureFlight;
 
 @Transactional
 @Repository
-public class JdbcScheduledDepartureFlightDAOImpl implements ScheduledDepartureFlightDAO {
+public class JdbcScheduledDepartureFlightDAOImpl extends JdbcAbstractDao implements ScheduledDepartureFlightDAO {
 
 	@Override
 	public List<ScheduledDepartureFlight> findAll() {
