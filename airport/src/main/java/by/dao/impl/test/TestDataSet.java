@@ -9,19 +9,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import by.app.util.DateTime;
 import by.dao.model.common.Language;
 import by.dao.model.flight.Airline;
 import by.dao.model.flight.Airport;
 import by.dao.model.flight.ArrivalStatus;
 import by.dao.model.flight.DepartureStatus;
 import by.dao.model.flight.Flight;
-import by.dao.model.flight.ScheduledArrivalFlight;
-import by.dao.model.flight.ScheduledDepartureFlight;
+import by.dao.model.flight.Arrival;
+import by.dao.model.flight.Departure;
 import by.dao.model.infomsg.TextBlock;
-import by.services.ScheduledArrivalFlightService;
-import by.services.ScheduledDepartureFlightService;
-import by.services.impl.ScheduledArrivalFlightServiceImpl;
-import by.services.impl.ScheduledDepartureFlightServiceImpl;
 
 public final class TestDataSet {
 	private static TestDataSet instance;
@@ -34,8 +31,8 @@ public final class TestDataSet {
 	private List<Airline> airlines = null;
 	private Map<String, Flight> flightMap = null;
 	private List<Flight> flights = null;
-	private List<ScheduledArrivalFlight> arrivals = null;
-	private List<ScheduledDepartureFlight> departures = null;
+	private List<Arrival> arrivals = null;
+	private List<Departure> departures = null;
 	private Language defaultLanguage = null;
 	private List<TextBlock> textBlocks = null;
 
@@ -96,11 +93,11 @@ public final class TestDataSet {
 		return flights;
 	}
 	
-	public List<ScheduledArrivalFlight> getArrivals() {
+	public List<Arrival> getArrivals() {
 		return arrivals;
 	}
 	
-	public List<ScheduledDepartureFlight> getDepartures() {
+	public List<Departure> getDepartures() {
 		return departures;
 	}
 
@@ -213,7 +210,7 @@ public final class TestDataSet {
 	
 	private static void setArrivals() {
 		TestDataSet inst = getInstance();
-		ScheduledArrivalFlightService service = new ScheduledArrivalFlightServiceImpl();
+//		ArrivalService service = new ArrivalServiceImpl();
 		int i = 0;
 		inst.arrivals = new ArrayList<>();
 		Flight flight0 = inst.getFlights().get(0);
@@ -225,24 +222,27 @@ public final class TestDataSet {
 		LocalDateTime ldt = LocalDateTime.of(lDate, tTime0);
 		Date date = Date.from(ldt.toInstant(inst.offset));
 		tTime0 = LocalTime.of(11, 30);
-		Date tDate = service.getDateWithLocalTime(date, tTime2);
-		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight0, date, tDate, ArrivalStatus.EXPECTED));
+//		Date tDate = service.getDateWithLocalTime(date, tTime2);
+		Date tDate = DateTime.getDateWithLocalTime(date, tTime2);
+		
+		inst.arrivals.add(new Arrival(++i, flight0, date, tDate, ArrivalStatus.EXPECTED));
 		
 		ldt = LocalDateTime.of(lDate, tTime2);
 		date = Date.from(ldt.toInstant(inst.offset));
-		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight2, date, ArrivalStatus.EXPECTED));
+		inst.arrivals.add(new Arrival(++i, flight2, date, ArrivalStatus.EXPECTED));
 		
 		lDate = LocalDate.of(2023, 04, 23);
 		ldt = LocalDateTime.of(lDate, tTime0);
 		date = Date.from(ldt.toInstant(inst.offset));
 		tTime0 = LocalTime.of(12, 40);
-		tDate = service.getDateWithLocalTime(date, tTime0);
-		inst.arrivals.add(new ScheduledArrivalFlight(++i, flight0, date, tDate, ArrivalStatus.DELAYED));
+//		tDate = service.getDateWithLocalTime(date, tTime0);
+		tDate = DateTime.getDateWithLocalTime(date, tTime0);
+		inst.arrivals.add(new Arrival(++i, flight0, date, tDate, ArrivalStatus.DELAYED));
 	}
 	
 	private static void setDepartures() {
 		TestDataSet inst = getInstance();
-		ScheduledDepartureFlightService service = new ScheduledDepartureFlightServiceImpl();
+//		DepartureService service = new DepartureServiceImpl();
 		int i = 0;
 		inst.departures = new ArrayList<>();
 		Flight flight1 = inst.getFlights().get(1);
@@ -254,19 +254,21 @@ public final class TestDataSet {
 		LocalDateTime ldt = LocalDateTime.of(lDate, tTime1);
 		Date date = Date.from(ldt.toInstant(inst.offset));
 		tTime1 = LocalTime.of(14, 35);
-		Date tDate = service.getDateWithLocalTime(date, tTime3);
-		inst.departures.add(new ScheduledDepartureFlight(++i, flight1, date, tDate, DepartureStatus.CHECKIN_AT));
+//		Date tDate = service.getDateWithLocalTime(date, tTime3);
+		Date tDate = DateTime.getDateWithLocalTime(date, tTime3);
+		inst.departures.add(new Departure(++i, flight1, date, tDate, DepartureStatus.CHECKIN_AT));
 		
 		ldt = LocalDateTime.of(lDate, tTime3);
 		date = Date.from(ldt.toInstant(inst.offset));
-		inst.departures.add(new ScheduledDepartureFlight(++i, flight3, date, DepartureStatus.CHECKIN_NOW));
+		inst.departures.add(new Departure(++i, flight3, date, DepartureStatus.CHECKIN_NOW));
 		
 		lDate = LocalDate.of(2023, 04, 23);
 		ldt = LocalDateTime.of(lDate, tTime1);
 		date = Date.from(ldt.toInstant(inst.offset));
 		tTime1 = LocalTime.of(15, 41);
-		tDate = service.getDateWithLocalTime(date, tTime1);
-		inst.departures.add(new ScheduledDepartureFlight(++i, flight1, date, tDate, DepartureStatus.CANCELLED));
+//		tDate = service.getDateWithLocalTime(date, tTime1);
+		tDate = DateTime.getDateWithLocalTime(date, tTime1);
+		inst.departures.add(new Departure(++i, flight1, date, tDate, DepartureStatus.CANCELLED));
 	}
 	
 	private static void setTextBlocks() {

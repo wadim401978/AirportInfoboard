@@ -13,11 +13,21 @@ public enum ArrivalStatus {
 		return property;
 	}
 	
+	private ArrivalStatus(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getPropertyById(int id) {
+		return property;
+	}
+	
 	private ArrivalStatus(int id, String property) {
 		this.id = id;
 		this.property = property;
 	}
-	
-	
 
 }

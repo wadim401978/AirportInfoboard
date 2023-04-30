@@ -1,19 +1,19 @@
 package by.dao.model.flight;
 
 import java.util.Date;
-public class ScheduledArrivalFlight extends ScheduledFlight {
+public class Arrival extends ScheduledFlight {
 	private ArrivalStatus status;
 
-	public ScheduledArrivalFlight(int id, Flight flight, Date scheduledDate, ArrivalStatus status) {
+	public Arrival(int id, Flight flight, Date scheduledDate, ArrivalStatus status) {
 		super(id, flight, scheduledDate);
 		this.status = status;
 	}
 	
-	public ScheduledArrivalFlight() {
+	public Arrival() {
 		
 	}
 
-	public ScheduledArrivalFlight(int id, Flight flight, Date scheduledDate, Date statusTime, ArrivalStatus status) {
+	public Arrival(int id, Flight flight, Date scheduledDate, Date statusTime, ArrivalStatus status) {
 		super(id, flight, scheduledDate, statusTime);
 		this.status = status;
 	}

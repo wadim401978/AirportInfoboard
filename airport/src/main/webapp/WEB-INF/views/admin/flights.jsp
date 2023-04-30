@@ -3,7 +3,7 @@
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
     <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
-    <form method="post" action="${pageContext.request.contextPath}/admin/lang/dflights.html">
+    <form method="post" action="${pageContext.request.contextPath}/admin/flight/dflights.html" id="deleteCheckers">
 	<table class="admin dashed">
 		<thead>
 			<tr>
@@ -13,7 +13,7 @@
 					(<fmt:message key="admin.ICAO.number" bundle="${op}"/>)
 				</td>
 				<td><fmt:message key="admin.type" bundle="${op}"/></td>
-				<td><input type="checkbox" name="delete0"></td>
+				<td><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -40,7 +40,7 @@
 						</a>
 					</td>
 					
-					<td><input type="checkbox" name="delete${item.id}"></td>
+					<td><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
 			<tr style="border: none;">

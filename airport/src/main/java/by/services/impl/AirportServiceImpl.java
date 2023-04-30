@@ -13,7 +13,6 @@ import by.services.AirportService;
 public class AirportServiceImpl implements AirportService {
 
 	private AirportDAO dao;
-	private ResourceBundle initialResourceBundle;
 	
 	@Override
 	@Autowired
@@ -23,7 +22,7 @@ public class AirportServiceImpl implements AirportService {
 	}
 	
 	public AirportServiceImpl() {
-		this.initialResourceBundle = ResourceBundle.getBundle("initial");
+		ResourceBundle.getBundle("initial");
 	}
 
 	@Override
@@ -40,15 +39,7 @@ public class AirportServiceImpl implements AirportService {
         }
 	}
 
-	@Override
-	public Airport getByIcaoCode(String icaoCode) {
-		return this.dao.findAirportByIcaoCode(icaoCode);
-	}
 
-	@Override
-	public Airport getDefaultAirport() {
-		return getByIcaoCode(initialResourceBundle.getString("airport.base.ICAO"));
-	}
 
 	@Override
 	public Airport get(int id) {

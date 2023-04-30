@@ -3,14 +3,14 @@
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
     <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
-    <form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html">
+    <form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html" id="deleteCheckers">
 	<table class="admin dashed">
 		<thead>
 			<tr>
 				<td style="width: 150px;"><fmt:message key="admin.tag" bundle="${op}"/></td>
 				<td><fmt:message key="admin.name" bundle="${op}"/></td>
 				<td><fmt:message key="admin.active" bundle="${op}"/></td>
-				<td><input type="checkbox" name="delete0"></td>
+				<td><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
 			</tr>
 		</thead>
 		

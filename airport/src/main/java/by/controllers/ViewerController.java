@@ -2,7 +2,6 @@ package by.controllers;
 
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -14,42 +13,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.google.gson.Gson;
-import by.dao.model.flight.ScheduledArrivalFlight;
-import by.dao.model.flight.ScheduledDepartureFlight;
+import by.dao.model.flight.Arrival;
+import by.dao.model.flight.Departure;
 import by.dao.model.infomsg.TextBlock;
 import by.services.LanguageService;
-import by.services.ScheduledArrivalFlightService;
-import by.services.ScheduledDepartureFlightService;
+import by.services.ArrivalService;
+import by.services.DepartureService;
 import by.services.TextBlockService;
 
 @Controller
 @PropertySource("classpath:initial.properties")
 public class ViewerController extends AbstractController {
 	
-//	private ResourceBundle initialResourceBundle;
-
-//	private ResourceBundle getInitialResourceBundle() {
-//		if(this.initialResourceBundle==null) {
-//			this.initialResourceBundle = ResourceBundle.getBundle("initial");
-//		}
-//		return this.initialResourceBundle;
-//	}
 	
 	@Autowired
 	private Environment env;
 
 	@Autowired(required = true)
-	public ViewerController(ScheduledArrivalFlightService arrivalService,
-			ScheduledDepartureFlightService departureService, TextBlockService textBlockService,
+	public ViewerController(ArrivalService arrivalService,
+			DepartureService departureService, TextBlockService textBlockService,
 			LanguageService langService) {
 		super(arrivalService, departureService, textBlockService, langService);
-//		this.initialResourceBundle = getInitialResourceBundle();
 	}
 
 
 
 	private void setGetRequestModelAttributes(ModelMap model, String timeOutSource) {
-//    	this.initialResourceBundle = getInitialResourceBundle();
     	TextBlockService textBlockService = getTextBlockService();
     	LanguageService langService = getLangService();
     	model.addAttribute("lang", langService.getDefaultLang());
@@ -80,8 +69,8 @@ public class ViewerController extends AbstractController {
     
 	@GetMapping("/arr.html")
     public String arrival(ModelMap model) {
-		ScheduledArrivalFlightService arrivalService = getArrivalService();
-		List<ScheduledArrivalFlight> arrivals = arrivalService.getAll();
+		ArrivalService arrivalService = getArrivalService();
+		List<Arrival> arrivals = arrivalService.getAll();
 		Date date = new Date();
 		model.addAttribute("date", arrivalService.getDateFormatted(date));
 		model.addAttribute("time", arrivalService.getTimeFormattedSec(date));
@@ -111,8 +100,8 @@ public class ViewerController extends AbstractController {
 
 	@GetMapping("/dep.html")
     public String departure(ModelMap model) {
-    	ScheduledDepartureFlightService departureService = getDepartureService();
-    	List<ScheduledDepartureFlight> departures = departureService.getAll();
+    	DepartureService departureService = getDepartureService();
+    	List<Departure> departures = departureService.getAll();
     	model.addAttribute("departures", departures);
     	Date date = new Date();
         model.addAttribute("date", departureService.getDateFormatted(date));

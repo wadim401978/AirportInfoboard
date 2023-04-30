@@ -35,10 +35,6 @@ public class FlightServiceImpl implements FlightService {
         }
 	}
 
-	@Override
-	public Flight getByIcaoNumber(String icao) {
-		return dao.getFlightByIcaoNumber(icao);
-	}
 
 	@Override
 	public Flight get(int id) {

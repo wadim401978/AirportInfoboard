@@ -11,8 +11,8 @@ import by.services.AirlineService;
 import by.services.AirportService;
 import by.services.FlightService;
 import by.services.LanguageService;
-import by.services.ScheduledArrivalFlightService;
-import by.services.ScheduledDepartureFlightService;
+import by.services.ArrivalService;
+import by.services.DepartureService;
 import by.services.Service;
 import by.services.TextBlockService;
 
@@ -28,8 +28,8 @@ public class OperatorController extends AbstractController {
 	private Environment env;
 	
 	@Autowired(required = true)
-	public OperatorController(ScheduledArrivalFlightService arrivalService,
-			ScheduledDepartureFlightService departureService, TextBlockService textBlockService,
+	public OperatorController(ArrivalService arrivalService,
+			DepartureService departureService, TextBlockService textBlockService,
 			LanguageService langService, AirportService airportService, AirlineService airlineService,
 			FlightService flightService) {
 		super(arrivalService, departureService, textBlockService, langService);

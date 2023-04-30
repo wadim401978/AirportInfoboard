@@ -19,6 +19,10 @@ public enum DepartureStatus {
 		this.property = property;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
 	
 
 }

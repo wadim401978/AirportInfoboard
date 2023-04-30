@@ -9,23 +9,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Repository;
-import by.dao.ScheduledArrivalFlightDAO;
+import by.dao.ArrivalDAO;
 import by.dao.model.flight.Flight;
-import by.dao.model.flight.ScheduledArrivalFlight;
+import by.dao.model.flight.Arrival;
 
 @Repository
-public class TestScheduledArrivalFlightDAOImpl implements ScheduledArrivalFlightDAO {
+public class TestArrivalDAOImpl implements ArrivalDAO {
 
 	@Override
-	public List<ScheduledArrivalFlight> findAll() {
+	public List<Arrival> findAll() {
 		return TestDataSet.getInstance().getArrivals();
 	}
 
 	@Override
-	public List<ScheduledArrivalFlight> findAllByFlight(Flight flight) {
-		List<ScheduledArrivalFlight> arrivals = new ArrayList<>();
-		List<ScheduledArrivalFlight> allArrivals = findAll();
-		for (ScheduledArrivalFlight arrival : allArrivals) {
+	public List<Arrival> findAllByFlight(Flight flight) {
+		List<Arrival> arrivals = new ArrayList<>();
+		List<Arrival> allArrivals = findAll();
+		for (Arrival arrival : allArrivals) {
 			if(flight.getIcaoNumber().equals(arrival.getFlight().getIcaoNumber())) {
 				arrivals.add(arrival);
 			}
@@ -35,11 +35,11 @@ public class TestScheduledArrivalFlightDAOImpl implements ScheduledArrivalFlight
 
 	
 	@Override
-	public List<ScheduledArrivalFlight> findByPeriod(Date startDate, Date endDate) {
-		List<ScheduledArrivalFlight> arrivals = new ArrayList<>();
-		List<ScheduledArrivalFlight> allArrivals = findAll();
+	public List<Arrival> findByPeriod(Date startDate, Date endDate) {
+		List<Arrival> arrivals = new ArrayList<>();
+		List<Arrival> allArrivals = findAll();
 		
-		for (ScheduledArrivalFlight arrival : allArrivals) {
+		for (Arrival arrival : allArrivals) {
 			Date arrivalDate = arrival.getScheduledDate(); 
 			if(isDateInBand(arrivalDate, startDate, endDate)) {
 				arrivals.add(arrival);
@@ -51,9 +51,9 @@ public class TestScheduledArrivalFlightDAOImpl implements ScheduledArrivalFlight
 	
 
 	@Override
-	public ScheduledArrivalFlight findScheduledFlight(Date date, Flight flight) {
-		List<ScheduledArrivalFlight> allArrivals = findAll();
-		ScheduledArrivalFlight foundArrival = null;
+	public Arrival findScheduledFlight(Date date, Flight flight) {
+		List<Arrival> allArrivals = findAll();
+		Arrival foundArrival = null;
 		
 		ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
 		LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
@@ -63,7 +63,7 @@ public class TestScheduledArrivalFlightDAOImpl implements ScheduledArrivalFlight
 		lt = LocalTime.of(23, 59, 59);
 		Date endDate = Date.from(LocalDateTime.of(ld, lt).toInstant(offset));
 		
-		for (ScheduledArrivalFlight arrival : allArrivals) {
+		for (Arrival arrival : allArrivals) {
 			Date arrivalDate = arrival.getScheduledDate(); 
 			if(arrival.getFlight().getIcaoNumber().equals(flight.getIcaoNumber()) && isDateInBand(arrivalDate, startDate, endDate)) {
 				foundArrival = arrival;
@@ -74,7 +74,7 @@ public class TestScheduledArrivalFlightDAOImpl implements ScheduledArrivalFlight
 	}
 
 	@Override
-	public ScheduledArrivalFlight read(Integer id) {
+	public Arrival read(Integer id) {
 		id--;
 		if (id < 0) id = 0;
 		return TestDataSet.getInstance().getArrivals().get(id);

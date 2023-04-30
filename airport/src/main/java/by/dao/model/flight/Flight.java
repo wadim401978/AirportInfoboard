@@ -65,6 +65,10 @@ public class Flight extends Entity {
 		this.isArrival = isArrival;
 	}
 	
+	public void setArrival(String type) {
+		this.isArrival = type.equals("arrival")?true:false;
+	}
+	
 	public String getType() {
 		return isArrival()?"Arrival":"Departure";
 	}

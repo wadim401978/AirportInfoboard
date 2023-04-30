@@ -1,6 +1,5 @@
 package by.controllers;
 
-import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -72,13 +71,8 @@ public class LanguageController {
 	}
 
 	@PostMapping(path = "/dlangs.html")
-    public String deleteLang(ModelMap model, HttpServletRequest req) {
-		Enumeration<String> pidEnum = req.getParameterNames();
-		while (pidEnum.hasMoreElements()) {
-			String pid = pidEnum.nextElement();
-			int id = Integer.parseInt(pid, 10);
-			service.remove(id);
-		}
+	public String deleteItems(HttpServletRequest req) {
+		service.simpleRemoveItems(req);
 		return "redirect:../langs.html";
     }
 	

@@ -32,7 +32,6 @@
     			<td><fmt:message key="admin.active" bundle="${op}"/>:</td>
     			<td>
     				<form:checkbox path="active"/>
-					
     			</td>
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/langs.html"/>	

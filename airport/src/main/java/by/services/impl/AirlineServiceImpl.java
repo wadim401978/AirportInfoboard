@@ -25,10 +25,6 @@ public class AirlineServiceImpl implements AirlineService {
 		this.initialResourceBundle = ResourceBundle.getBundle("initial");
 	}
 
-	@Override
-	public Airline getByIcaoCode(String icaoCode) {
-		return dao.findAirlineByIcaoCode(icaoCode);
-	}
 
 	@Override
 	public List<Airline> getAll() {
@@ -45,10 +41,6 @@ public class AirlineServiceImpl implements AirlineService {
         }
 	}
 
-	@Override
-	public Airline getDefaultAirline() {
-		return getByIcaoCode(initialResourceBundle.getString("airline.base.ICAO"));
-	}
 
 	@Override
 	public Airline get(int id) {

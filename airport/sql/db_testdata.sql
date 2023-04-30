@@ -56,32 +56,32 @@ INSERT INTO `flights` (`aviacompany_flight_number`, `id_airports`, `id_airlines`
     (8208, (SELECT `id` FROM `airports` WHERE IATA='SSH'), (SELECT `id` FROM `airlines` WHERE IATA='B2'), 'arrival'), (8209, (SELECT `id` FROM `airports` WHERE IATA='SSH'),(SELECT `id` FROM `airlines` WHERE IATA='B2'), 'departure');
 
 
-INSERT INTO `arrivals` (`id_flights`, `scheduledDate`, `scheduledTime`, `ArrivalStatus`, `statusTime`) 
+INSERT INTO `arrivals` (`id_flights`, `scheduledDate`,  `ArrivalStatus`, `statusTime`) 
 	VALUES ((SELECT `id` FROM `flights` 
-	WHERE `aviacompany_flight_number`='8218' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-08-23', '10:40:00', '2', '11:40:00');
-INSERT INTO `arrivals` (`id_flights`, `scheduledDate`, `scheduledTime`, `ArrivalStatus`, `statusTime`) 
+	WHERE `aviacompany_flight_number`='8218' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-08-23 10:40:00', '2', '2023-08-23 11:40:00');
+INSERT INTO `arrivals` (`id_flights`, `scheduledDate`, `ArrivalStatus`, `statusTime`) 
 	VALUES ((SELECT `id` FROM `flights` 
-	WHERE `aviacompany_flight_number`='8218' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-09-13', '10:40:00', '1', '10:40:00');
-INSERT INTO `arrivals` (`id_flights`, `scheduledDate`, `scheduledTime`, `ArrivalStatus`) 
+	WHERE `aviacompany_flight_number`='8218' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-09-13 10:40:00', '1', '2023-09-13 10:40:00');
+INSERT INTO `arrivals` (`id_flights`, `scheduledDate`,  `ArrivalStatus`) 
 	VALUES ((SELECT `id` FROM `flights` 
-	WHERE `aviacompany_flight_number`='8208' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-09-13', '12:40:00', '4');
-INSERT INTO `arrivals` (`id_flights`, `scheduledDate`, `scheduledTime`, `ArrivalStatus`, `statusTime`) 
+	WHERE `aviacompany_flight_number`='8208' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-09-13 12:40:00', '4');
+INSERT INTO `arrivals` (`id_flights`, `scheduledDate`, `ArrivalStatus`, `statusTime`) 
 	VALUES ((SELECT `id` FROM `flights` 
-	WHERE `aviacompany_flight_number`='8208' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-08-23', '12:40:00', '1', '12:50:00');
+	WHERE `aviacompany_flight_number`='8208' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-08-23 12:40:00', '1', '2023-08-23 12:50:00');
 
 
-INSERT INTO `departures` (`id_flights`, `scheduledDate`, `scheduledTime`, `DepartureStatus`, `statusTime`) 
+INSERT INTO `departures` (`id_flights`, `scheduledDate`, `DepartureStatus`, `statusTime`) 
 	VALUES ((SELECT `id` FROM `flights` 
-	WHERE `aviacompany_flight_number`='8218' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-08-23', '13:40:00', '4', '14:40:00');
-INSERT INTO `departures` (`id_flights`, `scheduledDate`, `scheduledTime`, `DepartureStatus`, `statusTime`) 
+	WHERE `aviacompany_flight_number`='8219' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-08-23 13:40:00', '4', '2023-08-23 14:40:00');
+INSERT INTO `departures` (`id_flights`, `scheduledDate`, `DepartureStatus`, `statusTime`) 
 	VALUES ((SELECT `id` FROM `flights` 
-	WHERE `aviacompany_flight_number`='8218' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-09-13', '13:40:00', '1', '13:40:00');
-INSERT INTO `departures` (`id_flights`, `scheduledDate`, `scheduledTime`, `DepartureStatus`) 
+	WHERE `aviacompany_flight_number`='8219' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-09-13 13:40:00', '1', '2023-09-13 13:40:00');
+INSERT INTO `departures` (`id_flights`, `scheduledDate`, `DepartureStatus`) 
 	VALUES ((SELECT `id` FROM `flights` 
-	WHERE `aviacompany_flight_number`='8208' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-09-13', '15:40:00', '5');
-INSERT INTO `departures` (`id_flights`, `scheduledDate`, `scheduledTime`, `DepartureStatus`, `statusTime`) 
+	WHERE `aviacompany_flight_number`='8209' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-09-13 15:40:00', '5');
+INSERT INTO `departures` (`id_flights`, `scheduledDate`, `DepartureStatus`, `statusTime`) 
 	VALUES ((SELECT `id` FROM `flights` 
-	WHERE `aviacompany_flight_number`='8208' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-08-23', '15:40:00', '2', '15:50:00');
+	WHERE `aviacompany_flight_number`='8209' AND `id_airlines` = (SELECT `id` FROM `airlines` WHERE IATA='B2')), '2023-08-23 15:40:00', '2', '2023-08-23 15:50:00');
     
     
     

@@ -2,11 +2,14 @@ package by.controllers;
 
 import java.util.ResourceBundle;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import by.dao.model.flight.Flight;
 import by.services.FlightService;
@@ -16,13 +19,13 @@ import by.services.FlightService;
 @RequestMapping("/admin/flight")
 public class FlightController {
 	
-	private FlightService flightService;
+	private FlightService service;
 	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
 	public FlightController(FlightService flightService) {
 		super();
-		this.flightService = flightService;
+		this.service = flightService;
 		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
     
@@ -31,8 +34,8 @@ public class FlightController {
     }
 
 	@RequestMapping(value = "/{id}.html")
-    public String lang(ModelMap model, @PathVariable("id") int id) {
-		Flight flight = flightService.get(id);
+    public String getFlight(ModelMap model, @PathVariable("id") int id) {
+		Flight flight = service.get(id);
 		String title = getTitle() + flight.getIataNumber() + "|" + flight.getIcaoNumber();
     	model.addAttribute("title", title);
     	model.addAttribute("flight", flight);
@@ -46,5 +49,12 @@ public class FlightController {
     	model.addAttribute("flight", new Flight());
 		return "admin/flight";
     }
+	
+	@PostMapping(path = "/dflights.html")
+	public String deleteItems(HttpServletRequest req) {
+		service.simpleRemoveItems(req);
+		return "redirect:../flights.html";
+    }
+
 
 }

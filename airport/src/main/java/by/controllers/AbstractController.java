@@ -1,18 +1,18 @@
 package by.controllers;
 
 import by.services.LanguageService;
-import by.services.ScheduledArrivalFlightService;
-import by.services.ScheduledDepartureFlightService;
+import by.services.ArrivalService;
+import by.services.DepartureService;
 import by.services.TextBlockService;
 
 public abstract class AbstractController {
-	private ScheduledArrivalFlightService arrivalService;
-	private ScheduledDepartureFlightService departureService;
+	private ArrivalService arrivalService;
+	private DepartureService departureService;
 	private TextBlockService textBlockService;
 	private LanguageService langService;
 	
-	public AbstractController(ScheduledArrivalFlightService arrivalService,
-			ScheduledDepartureFlightService departureService, TextBlockService textBlockService,
+	public AbstractController(ArrivalService arrivalService,
+			DepartureService departureService, TextBlockService textBlockService,
 			LanguageService langService) {
 		super();
 		this.arrivalService = arrivalService;
@@ -21,11 +21,11 @@ public abstract class AbstractController {
 		this.langService = langService;
 	}
 
-	public ScheduledArrivalFlightService getArrivalService() {
+	public ArrivalService getArrivalService() {
 		return arrivalService;
 	}
 
-	public ScheduledDepartureFlightService getDepartureService() {
+	public DepartureService getDepartureService() {
 		return departureService;
 	}
 

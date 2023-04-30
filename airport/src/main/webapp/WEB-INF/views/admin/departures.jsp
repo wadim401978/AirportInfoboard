@@ -4,7 +4,7 @@
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
     <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
-    <form method="post" action="${pageContext.request.contextPath}/admin/lang/ddepartures.html">
+    <form method="post" action="${pageContext.request.contextPath}/admin/departure/ddepartures.html"  id="deleteCheckers">
 	<table class="admin dashed">
 		<thead>
 			<tr>
@@ -13,7 +13,7 @@
 					<fmt:message key="admin.flight" bundle="${op}"/>
 				</td>
 				<td><fmt:message key="admin.status" bundle="${op}"/></td>
-				<td><input type="checkbox" name="delete0"></td>
+				<td><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,12 +37,13 @@
 		    			<td>
 		    				<a href="departure/${item.id}.html">
 			    				<fmt:message key="${item.status.property}" bundle="${viewer_bundle}">
-			    				<fmt:param value="${item.statusTime}"/>
+			    					<fmt:formatDate pattern="HH:mm" value="${item.scheduledDate}" var="statusTime"/>
+			    					<fmt:param value="${statusTime}"/>	
 			    				</fmt:message>
 			    			</a>
 		    			</td>
 					
-					<td><input type="checkbox" name="delete${item.id}"></td>
+					<td><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
 			<tr style="border: none;">

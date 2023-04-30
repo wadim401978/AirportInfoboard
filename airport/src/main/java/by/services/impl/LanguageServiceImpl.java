@@ -43,7 +43,8 @@ public class LanguageServiceImpl implements LanguageService {
 
 	@Override
 	public Language getDefaultLang() {
-		return dao.findLangByTag(initialResourceBundle.getString("language.default"));
+		return dao.findLangByTag(
+				initialResourceBundle.getString("language.default"));
 	}
 
 	@Override

@@ -6,5 +6,4 @@ import by.dao.model.flight.Airline;
 
 public interface AirlineDAO extends AirEntityDAO<Integer, Airline> {
 	public List<Airline> findAirlines();
-	public Airline findAirlineByIcaoCode(String icaoCode);
 }

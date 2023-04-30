@@ -2,27 +2,30 @@ package by.controllers;
 
 import java.util.ResourceBundle;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import by.dao.model.flight.ScheduledDepartureFlight;
-import by.services.ScheduledDepartureFlightService;
+import by.dao.model.flight.Departure;
+import by.services.DepartureService;
 
 
 @Controller
 @RequestMapping("/admin/departure")
 public class DepartureController {
 	
-	private ScheduledDepartureFlightService departureService;
+	private DepartureService service;
 	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
-	public DepartureController(ScheduledDepartureFlightService departureService) {
+	public DepartureController(DepartureService departureService) {
 		super();
-		this.departureService = departureService;
+		this.service = departureService;
 		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
     
@@ -31,8 +34,8 @@ public class DepartureController {
     }
 
 	@RequestMapping(value = "/{id}.html")
-    public String lang(ModelMap model, @PathVariable("id") int id) {
-		ScheduledDepartureFlight departure = departureService.get(id);
+    public String getDeparture(ModelMap model, @PathVariable("id") int id) {
+		Departure departure = service.get(id);
 		String title = getTitle() + departure.getFlight().getIataNumber() + " " + departure.getScheduledDate();
     	model.addAttribute("title", title);
     	model.addAttribute("departure", departure);
@@ -43,8 +46,14 @@ public class DepartureController {
     public String add(ModelMap model) {
 		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
     	model.addAttribute("title", title);
-    	model.addAttribute("departure", new ScheduledDepartureFlight());
+    	model.addAttribute("departure", new Departure());
 		return "admin/departure";
+    }
+
+	@PostMapping(path = "/ddepartures.html")
+	public String deleteItems(HttpServletRequest req) {
+		service.simpleRemoveItems(req);
+		return "redirect:../departures.html";
     }
 
 }

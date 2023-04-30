@@ -1,40 +1,45 @@
 package by.dao.impl.jdbc;
 
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
 import by.dao.FlightDAO;
-import by.dao.impl.jdbc.mapper.FlightExtractor;
-import by.dao.impl.jdbc.mapper.FlightRowMapper;
+import by.dao.impl.jdbc.mapper.FlightsExtractor;
 import by.dao.model.flight.Flight;
 
 @Repository
 public class JdbcFlightDAOImpl extends JdbcAbstractDao implements FlightDAO {
+	
+	public JdbcFlightDAOImpl() {
+		super();
+		setExtractor(new FlightsExtractor());
+	}
 
 	@Override
 	public Flight read(Integer id) {
-		Flight flight = getJdbcTemplate().query(
-				getQuery("flight.select.where.id"), 
-				new FlightExtractor(), 
-				id);
-		flight.getAirline().setDefaultLanguageByTag(getDefaultLangTag());
-		flight.getAirport().setDefaultLanguageByTag(getDefaultLangTag());
-		
-		return flight;
+		String query = getQuery("flight.select.all")
+				+ getQuery("flight.where.id")
+				+ getQuery("flight.order.id");
+		FlightsExtractor extr = (FlightsExtractor)getExtractor();
+		extr.setDefaultLangTag(getDefaultLangTag());
+		List<Flight> list = getJdbcTemplate().query(query, extr, id);
+		return list.isEmpty()?(new Flight()):list.get(0);
 	}
 
 	@Override
 	public List<Flight> getFlights() {
-		return getJdbcTemplate().query(
-				getQuery("flight.select.all"), 
-				new FlightRowMapper(), 
-				getDefaultLangTag());
+		String query = getQuery("flight.select.all")
+				+ getQuery("flight.order.id");
+		
+		FlightsExtractor extr = (FlightsExtractor)getExtractor();
+		extr.setDefaultLangTag(getDefaultLangTag());
+		return getJdbcTemplate().query(query, extr);
 	}
 
 	@Override
-	public Flight getFlightByIcaoNumber(String icao) {
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(Integer id) {
+		getJdbcTemplate().update(
+				getQuery("flight.delete.where.id"), id);
 	}
 
+	
 }

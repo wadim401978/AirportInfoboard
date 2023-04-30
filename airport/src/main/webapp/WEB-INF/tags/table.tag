@@ -2,7 +2,7 @@
 <%@attribute name="flights" required="true" rtexprvalue="true" type="java.util.List"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<fmt:setLocale value="${lang.langTag}"/>
+<fmt:setLocale value="${lang.tag}"/>
 <fmt:setBundle basename="viewer" var="viewer_bundle" />
 		<div class="" id="ru_table" >
 	    	<table class="schedule Archangelsk">
