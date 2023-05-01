@@ -40,6 +40,7 @@
 			</tr>
 		</tbody>
 	</table>
+	<c:out value="${error}"/>
 	</form>
     </div>
 </ui:html>

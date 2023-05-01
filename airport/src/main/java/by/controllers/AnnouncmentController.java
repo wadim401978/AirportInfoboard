@@ -1,7 +1,5 @@
 package by.controllers;
 
-import java.util.ResourceBundle;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,20 +12,18 @@ import by.services.TextBlockService;
 
 @Controller
 @RequestMapping("/admin/announcment")
-public class AnnouncmentController {
+public class AnnouncmentController extends AbstractEntityController {
 	
 	private TextBlockService announcmentService;
-	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
 	public AnnouncmentController(TextBlockService announcmentService) {
 		super();
 		this.announcmentService = announcmentService;
-		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
     
     private String getTitle() {
-    	return operatorResourceBundle.getObject("admin.announcment") +": ";
+    	return getEnv().getProperty("admin.announcment") +": ";
     }
 
 	@RequestMapping(value = "/{id}.html")
@@ -41,7 +37,7 @@ public class AnnouncmentController {
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
-		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
+		String title = getTitle() + getEnv().getProperty("admin.new.title");
     	model.addAttribute("title", title);
     	model.addAttribute("announcment", new TextBlock());
 		return "admin/announcment";

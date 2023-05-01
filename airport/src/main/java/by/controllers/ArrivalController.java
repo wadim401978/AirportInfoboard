@@ -3,6 +3,7 @@ package by.controllers;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,8 +52,12 @@ public class ArrivalController {
     }
 	
 	@PostMapping(path = "/darrivals.html")
-	public String deleteItems(HttpServletRequest req) {
-		service.simpleRemoveItems(req);
+	public String deleteItems(HttpServletRequest req, HttpSession session) {
+		try {
+			service.simpleRemoveItems(req);
+		} catch (Exception e) {
+			session.setAttribute("error", "I can't delete ses");
+		}
 		return "redirect:../arrivals.html";
     }
 

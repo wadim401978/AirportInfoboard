@@ -52,5 +52,13 @@ public class JdbcAirportDAOImpl extends JdbcAbstractDao implements AirportDAO {
 		return getJdbcTemplate().query(query, extr);
 	}
 
+	@Override
+	public void delete(Integer id) {
+		getJdbcTemplate().update(
+				getQuery("airport.delete.where.id"), id);
+	}
+	
+	
+
 
 }

@@ -40,7 +40,7 @@ CREATE TABLE `airports_i18n` (
 		ON DELETE CASCADE,
 	FOREIGN KEY (`id_languages`)
 		REFERENCES `languages`(`id`)
-		ON DELETE CASCADE
+		ON DELETE RESTRICT
 ) ENGINE = InnoDB; 
 
 CREATE TABLE `airlines` ( 
@@ -63,7 +63,7 @@ CREATE TABLE `airlines_i18n` (
 		ON DELETE CASCADE,
 	FOREIGN KEY (`id_languages`)
 		REFERENCES `languages`(`id`)
-		ON DELETE CASCADE
+		ON DELETE RESTRICT
 ) ENGINE = InnoDB; 
 
 CREATE TABLE `flights` ( 
@@ -77,10 +77,10 @@ CREATE TABLE `flights` (
     PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_airports`)
 		REFERENCES `airports`(`id`)
-		ON DELETE CASCADE,
+		ON DELETE RESTRICT,
 	FOREIGN KEY (`id_airlines`)
 		REFERENCES `airlines`(`id`)
-		ON DELETE CASCADE
+		ON DELETE RESTRICT
 ) ENGINE = InnoDB; 
 
 CREATE TABLE `arrivals` (
@@ -94,7 +94,7 @@ CREATE TABLE `arrivals` (
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`id_flights`)
 		REFERENCES `flights`(`id`)
-		ON DELETE CASCADE
+		ON DELETE RESTRICT
 ) ENGINE = InnoDB;
 
 CREATE TABLE `departures` (
@@ -108,7 +108,7 @@ CREATE TABLE `departures` (
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`id_flights`)
 		REFERENCES `flights`(`id`)
-		ON DELETE CASCADE
+		ON DELETE RESTRICT
 ) ENGINE = InnoDB;
 
 

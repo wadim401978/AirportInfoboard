@@ -1,9 +1,10 @@
 <%@taglib prefix="ui" tagdir="/WEB-INF/tags/admin"%><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setBundle basename="operator" var="op"/>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
-    <form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html" id="deleteCheckers">
+    <a href="${pageContext.request.contextPath}/admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
+    <form:form method="post" action="${pageContext.request.contextPath}/admin/lang/dlangs.html" id="deleteCheckers">
 	<table class="admin dashed">
 		<thead>
 			<tr>
@@ -49,7 +50,10 @@
 			</tr>
 		</tbody>
 		
-	</table></form>
+	</table>
+	<c:out value="${error}"/>
+	
+	</form:form>
 	
 </div>
 </ui:html>

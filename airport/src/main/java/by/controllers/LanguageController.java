@@ -1,9 +1,9 @@
 package by.controllers;
 
+import java.text.MessageFormat;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import by.app.exception.DeleteException;
 import by.controllers.validators.LanguageValidator;
 import by.dao.model.common.Language;
 import by.services.LanguageService;
@@ -21,14 +22,10 @@ import by.services.LanguageService;
 
 @Controller
 @RequestMapping("/admin/lang")
-@PropertySource("classpath:operator.properties")
-public class LanguageController {
+public class LanguageController extends AbstractEntityController {
 	
 	@Autowired
 	private LanguageValidator validator;
-	
-	@Autowired
-	private Environment env;
 	
 	private LanguageService service;
 	
@@ -40,10 +37,10 @@ public class LanguageController {
     
     private String getTitle(int id, String name) {
     	if (id == 0) {
-    		return env.getProperty("admin.language") + ": "
-    				+ env.getProperty("admin.new.title");
+    		return getEnv().getProperty("admin.language") + ": "
+    				+ getEnv().getProperty("admin.new.title");
     	} else {
-    		return env.getProperty("admin.language") +": " + name;
+    		return getEnv().getProperty("admin.language") +": " + name;
     	}
     }
 
@@ -71,8 +68,18 @@ public class LanguageController {
 	}
 
 	@PostMapping(path = "/dlangs.html")
-	public String deleteItems(HttpServletRequest req) {
-		service.simpleRemoveItems(req);
+	public String deleteItems(HttpServletRequest req, HttpSession session) {
+		
+		try {
+			service.simpleRemoveItems(req);
+		} catch (DeleteException e) {
+			String msg = MessageFormat.format(
+					getEnv().getProperty(e.getMessage()), 
+					service.get(e.getEntityId()).getName()
+					);
+			session.setAttribute("error", msg);
+		}
+		
 		return "redirect:../langs.html";
     }
 	

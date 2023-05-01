@@ -1,5 +1,6 @@
 package by.controllers;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -39,51 +40,57 @@ public class OperatorController extends AbstractController {
 	}
 
 
-    private <T> void setListParameters(ModelMap model, Service<T> service, String title) {
+    private <T> void setListParameters(
+    		ModelMap model, Service<T> service, String title, HttpSession session) {
 		model.addAttribute("items", service.getAll());
         model.addAttribute("title", env.getProperty(title));
+        if (session.getAttribute("error") !=null) {
+        	model.addAttribute("error", session.getAttribute("error") );
+        }
+        session.setAttribute("error", null);
     }
 
     @GetMapping(path = "/langs.html")
-    public String langs(ModelMap model) {
-        setListParameters(model, getLangService(), "admin.languages.title");
+    public String langs(ModelMap model, HttpSession session) {
+        setListParameters(model, getLangService(), "admin.languages.title", session);
+        
 		return "admin/langs";
     }
 	
 	
     @RequestMapping("/airports.html")
-    public String airports(ModelMap model) {
-        setListParameters(model, airportService, "admin.airports.title");
+    public String airports(ModelMap model, HttpSession session) {
+        setListParameters(model, airportService, "admin.airports.title", session);
 		return "admin/airports";
     }
 	
     @RequestMapping("/airlines.html")
-    public String airlines(ModelMap model) {
-        setListParameters(model, airlineService, "admin.airlines.title");
+    public String airlines(ModelMap model, HttpSession session) {
+        setListParameters(model, airlineService, "admin.airlines.title", session);
 		return "admin/airlines";
     }
 	
     @RequestMapping("/flights.html")
-    public String flights(ModelMap model) {
-        setListParameters(model, flightService, "admin.flights.title");
+    public String flights(ModelMap model, HttpSession session) {
+        setListParameters(model, flightService, "admin.flights.title", session);
 		return "admin/flights";
     }
 	
     @RequestMapping("/arrivals.html")
-    public String arrivals(ModelMap model) {
-        setListParameters(model, getArrivalService(), "admin.arrivals.title");
+    public String arrivals(ModelMap model, HttpSession session) {
+        setListParameters(model, getArrivalService(), "admin.arrivals.title", session);
 		return "admin/arrivals";
     }
 	
     @RequestMapping("/departures.html")
-    public String departures(ModelMap model) {
-        setListParameters(model, getDepartureService(), "admin.departures.title");
+    public String departures(ModelMap model, HttpSession session) {
+        setListParameters(model, getDepartureService(), "admin.departures.title", session);
 		return "admin/departures";
     }
 	
     @RequestMapping("/announcments.html")
-    public String announcments(ModelMap model) {
-        setListParameters(model, getTextBlockService(), "admin.announcments.title");
+    public String announcments(ModelMap model, HttpSession session) {
+        setListParameters(model, getTextBlockService(), "admin.announcments.title", session);
 		return "admin/announcments";
     }
 	
