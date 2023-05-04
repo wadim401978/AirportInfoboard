@@ -37,8 +37,11 @@
 		    			<td>
 		    				<a href="departure/${item.id}.html">
 			    				<fmt:message key="${item.status.property}" bundle="${viewer_bundle}">
-			    					<fmt:formatDate pattern="HH:mm" value="${item.scheduledDate}" var="statusTime"/>
-			    					<fmt:param value="${statusTime}"/>	
+			    					<fmt:formatDate pattern="HH:mm" value="${item.statusTime}" var="statusTime"/>
+			    					<c:choose>
+			    						<c:when test="${statusTime == null}"><fmt:param value=""/></c:when>
+			    						<c:otherwise><fmt:param value="${statusTime}"/>	</c:otherwise>
+			    					</c:choose>
 			    				</fmt:message>
 			    			</a>
 		    			</td>

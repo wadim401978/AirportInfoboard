@@ -9,9 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-import by.dao.model.flight.Flight;
+import javax.servlet.http.HttpServletRequest;
 
-public interface ScheduledFlightService<T> extends Service<T> {
+import by.app.util.DateTime;
+import by.dao.model.flight.Flight;
+import by.dao.model.flight.ScheduledFlight;
+
+public interface ScheduledFlightService<T extends ScheduledFlight> extends Service<T> {
 	final ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
 
 	public List<T> getAllByFlight(Flight flight);
@@ -59,6 +63,26 @@ public interface ScheduledFlightService<T> extends Service<T> {
 		return Date.from(LocalDateTime.of(ld, statusTime).toInstant(offset));
 	}
 
-	
+	public default T getScheduledFlight(HttpServletRequest req, T schFlight) {
+		schFlight.setId(Integer.parseInt(req.getParameter("id")));
+		
+		Flight flight = new Flight();
+		flight.setId(Integer.parseInt(req.getParameter("flight")));
+		schFlight.setFlight(flight);
+		
+		String date = req.getParameter("scheduledDate");
+		LocalDate ld = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		String time = req.getParameter("scheduledTime");
+		LocalTime lt = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+		schFlight.setScheduledDate(DateTime.getDate(ld, lt));
+		time = req.getParameter("statusTime");
+		if (time == null||time.isEmpty()) {
+			schFlight.setStatusTime(null);
+		} else {
+			lt = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+			schFlight.setStatusTime(DateTime.getDate(ld, lt));
+		}
+		return schFlight;
+	}
 
 }

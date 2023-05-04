@@ -1,5 +1,6 @@
 package by.controllers;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -77,7 +78,7 @@ public class OperatorController extends AbstractController {
     }
 	
     @RequestMapping("/arrivals.html")
-    public String arrivals(ModelMap model, HttpSession session) {
+    public String arrivals(ModelMap model, HttpSession session, HttpServletRequest req) {
         setListParameters(model, getArrivalService(), "admin.arrivals.title", session);
 		return "admin/arrivals";
     }

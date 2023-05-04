@@ -1,10 +1,7 @@
 package by.controllers;
 
-import java.util.ResourceBundle;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,21 +15,27 @@ import by.services.DepartureService;
 
 @Controller
 @RequestMapping("/admin/departure")
-public class DepartureController {
+public class DepartureController extends AbstractEntityController {
 	
 	private DepartureService service;
-	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
 	public DepartureController(DepartureService departureService) {
 		super();
 		this.service = departureService;
-		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
     
     private String getTitle() {
-    	return operatorResourceBundle.getObject("admin.departure") +": ";
+    	return getEnv().getProperty("admin.departure") +": ";
     }
+    
+	private String getRedirect() {
+		return "redirect:../departures.html";
+	}
+	
+	private String getReturn() {
+		return "admin/departure";
+	}
 
 	@RequestMapping(value = "/{id}.html")
     public String getDeparture(ModelMap model, @PathVariable("id") int id) {
@@ -40,26 +43,35 @@ public class DepartureController {
 		String title = getTitle() + departure.getFlight().getIataNumber() + " " + departure.getScheduledDate();
     	model.addAttribute("title", title);
     	model.addAttribute("departure", departure);
-		return "admin/departure";
+		return getReturn();
     }
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
-		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
+		String title = getTitle() + getEnv().getProperty("admin.new.title");
     	model.addAttribute("title", title);
     	model.addAttribute("departure", new Departure());
-		return "admin/departure";
+		return getReturn();
     }
+	
+	@PostMapping("/save.html")
+	public String saveDeparture(HttpServletRequest req) {
+		Departure departure = service.getDeparture(req);
+		service.save(departure);
+		return getRedirect();
+	}
+	
+	
 
 	@PostMapping(path = "/ddepartures.html")
 	public String deleteItems(HttpServletRequest req, HttpSession session) {
 		try {
 			service.simpleRemoveItems(req);
 		} catch (Exception e) {
-			session.setAttribute("error", "I can't delete ses");
+			session.setAttribute("error", "You can't delete record: " + e.getMessage());
 		}
 
-		return "redirect:../departures.html";
+		return getRedirect();
     }
 
 }

@@ -162,7 +162,7 @@ public class ExtractAssistant {
 		Time time = rs.getTime(pseudoname + "scheduledDate"); 
 		schFlight.setScheduledDate(DateTime.getDateFromSqlTypes(date, time));
 		
-		date = rs.getDate(pseudoname + "statusTime");
+//		date = rs.getDate(pseudoname + "statusTime");
 		time = rs.getTime(pseudoname + "statusTime");
 		schFlight.setStatusTime(DateTime.getDateFromSqlTypes(date, time)); 
 	}

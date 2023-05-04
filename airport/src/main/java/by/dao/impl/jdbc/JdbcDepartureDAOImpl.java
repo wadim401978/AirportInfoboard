@@ -59,6 +59,17 @@ public class JdbcDepartureDAOImpl extends JdbcAbstractDao implements DepartureDA
 	}
 
 	@Override
+	public void update(Departure obj) {
+		getJdbcTemplate().update(
+				getQuery("departure.update"),
+				obj.getFlight().getId(),
+				obj.getScheduledDate(),
+				obj.getStatus().getId(),
+				obj.getStatusTime(),
+                obj.getId());
+	}
+
+	@Override
 	public void delete(Integer id) {
 		getJdbcTemplate().update(
 				getQuery("departure.delete.where.id"), id);

@@ -1,10 +1,7 @@
 package by.controllers;
 
-import java.util.ResourceBundle;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,21 +15,27 @@ import by.services.ArrivalService;
 
 @Controller
 @RequestMapping("/admin/arrival")
-public class ArrivalController {
+public class ArrivalController  extends AbstractEntityController {
 	
 	private ArrivalService service;
-	private ResourceBundle operatorResourceBundle;
 	
     @Autowired(required = true)
 	public ArrivalController(ArrivalService arrivalService) {
 		super();
 		this.service = arrivalService;
-		this.operatorResourceBundle = ResourceBundle.getBundle("operator");
 	}
     
     private String getTitle() {
-    	return operatorResourceBundle.getObject("admin.arrival") +": ";
+    	return getEnv().getProperty("admin.arrival") +": ";
     }
+    
+	private String getRedirect() {
+		return "redirect:../arrivals.html";
+	}
+	
+	private String getReturn() {
+		return "admin/arrival";
+	}
 
 	@RequestMapping(value = "/{id}.html")
     public String getArrival(ModelMap model, @PathVariable("id") int id) {
@@ -40,25 +43,32 @@ public class ArrivalController {
 		String title = getTitle() + arrival.getFlight().getIataNumber() + " " + arrival.getScheduledDate();
     	model.addAttribute("title", title);
     	model.addAttribute("arrival", arrival);
-		return "admin/arrival";
+		return getReturn();
     }
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
-		String title = getTitle() + operatorResourceBundle.getObject("admin.new.title");
+		String title = getTitle() + getEnv().getProperty("admin.new.title");
     	model.addAttribute("title", title);
     	model.addAttribute("arrival", new Arrival());
-		return "admin/arrival";
+		return getReturn();
     }
+	
+	@PostMapping("/save.html")
+	public String saveArrival(HttpServletRequest req) {
+		Arrival arrival = service.getArrival(req);
+		service.save(arrival);
+		return getRedirect();
+	}
 	
 	@PostMapping(path = "/darrivals.html")
 	public String deleteItems(HttpServletRequest req, HttpSession session) {
 		try {
 			service.simpleRemoveItems(req);
 		} catch (Exception e) {
-			session.setAttribute("error", "I can't delete ses");
+			session.setAttribute("error", "I can't delete record: " + e.getMessage());
 		}
-		return "redirect:../arrivals.html";
+		return getRedirect();
     }
 
 }

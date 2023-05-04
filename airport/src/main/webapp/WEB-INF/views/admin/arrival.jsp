@@ -4,7 +4,7 @@
 <fmt:setBundle basename="viewer" var="viewer_bundle" />
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <form:form action="${pageContext.request.contextPath}/admin/arrivals.html" >
+    <form:form action="${pageContext.request.contextPath}/admin/arrival/save.html" method="POST"  >
     	<table class="admin">
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
@@ -13,36 +13,45 @@
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.flight" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="flight" value="${arrival.flight.iataNumber}-${arrival.flight.airport.name}" disabled="disabled">
+    				<input type="text" name="flight_name" value="${arrival.flight.iataNumber}-${arrival.flight.airport.name}" readonly="readonly">
+    				<input type="hidden" name="flight" value="${arrival.flight.id}">
     				<input type="button" value="..." name="addFlight" alt="select fligth">
     			</td>
     		</tr>
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.date.scheduled" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="date" value="<fmt:formatDate pattern="dd.MM.YYYY" value="${arrival.scheduledDate}"/>" disabled="disabled">
-    				<input type="button" value="..." name="addDate"  alt="select date">
+    				<input type="date" name="scheduledDate" value="<fmt:formatDate pattern="YYYY-MM-dd" value="${arrival.scheduledDate}"/>" >
     			</td>
     		</tr>
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.time.scheduled" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="time" value="<fmt:formatDate pattern="HH:mm" value="${arrival.scheduledDate}"/>" disabled="disabled">
-    				<input type="button" value="..." name="addTime"  alt="select time">
+    				<input type="time" name="scheduledTime" value="<fmt:formatDate pattern="HH:mm" value="${arrival.scheduledDate}"/>" >
     			</td>
     		</tr>
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.status" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="status" value="<fmt:message key="${arrival.status.property}" bundle="${viewer_bundle}"/>" disabled="disabled">
-    				<input type="button" value="..." name="addStatus"  alt="select status">
+    				<select name="status" >
+    				<c:forEach items="${arrival.status.values()}" var="item">
+    					<c:choose>
+    						<c:when test="${arrival.status.id == item.id}">
+    						<option value="${item.id}"  selected="selected"><fmt:message key="${item.property}" bundle="${viewer_bundle}"/></option>
+    						</c:when>
+    						<c:otherwise>
+    						<option value="${item.id}" ><fmt:message key="${item.property}" bundle="${viewer_bundle}"/></option>
+    						</c:otherwise>
+    					</c:choose>
+    				</c:forEach>
+    				</select>
+    				
     			</td>
     		</tr>
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.time.status" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="statusTime" value="<fmt:formatDate pattern="HH:mm" value="${arrival.statusTime}"/>" disabled="disabled">
-    				<input type="button" value="..." name="addStatusTime"  alt="select time">
+    				<input type="time" name="statusTime" value="<fmt:formatDate pattern="HH:mm" value="${arrival.statusTime}"/>" >
     			</td>
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/arrivals.html"/>	

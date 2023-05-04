@@ -12,8 +12,15 @@ public class DateTime {
 	final static ZoneOffset offset = ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now());
 
 	public static Date getDateWithLocalTime(Date date, LocalTime statusTime) {
-		LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-		LocalDate ld = LocalDate.of(ldt.getYear(), ldt.getMonthValue(), ldt.getDayOfMonth());
+		LocalDateTime ldt = LocalDateTime.ofInstant(
+				date.toInstant(), 
+				ZoneId.systemDefault());
+		
+		LocalDate ld = LocalDate.of(
+				ldt.getYear(), 
+				ldt.getMonthValue(), 
+				ldt.getDayOfMonth());
+		
 		return Date.from(LocalDateTime.of(ld, statusTime).toInstant(offset));
 	}
 	
@@ -21,11 +28,15 @@ public class DateTime {
 		if (date == null || time == null) {
 			return null;
 		} else {
-			LocalDate localDate = date.toLocalDate();
-			LocalTime localTime = time.toLocalTime();
-			LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
-			return Date.from(localDateTime.toInstant(offset));
+			return DateTime.getDate(
+					date.toLocalDate(), 
+					time.toLocalTime());
 		}
+	}
+	
+	public static Date getDate(LocalDate localDate, LocalTime localTime) {
+		LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+		return Date.from(localDateTime.toInstant(offset));
 	}
 	
 }

@@ -12,14 +12,16 @@
     		<tr>
     			<td style="width: 180px;"><fmt:message key="admin.airport" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="airport" value="${flight.airport.name}" disabled="disabled">
+    				<input type="text" name="airport_name" value="${flight.airport.name}" readonly="readonly">
+    				<input type="hidden" name="airport_id" value="${flight.airport.id}" >
     				<input type="button" value="..." name="addAirport" alt="select airport">
     			</td>
     		</tr>
     		<tr>
     			<td style="width: 180px;"><fmt:message key="admin.airline" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="airline" value="${flight.airline.name}" disabled="disabled">
+    				<input type="text" name="airline" value="${flight.airline.name}" readonly="readonly">
+    				<input type="hidden" name="airline_id" value="${flight.airline.id}" >
     				<input type="button" value="..." name="addAirline"  alt="select airline">
     			</td>
     		</tr>
