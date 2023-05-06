@@ -11,19 +11,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import by.dao.model.flight.Arrival;
 import by.services.ArrivalService;
+import by.services.FlightService;
 
 
 @Controller
 @RequestMapping("/admin/arrival")
 public class ArrivalController  extends AbstractEntityController {
 	
+	@Autowired
 	private ArrivalService service;
 	
-    @Autowired(required = true)
-	public ArrivalController(ArrivalService arrivalService) {
-		super();
-		this.service = arrivalService;
-	}
+	@Autowired
+	private FlightService fservice;
+	
+	
+//    @Autowired(required = true)
+//	public ArrivalController(ArrivalService arrivalService) {
+//		super();
+//		this.service = arrivalService;
+//	}
     
     private String getTitle() {
     	return getEnv().getProperty("admin.arrival") +": ";
@@ -43,6 +49,7 @@ public class ArrivalController  extends AbstractEntityController {
 		String title = getTitle() + arrival.getFlight().getIataNumber() + " " + arrival.getScheduledDate();
     	model.addAttribute("title", title);
     	model.addAttribute("arrival", arrival);
+    	model.addAttribute("flights", fservice.getFlights(true));
 		return getReturn();
     }
     
@@ -51,6 +58,7 @@ public class ArrivalController  extends AbstractEntityController {
 		String title = getTitle() + getEnv().getProperty("admin.new.title");
     	model.addAttribute("title", title);
     	model.addAttribute("arrival", new Arrival());
+    	model.addAttribute("flights", fservice.getFlights(true));
 		return getReturn();
     }
 	

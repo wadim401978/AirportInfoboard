@@ -4,5 +4,6 @@ import java.util.List;
 import by.dao.model.flight.Flight;
 
 public interface FlightDAO extends GenericDAO<Integer, Flight> {
-	public List<Flight> getFlights();
+	public List<Flight> findFlights();
+	public List<Flight> findFlights(boolean isArrival);
 }

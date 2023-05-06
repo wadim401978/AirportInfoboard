@@ -7,7 +7,9 @@
 	    <link href="${pageContext.request.contextPath}/images/001_logo/fav.ico" rel="shortcut icon" type="image/x-icon" />
 		<link href="${pageContext.request.contextPath}/css/bootstrap.css" type="text/css" rel="stylesheet"/>
 		<link href="${pageContext.request.contextPath}/css/admin.css" type="text/css" rel="stylesheet"/>
+		
  	    <script type="text/javascript" src="${pageContext.request.contextPath}/script/admin.js"></script>
+ 	    <script type="text/javascript" src="${pageContext.request.contextPath}/script/bootstrap.js"></script>
 	</head>
 	<body class="h-100" >
 		<header class="p-2">

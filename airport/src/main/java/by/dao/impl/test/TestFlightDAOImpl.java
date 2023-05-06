@@ -16,12 +16,17 @@ public class TestFlightDAOImpl implements FlightDAO {
 	}
 
 	@Override
-	public List<Flight> getFlights() {
+	public List<Flight> findFlights() {
 		return TestDataSet.getInstance().getFlights();
 	}
 
 	public Flight getFlightByIcaoNumber(String icao) {
 		return TestDataSet.getInstance().getFlightMap().get(icao);
+	}
+
+	@Override
+	public List<Flight> findFlights(boolean isArrival) {
+		return findFlights();
 	}
 
 }

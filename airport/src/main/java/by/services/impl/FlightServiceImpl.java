@@ -22,7 +22,7 @@ public class FlightServiceImpl implements FlightService {
 
 	@Override
 	public List<Flight> getAll() {
-		return dao.getFlights();
+		return dao.findFlights();
 	}
 
 	@Override
@@ -44,6 +44,11 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public void remove(int id) {
 		dao.delete(id);
+	}
+
+	@Override
+	public List<Flight> getFlights(boolean isArrival) {
+		return dao.findFlights(isArrival);
 	}
 
 }

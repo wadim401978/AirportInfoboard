@@ -1,13 +1,8 @@
-/**
- * switchAllCheckers()
- */
 
  function changeActive() {
-	 
 	let chkBox = document.getElementById("activeSwitcher");
 	let inputBox = document.getElementById("active");
 	inputBox.value = chkBox.checked;
-	 
  }
  
 function switchAllCheckers(e) {
@@ -19,4 +14,13 @@ function switchAllCheckers(e) {
 			item.checked = checked;
 		}
 	});
+}
+
+function setChosenId(id_dest, name_dest, id_src, e) {
+	elementDestId = document.getElementById(id_dest);
+	elementSrcId = document.getElementById(id_src);
+	elementDestId.value = elementSrcId.value;
+	elementDestName = document.getElementById(name_dest);
+	elementDestName.value = Array.from(e.children)[0].innerHTML.trim();
+	//history.back();
 }

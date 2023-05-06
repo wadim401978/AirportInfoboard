@@ -56,7 +56,6 @@ public class ViewerController extends AbstractController {
     	model.addAttribute("announcments", str);
     	
     	model.addAttribute("timeOutSource", timeOutSource);
-//    	model.addAttribute("timeOutValue", initialResourceBundle.getString("timeout"));
     	model.addAttribute("timeOutValue", env.getProperty("timeout"));
     }
     
@@ -89,7 +88,6 @@ public class ViewerController extends AbstractController {
     }
 	
 	private int getEmptyRowsNumber(int listSize) {
-//		int rowsNumber = Integer.parseInt(getInitialResourceBundle().getString("rows.number"));
 		int rowsNumber = Integer.parseInt(env.getProperty("rows.number"));
         int emptyRows = 0;
         if (rowsNumber >= listSize) {
@@ -154,7 +152,6 @@ public class ViewerController extends AbstractController {
     
     @RequestMapping("/admin.html")
     public String admin(ModelMap model) {
-//        model.addAttribute("title", getInitialResourceBundle().getObject("admin.board"));
         model.addAttribute("title", env.getProperty("admin.board"));
     	return "admin";
     }

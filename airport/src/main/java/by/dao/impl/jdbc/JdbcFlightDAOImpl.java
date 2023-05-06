@@ -26,7 +26,7 @@ public class JdbcFlightDAOImpl extends JdbcAbstractDao implements FlightDAO {
 	}
 
 	@Override
-	public List<Flight> getFlights() {
+	public List<Flight> findFlights() {
 		String query = getQuery("flight.select.all")
 				+ getQuery("flight.order.id");
 		
@@ -41,5 +41,21 @@ public class JdbcFlightDAOImpl extends JdbcAbstractDao implements FlightDAO {
 				getQuery("flight.delete.where.id"), id);
 	}
 
+	@Override
+	public List<Flight> findFlights(boolean isArrival) {
+		String query;
+		if (isArrival) {
+			query = getQuery("flight.select.all")
+					+ getQuery("flight.where.arrival")
+					+ getQuery("flight.order.id");
+		} else {
+			query = getQuery("flight.select.all")
+					+ getQuery("flight.where.departure")
+					+ getQuery("flight.order.id");
+		}
+		FlightsExtractor extr = (FlightsExtractor)getExtractor();
+		extr.setDefaultLangTag(getDefaultLangTag());
+		return getJdbcTemplate().query(query, extr);
+	}
 	
 }

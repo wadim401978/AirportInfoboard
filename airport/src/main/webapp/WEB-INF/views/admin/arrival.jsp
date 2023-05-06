@@ -3,6 +3,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <fmt:setBundle basename="viewer" var="viewer_bundle" />
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <ui:popup items="${flights}" item_id="flight" item_name="flight_name"/>
     <div class="p-4">
     <form:form action="${pageContext.request.contextPath}/admin/arrival/save.html" method="POST"  >
     	<table class="admin">
@@ -13,15 +14,15 @@
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.flight" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="flight_name" value="${arrival.flight.iataNumber}-${arrival.flight.airport.name}" readonly="readonly">
-    				<input type="hidden" name="flight" value="${arrival.flight.id}">
-    				<input type="button" value="..." name="addFlight" alt="select fligth">
+    				<input type="text" id="flight_name" value="${arrival.flight.iataNumber}-${arrival.flight.airport.name}" readonly="readonly">
+    				<input type="hidden" name="flight" id="flight" value="${arrival.flight.id}">
+    				<input type="button" value="..." name="addFlight" alt="select flight" data-bs-toggle="modal" data-bs-target="#airEntityModal">
     			</td>
     		</tr>
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.date.scheduled" bundle="${op}"/>:</td>
     			<td>
-    				<input type="date" name="scheduledDate" value="<fmt:formatDate pattern="YYYY-MM-dd" value="${arrival.scheduledDate}"/>" >
+    				<input type="date" name="scheduledDate" value="<fmt:formatDate pattern="YYYY-MM-dd" value="${arrival.scheduledDate}"/>" required="required">
     			</td>
     		</tr>
     		<tr>
