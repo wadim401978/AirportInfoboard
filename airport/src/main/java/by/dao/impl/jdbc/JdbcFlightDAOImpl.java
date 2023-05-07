@@ -34,6 +34,28 @@ public class JdbcFlightDAOImpl extends JdbcAbstractDao implements FlightDAO {
 		extr.setDefaultLangTag(getDefaultLangTag());
 		return getJdbcTemplate().query(query, extr);
 	}
+	
+
+	@Override
+	public void create(Flight obj) {
+		getJdbcTemplate().update(
+				getQuery("flight.insert"),
+				obj.getNumber(),
+				obj.getAirport().getId(),
+				obj.getAirline().getId(),
+				obj.getType());
+	}
+
+	@Override
+	public void update(Flight obj) {
+		getJdbcTemplate().update(
+				getQuery("flight.update"),
+				obj.getNumber(),
+				obj.getAirport().getId(),
+				obj.getAirline().getId(),
+				obj.getType(),
+                obj.getId());
+	}
 
 	@Override
 	public void delete(Integer id) {

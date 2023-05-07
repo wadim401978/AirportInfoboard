@@ -36,8 +36,17 @@ admin.time.scheduled = Время по расписанию
 admin.time.status = Время в статусе
 
 admin.back.to.board = Вернуться в административную панель
+admin.close = Закрыть
 
 admin.error.name.empty = Наименование не может быть пустым
 admin.error.language.tag.empty = Обозначение языка не может быть пустым
 admin.error.duplicated.field = Недопустимое значение т.к. задано в другой записи
 cant.delete.linked = Нельзя удалить элемент {0} т.к. имеются ссылки на него в других таблицах или справочниках
+admin.error.airport.empty = Поле "Аэропорт" не может быть пустым
+admin.error.airline.empty = Поле "Авиакомпания"  не может быть пустым
+admin.error.flight.empty = Поле "Номер рейса"  не может быть пустым
+
+admin.select.airport = Выберите аэропорт из списка
+admin.select.airline = Выберите авиакомпанию из списка
+admin.select.flight = Выберите номер рейса из списка
+admin.select.language = Выберите язык из списка

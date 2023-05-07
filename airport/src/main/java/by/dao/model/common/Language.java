@@ -31,11 +31,18 @@ public class Language extends ActiveEntity{
 	public void setTag(String langTag) {
 		this.tag = langTag;
 	}
+	
+	
 
 
 	@Override
+	public String getPresentation() {
+		return getTag() + ": " + getName();
+	}
+
+	@Override
 	public String toString() {
-		return super.toString() + getTag() + ": " + getName();
+		return super.toString() + getPresentation();
 	}
 	
 	

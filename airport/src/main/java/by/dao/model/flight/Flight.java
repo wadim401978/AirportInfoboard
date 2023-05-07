@@ -8,7 +8,15 @@ public class Flight extends Entity {
     private int number;
     private boolean isArrival = false;
     
-    public Flight(int id, boolean isArrival, Airport airport, Airline airline, int number) {
+    public Flight() {
+    	super();
+    }
+    
+    public Flight(int id) {
+		super(id);
+	}
+
+	public Flight(int id, boolean isArrival, Airport airport, Airline airline, int number) {
 		super(id);
 		this.airline = airline;
 		this.airport = airport;
@@ -16,15 +24,10 @@ public class Flight extends Entity {
 		this.isArrival = isArrival;
 	}
     
-    public Flight() {
-    	
-    }
 
     public Airport getAirport() {
         return airport;
     }
-    
-    
     
     public int getNumber() {
 		return number;
@@ -71,6 +74,12 @@ public class Flight extends Entity {
 	
 	public String getType() {
 		return isArrival()?"Arrival":"Departure";
+	}
+	
+
+	@Override
+	public String getPresentation() {
+		return getIataNumber() + ": " + getAirport().getName();
 	}
 
 	@Override

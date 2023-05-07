@@ -19,7 +19,6 @@ import by.controllers.validators.LanguageValidator;
 import by.dao.model.common.Language;
 import by.services.LanguageService;
 
-
 @Controller
 @RequestMapping("/admin/lang")
 public class LanguageController extends AbstractEntityController {
@@ -60,13 +59,6 @@ public class LanguageController extends AbstractEntityController {
 		return "admin/lang";
     }
 	
-	public String redirectLang(ModelMap model) {
-		Language lang = (Language) model.getAttribute("language");
-		model.addAttribute("language", lang);
-    	model.addAttribute("title", getTitle(lang.getId(), lang.getName()));
-		return "admin/lang";
-	}
-
 	@PostMapping(path = "/dlangs.html")
 	public String deleteItems(HttpServletRequest req, HttpSession session) {
 		
@@ -83,7 +75,14 @@ public class LanguageController extends AbstractEntityController {
 		return "redirect:../langs.html";
     }
 	
-    @PostMapping("/save.html")
+	public String redirectLang(ModelMap model) {
+		Language lang = (Language) model.getAttribute("language");
+		model.addAttribute("language", lang);
+    	model.addAttribute("title", getTitle(lang.getId(), lang.getName()));
+		return "admin/lang";
+	}
+
+	@PostMapping("/save.html")
     public String saveLang(@ModelAttribute("language") Language language, BindingResult result, ModelMap model) {
     	validator.validate(language, result);
     	

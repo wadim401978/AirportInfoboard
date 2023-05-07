@@ -1,5 +1,6 @@
 package by.controllers;
 
+import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,6 @@ public class ArrivalController  extends AbstractEntityController {
 	@Autowired
 	private FlightService fservice;
 	
-	
-//    @Autowired(required = true)
-//	public ArrivalController(ArrivalService arrivalService) {
-//		super();
-//		this.service = arrivalService;
-//	}
-    
     private String getTitle() {
     	return getEnv().getProperty("admin.arrival") +": ";
     }
@@ -46,7 +40,10 @@ public class ArrivalController  extends AbstractEntityController {
 	@RequestMapping(value = "/{id}.html")
     public String getArrival(ModelMap model, @PathVariable("id") int id) {
 		Arrival arrival = service.get(id);
-		String title = getTitle() + arrival.getFlight().getIataNumber() + " " + arrival.getScheduledDate();
+		SimpleDateFormat pattern = new SimpleDateFormat("dd.MM.yyyy");
+		String title = getTitle() + 
+				arrival.getFlight().getIataNumber() + " - " + 
+				pattern.format(arrival.getScheduledDate());
     	model.addAttribute("title", title);
     	model.addAttribute("arrival", arrival);
     	model.addAttribute("flights", fservice.getFlights(true));

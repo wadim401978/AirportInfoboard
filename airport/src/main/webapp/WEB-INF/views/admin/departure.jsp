@@ -3,6 +3,15 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <fmt:setBundle basename="viewer" var="viewer_bundle" />
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <c:set var="popupId" value="flightModal"/>
+    <c:set var="popupTargetId" value="flight"/>
+    <c:set var="popupTargetName" value="flight_name"/>
+    <ui:popup 
+    	items="${flights}" 
+    	destination_id="${popupTargetId}" 
+    	destination_name="${popupTargetName}" 
+    	popupHeader="admin.select.flight"
+    	popupId="${popupId}"/>
     <div class="p-4">
     <form:form action="${pageContext.request.contextPath}/admin/departure/save.html" >
     	<table class="admin">
@@ -13,9 +22,9 @@
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.flight" bundle="${op}"/>:</td>
     			<td>
-    				<input type="text" name="flight_name" value="${departure.flight.iataNumber}-${departure.flight.airport.name}" readonly="readonly">
-    				<input type="hidden" name="flight" value="${departure.flight.id}">
-    				<input type="button" value="..." name="addFlight" alt="select fligth">
+    				<input type="text" id="${popupTargetName}" value="${departure.flight.presentation}" data-bs-toggle="modal" data-bs-target="#${popupId}" readonly="readonly">
+    				<input type="hidden" name="${popupTargetId}" id="${popupTargetId}" value="${departure.flight.id}">
+    				<input type="button" value="..." name="addFlight" alt="select flight" data-bs-toggle="modal" data-bs-target="#${popupId}">
     			</td>
     		</tr>
     		<tr>

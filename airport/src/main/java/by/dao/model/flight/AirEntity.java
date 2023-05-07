@@ -31,8 +31,34 @@ public abstract class AirEntity extends Entity {
 		
 	}
 
-
 	
+	
+	
+	public AirEntity(int id) {
+		super(id);
+	}
+	
+	@Override
+	public String getPresentation() {
+		String result = getName();
+		if (getIataCode()!=null && getIcaoCode()!=null) {
+			result += " (" + getIataCode() + "/" + getIcaoCode() + ")";
+		} else {
+			String icao = getIataCode();
+			String iata = getIataCode();
+			if (icao!=null) {
+				result += " " + icao;
+			}
+			if (iata!=null) {
+				result += " " + iata;
+			}
+		}
+		
+		if (result.equals("")) {
+			result = "---";
+		}
+		return result;
+	}
 	
 	public Map<Language, String> getNames() {
 		return names;
@@ -61,8 +87,14 @@ public abstract class AirEntity extends Entity {
 	}
 	
 	public String getName() {
-		String name = getNames().get(this.defaultLanguage);
-		return name == null ? this.getFirstName() : name;
+		Map<Language, String> lnames = getNames();
+		
+		if (lnames == null) {
+			return "";
+		} else {
+			String name = lnames.get(this.defaultLanguage);
+			return name == null ? this.getFirstName() : name;
+		}
 	}
 	
 	public String getName(Language lang) {

@@ -1,5 +1,7 @@
 package by.controllers;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import by.dao.model.flight.Departure;
 import by.services.DepartureService;
+import by.services.FlightService;
 
 
 @Controller
 @RequestMapping("/admin/departure")
 public class DepartureController extends AbstractEntityController {
 	
+	@Autowired
 	private DepartureService service;
 	
-    @Autowired(required = true)
-	public DepartureController(DepartureService departureService) {
-		super();
-		this.service = departureService;
-	}
+	@Autowired
+	private FlightService fservice;
     
     private String getTitle() {
     	return getEnv().getProperty("admin.departure") +": ";
@@ -40,9 +41,13 @@ public class DepartureController extends AbstractEntityController {
 	@RequestMapping(value = "/{id}.html")
     public String getDeparture(ModelMap model, @PathVariable("id") int id) {
 		Departure departure = service.get(id);
-		String title = getTitle() + departure.getFlight().getIataNumber() + " " + departure.getScheduledDate();
+		SimpleDateFormat pattern = new SimpleDateFormat("dd.MM.yyyy");
+		String title = getTitle() + 
+				departure.getFlight().getIataNumber() + " " + 
+				pattern.format(departure.getScheduledDate());
     	model.addAttribute("title", title);
     	model.addAttribute("departure", departure);
+    	model.addAttribute("flights", fservice.getFlights(false));
 		return getReturn();
     }
     
@@ -51,6 +56,7 @@ public class DepartureController extends AbstractEntityController {
 		String title = getTitle() + getEnv().getProperty("admin.new.title");
     	model.addAttribute("title", title);
     	model.addAttribute("departure", new Departure());
+    	model.addAttribute("flights", fservice.getFlights(false));
 		return getReturn();
     }
 	
