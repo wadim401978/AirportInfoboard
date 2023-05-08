@@ -40,7 +40,9 @@
 			</tr>
 		</tbody>
 	</table>
-	<c:out value="${error}"/>
+	<div style="color:red;">
+	<c:out value="${error}" />
+	</div>
 	</form>
     </div>
 </ui:html>

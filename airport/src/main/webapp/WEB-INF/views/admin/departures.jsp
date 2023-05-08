@@ -13,7 +13,7 @@
 					<fmt:message key="admin.flight" bundle="${op}"/>
 				</td>
 				<td><fmt:message key="admin.status" bundle="${op}"/></td>
-				<td><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
+				<td align="center"><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -46,16 +46,16 @@
 			    			</a>
 		    			</td>
 					
-					<td><input type="checkbox" name="${item.id}"></td>
+					<td align="center"><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
 			<tr style="border: none;">
 				<td colspan="3">
+					<input type="button" name="add" value="+" onclick="location.href='departure/add.html'">
 					
-					<input type="submit" value="delete">
 				</td>
 				<td>
-					<input type="button" name="add" value="+" onclick="location.href='departure/add.html'">
+					<input type="submit" value="delete">
 				</td>
 			</tr>
 		</tbody>

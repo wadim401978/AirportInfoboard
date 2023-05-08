@@ -7,11 +7,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import by.app.util.DateTime;
+import by.controllers.validators.DepartureValidator;
 import by.dao.model.flight.Departure;
+import by.dao.model.flight.DepartureStatus;
+import by.dao.model.flight.Flight;
 import by.services.DepartureService;
 import by.services.FlightService;
 
@@ -25,9 +32,23 @@ public class DepartureController extends AbstractEntityController {
 	
 	@Autowired
 	private FlightService fservice;
+	
+	@Autowired
+	private DepartureValidator validator;
     
     private String getTitle() {
     	return getEnv().getProperty("admin.departure") +": ";
+    }
+    
+    private String getTitle(Departure departure) {
+    	if (departure.getId() == 0) {
+    		return getTitle() + getEnv().getProperty("admin.new.title");
+    	} else {
+    		SimpleDateFormat pattern = new SimpleDateFormat("dd.MM.yyyy");
+    		return  getTitle() + 
+    				departure.getFlight().getIataNumber() + " " + 
+    				pattern.format(departure.getScheduledDate());
+    	}
     }
     
 	private String getRedirect() {
@@ -41,28 +62,77 @@ public class DepartureController extends AbstractEntityController {
 	@RequestMapping(value = "/{id}.html")
     public String getDeparture(ModelMap model, @PathVariable("id") int id) {
 		Departure departure = service.get(id);
-		SimpleDateFormat pattern = new SimpleDateFormat("dd.MM.yyyy");
-		String title = getTitle() + 
-				departure.getFlight().getIataNumber() + " " + 
-				pattern.format(departure.getScheduledDate());
-    	model.addAttribute("title", title);
+    	model.addAttribute("title", getTitle(departure));
     	model.addAttribute("departure", departure);
     	model.addAttribute("flights", fservice.getFlights(false));
 		return getReturn();
     }
     
 	@GetMapping(path = "/add.html")
-    public String add(ModelMap model) {
-		String title = getTitle() + getEnv().getProperty("admin.new.title");
+    public String add(@ModelAttribute("departure.status") DepartureStatus status,
+    		ModelMap model
+    		) {
+		Departure departure = new Departure();
+    	departure.setStatus(status);
+		String title = getTitle(departure);
     	model.addAttribute("title", title);
-    	model.addAttribute("departure", new Departure());
+    	model.addAttribute("departure", departure);
     	model.addAttribute("flights", fservice.getFlights(false));
 		return getReturn();
     }
 	
+	@ModelAttribute("departure.flight")
+	public Flight requestFight(@RequestParam(value = "flight_id", defaultValue = "0") final int flight_id) {
+		Flight flight;
+		if (flight_id == 0) {
+			flight = new Flight();
+		} else {
+			flight = fservice.get(flight_id);
+		}
+		return flight;
+	}
+	
+	@ModelAttribute("departure.status")
+	public DepartureStatus requestStatus(@RequestParam(value = "depStatus", defaultValue = "1") final int statusId) {
+		DepartureStatus departureStatus = null;
+		DepartureStatus[] statuses = DepartureStatus.values();
+		for (DepartureStatus status : statuses) {
+			if (status.getId() == statusId) {
+				departureStatus = status;
+			}
+		}
+		return departureStatus;
+	}
+	
+	public String redirectDeparture(ModelMap model) {
+		Departure departure = (Departure) model.getAttribute("departure");
+		model.addAttribute("flights", fservice.getFlights(false));
+		model.addAttribute("departure", departure);
+		model.addAttribute("title", getTitle(departure));
+		return getReturn();
+	}
+
+
+	
 	@PostMapping("/save.html")
-	public String saveDeparture(HttpServletRequest req) {
-		Departure departure = service.getDeparture(req);
+	public String saveDeparture(
+			@ModelAttribute("departure") Departure departure, BindingResult result, 
+			@ModelAttribute("departure.status") DepartureStatus status, 
+			ModelMap model,
+			HttpServletRequest req
+			) {
+		
+		departure.setFlight((Flight) model.getAttribute("departure.flight"));
+		String date = req.getParameter("depScheduledDate");
+		departure.setScheduledDate(DateTime.getDate(date, req.getParameter("scheduledTime")));
+		departure.setStatusTime(DateTime.getDate(date, req.getParameter("depStatusTime")));
+		departure.setStatus((DepartureStatus) model.getAttribute("departure.status"));
+		
+		validator.validate(model, result);
+		if (result.hasErrors()) {
+			return redirectDeparture(model);
+		}
+
 		service.save(departure);
 		return getRedirect();
 	}

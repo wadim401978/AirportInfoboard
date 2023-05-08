@@ -53,11 +53,15 @@ public class JdbcArrivalDAOImpl extends JdbcAbstractDao implements ArrivalDAO {
 		List<Arrival> list = getJdbcTemplate().query(query, extr, id);
 		return list.isEmpty()?(new Arrival()):list.get(0);
 	}
-
+	
 	@Override
-	public void delete(Integer id) {
+	public void create(Arrival obj) {
 		getJdbcTemplate().update(
-				getQuery("arrival.delete.where.id"), id);
+				getQuery("arrival.insert"),
+				obj.getFlight().getId(),
+				obj.getScheduledDate(),
+				obj.getStatus().getId(),
+				obj.getStatusTime());
 	}
 
 	@Override
@@ -70,5 +74,11 @@ public class JdbcArrivalDAOImpl extends JdbcAbstractDao implements ArrivalDAO {
 				obj.getStatusTime(),
                 obj.getId());
 	}
-
+	
+	@Override
+	public void delete(Integer id) {
+		getJdbcTemplate().update(
+				getQuery("arrival.delete.where.id"), id);
+	}
+	
 }

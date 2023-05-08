@@ -42,7 +42,13 @@ public class Flight extends Entity {
     }
 
     public String getIataNumber() {
-        return getAirline().getIataCode() + number;
+    	Airline airline = getAirline();
+    	if (airline == null) {
+    		return "-";
+    	} else {
+    		return getAirline().getIataCode() + number;
+    	}
+        
     }
     
 
@@ -79,7 +85,12 @@ public class Flight extends Entity {
 
 	@Override
 	public String getPresentation() {
-		return getIataNumber() + ": " + getAirport().getName();
+		if (getAirport() == null) {
+			return getIataNumber() + "--";
+		} else {
+			return getIataNumber() + ": " + getAirport().getName();
+		}
+		
 	}
 
 	@Override

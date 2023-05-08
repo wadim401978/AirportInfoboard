@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateTime {
@@ -37,6 +38,26 @@ public class DateTime {
 	public static Date getDate(LocalDate localDate, LocalTime localTime) {
 		LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
 		return Date.from(localDateTime.toInstant(offset));
+	}
+	
+	public static Date getDate(String stringDate, String stringTime) {
+		Date  date = null;
+		if (stringDate == null || stringTime == null || stringTime.equals("")) {
+			date = null;
+		} else {
+			LocalDate ld = getLocalDate(stringDate);
+			LocalTime lt = getLocalTime(stringTime);
+			date = getDate(ld, lt);
+		}
+		return date;
+	}
+	
+	public static LocalDate getLocalDate(String date) {
+		return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	}
+	
+	public static LocalTime getLocalTime(String time) {
+		return LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
 	}
 	
 }

@@ -57,6 +57,18 @@ public class JdbcDepartureDAOImpl extends JdbcAbstractDao implements DepartureDA
 		
 		return list.isEmpty()?(new Departure()):list.get(0);
 	}
+	
+	
+
+	@Override
+	public void create(Departure obj) {
+		getJdbcTemplate().update(
+				getQuery("departure.insert"),
+				obj.getFlight().getId(),
+				obj.getScheduledDate(),
+				obj.getStatus().getId(),
+				obj.getStatusTime());
+	}
 
 	@Override
 	public void update(Departure obj) {
@@ -75,7 +87,5 @@ public class JdbcDepartureDAOImpl extends JdbcAbstractDao implements DepartureDA
 				getQuery("departure.delete.where.id"), id);
 
 	}
-	
-	
 
 }

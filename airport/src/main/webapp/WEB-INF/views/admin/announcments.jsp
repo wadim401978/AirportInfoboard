@@ -9,7 +9,7 @@
 			<tr>
 				<td><fmt:message key="admin.active" bundle="${op}"/></td>
 				<td><fmt:message key="admin.content" bundle="${op}"/></td>
-				<td><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
+				<td align="center"><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,7 +30,7 @@
 					</td>
 					<td><a href="announcment/${item.id}.html"> <span>${item.html}</span></a>
 					</td>
-					<td><input type="checkbox" name="delete${item.id}"></td>
+					<td align="center"><input type="checkbox" name="delete${item.id}"></td>
 				</tr>
 			</c:forEach>
 			<tr style="border: none;">
