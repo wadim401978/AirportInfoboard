@@ -51,4 +51,9 @@ public class FlightServiceImpl implements FlightService {
 		return dao.findFlights(isArrival);
 	}
 
+	@Override
+	public int getScheduledFlightsCount(Flight flight) {
+		return dao.countScheduledFlights(flight);
+	}
+
 }

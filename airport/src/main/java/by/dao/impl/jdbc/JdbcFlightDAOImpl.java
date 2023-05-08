@@ -1,6 +1,11 @@
 package by.dao.impl.jdbc;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 import by.dao.FlightDAO;
 import by.dao.impl.jdbc.mapper.FlightsExtractor;
@@ -78,6 +83,24 @@ public class JdbcFlightDAOImpl extends JdbcAbstractDao implements FlightDAO {
 		FlightsExtractor extr = (FlightsExtractor)getExtractor();
 		extr.setDefaultLangTag(getDefaultLangTag());
 		return getJdbcTemplate().query(query, extr);
+	}
+
+	@Override
+	public int countScheduledFlights(Flight flight) {
+		String query = getQuery("flight.count.linked.id");
+		
+		return getJdbcTemplate().query(query, new ResultSetExtractor<Integer> () {
+			@Override
+			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+				int result = 0;
+				while (rs.next()) {
+					result = rs.getInt("quantity");
+				}
+				return result;
+				
+			}
+			
+		}, flight.getId());
 	}
 	
 }

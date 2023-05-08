@@ -22,7 +22,7 @@ public class JdbcDepartureDAOImpl extends JdbcAbstractDao implements DepartureDA
 	@Override
 	public List<Departure> findAll() {
 		String query = getQuery("departure.select.all")
-				+ getQuery("departure.order.id");
+				+ getQuery("departure.order.date");
 		DeparturesExtractor extr = (DeparturesExtractor) getExtractor();
 		extr.setDefaultLangTag(getDefaultLangTag());
 		return getJdbcTemplate().query(query, extr);

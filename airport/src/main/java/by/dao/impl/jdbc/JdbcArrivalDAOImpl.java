@@ -19,7 +19,7 @@ public class JdbcArrivalDAOImpl extends JdbcAbstractDao implements ArrivalDAO {
 	@Override
 	public List<Arrival> findAll() {
 		String query = getQuery("arrival.select.all")
-				+ getQuery("arrival.order.id");
+				+ getQuery("arrival.order.date");
 		ArrivalsExtractor extr = (ArrivalsExtractor) getExtractor();
 		extr.setDefaultLangTag(getDefaultLangTag());
 		return getJdbcTemplate().query(query, extr);

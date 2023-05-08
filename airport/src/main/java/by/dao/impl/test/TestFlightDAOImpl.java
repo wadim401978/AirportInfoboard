@@ -29,4 +29,10 @@ public class TestFlightDAOImpl implements FlightDAO {
 		return findFlights();
 	}
 
+	@Override
+	public int countScheduledFlights(Flight flight) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

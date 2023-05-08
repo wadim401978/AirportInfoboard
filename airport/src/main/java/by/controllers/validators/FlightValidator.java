@@ -36,7 +36,16 @@ public class FlightValidator implements Validator {
 		if (flight.getNumber() == 0) {
 			errors.reject("number", env.getProperty("admin.error.flight.empty"));
 		}
-
+		
+		String oldType = (String) model.getAttribute("oldType"); 
+		int scheduledFlightsCount = (int) model.getAttribute("scheduledFlightsCount");
+		
+		if (flight.getId() > 0 && scheduledFlightsCount > 0) {
+			if (!oldType.equals(flight.getType())) {
+				errors.reject("number", env.getProperty("admin.error.flight.type.linked"));
+			}
+		}
+		
 	}
 
 }

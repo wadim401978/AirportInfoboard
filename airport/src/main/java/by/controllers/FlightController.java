@@ -132,17 +132,29 @@ public class FlightController extends AbstractEntityController {
 			@ModelAttribute("flight") Flight flight, BindingResult result, 
 			ModelMap model 
 			) {
+		int scheduledFlightsCount;
+		String oldType;
+		
 		flight.setAirline((Airline) model.getAttribute("flight.airline"));
 		flight.setAirport((Airport) model.getAttribute("flight.airport"));
 		model.addAttribute("flight", flight); 
+		
+		if (flight.getId() ==  0) {
+			scheduledFlightsCount = 0;
+			oldType = flight.getType();
+		} else {
+			scheduledFlightsCount = service.getScheduledFlightsCount(flight);
+			oldType = service.get(flight.getId()).getType();
+		}
+		model.addAttribute("scheduledFlightsCount", scheduledFlightsCount);
+		model.addAttribute("oldType", oldType);
 		validator.validate(model, result);
 		
 		if (result.hasErrors()) {
-			
 			return redirectFlight(model);
 		}
 		
-		service.save(flight);
+		service.save(flight); 
 		return getRedirect();
 	}
 
