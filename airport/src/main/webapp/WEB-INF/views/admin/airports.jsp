@@ -12,7 +12,7 @@
 					<fmt:message key="admin.IATA.code" bundle="${op}"/>
 					(<fmt:message key="admin.ICAO.code" bundle="${op}"/>)
 				</td>
-				<td><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
+				<td align="center"><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -26,16 +26,15 @@
 							<span>${item.iataCode} (${item.icaoCode})</span>
 						</a>
 					</td>
-					<td><input type="checkbox" name="${item.id}"></td>
+					<td align="center"><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
 			<tr style="border: none;">
 				<td colspan="2">
-					
-					<input type="submit" value="delete">
+					<input type="button" name="add" value="+" onclick="location.href='airport/add.html'">
 				</td>
 				<td>
-					<input type="button" name="add" value="+" onclick="location.href='airport/add.html'">
+					<input type="submit" value="delete">
 				</td>
 			</tr>
 		</tbody>

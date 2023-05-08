@@ -1,7 +1,6 @@
 package by.services.impl;
 
 import java.util.List;
-import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import by.dao.AirlineDAO;
@@ -13,7 +12,6 @@ import by.services.AirlineService;
 public class AirlineServiceImpl implements AirlineService {
 	
 	private AirlineDAO dao;
-	private ResourceBundle initialResourceBundle;
 	
 	@Override
 	@Autowired
@@ -22,9 +20,7 @@ public class AirlineServiceImpl implements AirlineService {
 	}
 
 	public AirlineServiceImpl() {
-		this.initialResourceBundle = ResourceBundle.getBundle("initial");
 	}
-
 
 	@Override
 	public List<Airline> getAll() {
@@ -41,7 +37,6 @@ public class AirlineServiceImpl implements AirlineService {
         }
 	}
 
-
 	@Override
 	public Airline get(int id) {
 		return dao.read(id);
@@ -51,7 +46,5 @@ public class AirlineServiceImpl implements AirlineService {
 	public void remove(int id) {
 		dao.delete(id);
 	}
-	
-	
 
 }

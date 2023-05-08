@@ -1,13 +1,10 @@
 package by.services.impl;
 
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import by.dao.DAO;
 import by.dao.ArrivalDAO;
-import by.dao.model.flight.Flight;
 import by.dao.model.flight.Arrival;
 import by.services.ArrivalService;
 
@@ -20,21 +17,6 @@ public class ArrivalServiceImpl implements ArrivalService {
 	@Autowired
 	public void setDao(DAO<Arrival> dao) {
 		this.dao = (ArrivalDAO)dao;
-	}
-
-	@Override
-	public List<Arrival> getAllByFlight(Flight flight) {
-		return dao.findAllByFlight(flight);
-	}
-
-	@Override
-	public List<Arrival> getByPeriod(Date startDate, Date endDate) {
-		return dao.findByPeriod(startDate, endDate);
-	}
-
-	@Override
-	public Arrival getScheduledFlight(Date date, Flight flight) {
-		return dao.findScheduledFlight(date, flight);
 	}
 
 	@Override

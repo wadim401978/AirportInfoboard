@@ -26,37 +26,38 @@ public class LanguageController extends AbstractEntityController {
 	@Autowired
 	private LanguageValidator validator;
 	
+	@Autowired
 	private LanguageService service;
 	
-    @Autowired(required = true)
-	public LanguageController(LanguageService langService) {
-		super();
-		this.service = langService;
+	private String getTitle() {
+		return getEnv().getProperty("admin.language") ;
+	}
+	private String getTitle(Language lang) {
+		if (lang.getId() == 0) {
+			return getTitle() + ": " + getEnv().getProperty("admin.new.title");
+		} else {
+			return getTitle() + ": " + lang.getName();
+		}
 	}
     
-    private String getTitle(int id, String name) {
-    	if (id == 0) {
-    		return getEnv().getProperty("admin.language") + ": "
-    				+ getEnv().getProperty("admin.new.title");
-    	} else {
-    		return getEnv().getProperty("admin.language") +": " + name;
-    	}
+    private String sendLang(ModelMap model, Language lang) {
+		model.addAttribute("language", lang);
+    	model.addAttribute("title", getTitle(lang));
+		return "admin/lang";
     }
+    
+	private String redirectLang(ModelMap model) {
+		return sendLang(model, (Language) model.getAttribute("language"));
+	}
 
 	@RequestMapping(value = "/{id}.html", method = RequestMethod.GET)
     public String getLang(ModelMap model, @PathVariable("id") int id) {
-		Language lang = service.get(id);
-		model.addAttribute("language", lang);
-    	model.addAttribute("title", getTitle(id, lang.getName()));
-		return "admin/lang";
+		return sendLang(model, service.get(id));
     }
     
 	@GetMapping(path = "/add.html")
     public String createNewLang(ModelMap model) {
-		Language lang = new Language(0, null, null, false);
-		model.addAttribute("language", lang);
-    	model.addAttribute("title", getTitle(0, lang.getName()));
-		return "admin/lang";
+		return sendLang(model, new Language(0, null, null, false));
     }
 	
 	@PostMapping(path = "/dlangs.html")
@@ -75,12 +76,6 @@ public class LanguageController extends AbstractEntityController {
 		return "redirect:../langs.html";
     }
 	
-	public String redirectLang(ModelMap model) {
-		Language lang = (Language) model.getAttribute("language");
-		model.addAttribute("language", lang);
-    	model.addAttribute("title", getTitle(lang.getId(), lang.getName()));
-		return "admin/lang";
-	}
 
 	@PostMapping("/save.html")
     public String saveLang(@ModelAttribute("language") Language language, BindingResult result, ModelMap model) {

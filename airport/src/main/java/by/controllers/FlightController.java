@@ -58,26 +58,26 @@ public class FlightController extends AbstractEntityController {
     	}
     }
 
-	@RequestMapping(value = "/{id}.html")
-    public String getFlight(ModelMap model, @PathVariable("id") int id) {
-		Flight flight = service.get(id);
-		String title = getTitle(flight);
-    	model.addAttribute("title", title);
+	private String sendFlight(ModelMap model, Flight flight) {
+    	model.addAttribute("title", getTitle(flight));
     	model.addAttribute("flight", flight);
     	model.addAttribute("airports", pservice.getAll());
     	model.addAttribute("airlines", lservice.getAll());
 		return getReturn();
+	}
+	
+	private String redirectFlight(ModelMap model) {
+		return sendFlight(model, (Flight) model.getAttribute("flight"));
+	}
+    
+    @RequestMapping(value = "/{id}.html")
+    public String getFlight(ModelMap model, @PathVariable("id") int id) {
+		return sendFlight(model, service.get(id));
     }
     
 	@GetMapping(path = "/add.html")
     public String add(ModelMap model) {
-		Flight flight = new Flight();
-		String title = getTitle(flight);
-    	model.addAttribute("title", title);
-    	model.addAttribute("flight", flight);
-    	model.addAttribute("airports", pservice.getAll());
-    	model.addAttribute("airlines", lservice.getAll());
-		return getReturn();
+		return sendFlight(model, new Flight());
     }
 	
 	@PostMapping(path = "/dflights.html")
@@ -118,14 +118,6 @@ public class FlightController extends AbstractEntityController {
 		return airline;
 	}
 	
-	public String redirectFlight(ModelMap model) {
-		Flight flight = (Flight) model.getAttribute("flight");
-		model.addAttribute("title", getTitle(flight));
-		model.addAttribute("flight", flight);
-    	model.addAttribute("airports", pservice.getAll());
-    	model.addAttribute("airlines", lservice.getAll());
-		return getReturn();
-	}
 	
 	@PostMapping("/save.html")
 	public String saveFlight(

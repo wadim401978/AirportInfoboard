@@ -11,7 +11,7 @@
 				<td style="width: 150px;"><fmt:message key="admin.tag" bundle="${op}"/></td>
 				<td><fmt:message key="admin.name" bundle="${op}"/></td>
 				<td><fmt:message key="admin.active" bundle="${op}"/></td>
-				<td><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
+				<td align="center"><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
 			</tr>
 		</thead>
 		
@@ -36,16 +36,15 @@
 						</a>
 					</td>
 					
-					<td><input type="checkbox" name="${item.id}"></td>
+					<td align="center"><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
 			<tr style="border: none;">
 				<td colspan="3">
-					
-					<input type="submit" value="delete">
+					<input type="button" name="add" value="+" onclick="location.href='lang/add.html'">
 				</td>
 				<td>
-					<input type="button" name="add" value="+" onclick="location.href='lang/add.html'">
+					<input type="submit" value="delete">
 				</td>
 			</tr>
 		</tbody>

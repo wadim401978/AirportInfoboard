@@ -55,17 +55,20 @@ public class DepartureController extends AbstractEntityController {
 		return "redirect:../departures.html";
 	}
 	
-	private String getReturn() {
+	private String sendDeparture(ModelMap model, Departure departure) {
+		model.addAttribute("flights", fservice.getFlights(false));
+		model.addAttribute("departure", departure);
+		model.addAttribute("title", getTitle(departure));
 		return "admin/departure";
+	}
+	
+	private String redirectDeparture(ModelMap model) {
+		return sendDeparture(model, (Departure) model.getAttribute("departure"));
 	}
 
 	@RequestMapping(value = "/{id}.html")
     public String getDeparture(ModelMap model, @PathVariable("id") int id) {
-		Departure departure = service.get(id);
-    	model.addAttribute("title", getTitle(departure));
-    	model.addAttribute("departure", departure);
-    	model.addAttribute("flights", fservice.getFlights(false));
-		return getReturn();
+		return sendDeparture(model, service.get(id));
     }
     
 	@GetMapping(path = "/add.html")
@@ -74,11 +77,8 @@ public class DepartureController extends AbstractEntityController {
     		) {
 		Departure departure = new Departure();
     	departure.setStatus(status);
-		String title = getTitle(departure);
-    	model.addAttribute("title", title);
-    	model.addAttribute("departure", departure);
-    	model.addAttribute("flights", fservice.getFlights(false));
-		return getReturn();
+    	
+		return sendDeparture(model, departure);
     }
 	
 	@ModelAttribute("departure.flight")
@@ -104,20 +104,10 @@ public class DepartureController extends AbstractEntityController {
 		return departureStatus;
 	}
 	
-	public String redirectDeparture(ModelMap model) {
-		Departure departure = (Departure) model.getAttribute("departure");
-		model.addAttribute("flights", fservice.getFlights(false));
-		model.addAttribute("departure", departure);
-		model.addAttribute("title", getTitle(departure));
-		return getReturn();
-	}
-
-
 	
 	@PostMapping("/save.html")
 	public String saveDeparture(
 			@ModelAttribute("departure") Departure departure, BindingResult result, 
-			@ModelAttribute("departure.status") DepartureStatus status, 
 			ModelMap model,
 			HttpServletRequest req
 			) {
@@ -136,8 +126,6 @@ public class DepartureController extends AbstractEntityController {
 		service.save(departure);
 		return getRedirect();
 	}
-	
-	
 
 	@PostMapping(path = "/ddepartures.html")
 	public String deleteItems(HttpServletRequest req, HttpSession session) {
@@ -146,7 +134,6 @@ public class DepartureController extends AbstractEntityController {
 		} catch (Exception e) {
 			session.setAttribute("error", "You can't delete record: " + e.getMessage());
 		}
-
 		return getRedirect();
     }
 

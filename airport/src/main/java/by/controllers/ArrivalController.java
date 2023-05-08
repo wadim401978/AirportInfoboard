@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import by.app.util.DateTime;
 import by.controllers.validators.ArrivalValidator;
 import by.dao.model.flight.Arrival;
@@ -21,7 +20,6 @@ import by.dao.model.flight.ArrivalStatus;
 import by.dao.model.flight.Flight;
 import by.services.ArrivalService;
 import by.services.FlightService;
-
 
 @Controller
 @RequestMapping("/admin/arrival")
@@ -55,17 +53,20 @@ public class ArrivalController  extends AbstractEntityController {
 		return "redirect:../arrivals.html";
 	}
 	
-	private String getReturn() {
+	private String sendArrival(ModelMap model, Arrival arrival) {
+		model.addAttribute("arrival", arrival);
+		model.addAttribute("flights", fservice.getFlights(true));
+		model.addAttribute("title", getTitle(arrival));
 		return "admin/arrival";
 	}
-
+	
+	private String redirectArrival(ModelMap model) {
+		return sendArrival(model, (Arrival) model.getAttribute("arrival"));
+	}
+	
 	@RequestMapping(value = "/{id}.html")
     public String getArrival(ModelMap model, @PathVariable("id") int id) {
-		Arrival arrival = service.get(id);
-    	model.addAttribute("title", getTitle(arrival));
-    	model.addAttribute("arrival", arrival);
-    	model.addAttribute("flights", fservice.getFlights(true));
-		return getReturn();
+		return sendArrival(model, service.get(id));
     }
     
 	@GetMapping(path = "/add.html")
@@ -73,17 +74,13 @@ public class ArrivalController  extends AbstractEntityController {
     		ModelMap model
     		) {
 		Arrival arrival = new Arrival();
-		String title = getTitle() + getEnv().getProperty("admin.new.title");
-    	model.addAttribute("title", title);
-    	
-    	arrival.setStatus(status);
-    	model.addAttribute("arrival", arrival);
-    	model.addAttribute("flights", fservice.getFlights(true));
-		return getReturn();
+		arrival.setStatus(status);
+		
+		return sendArrival(model, arrival);
     }
 	
 	@ModelAttribute("arrival.flight")
-	public Flight requestFight(@RequestParam(value = "flight_id", defaultValue = "0") final int flight_id) {
+	public Flight requestFlight(@RequestParam(value = "flight_id", defaultValue = "0") final int flight_id) {
 		Flight flight;
 		if (flight_id == 0) {
 			flight = new Flight();
@@ -105,14 +102,6 @@ public class ArrivalController  extends AbstractEntityController {
 		return arrivalStatus;
 	}
 	
-	public String redirectArrival(ModelMap model) {
-		Arrival arrival = (Arrival) model.getAttribute("arrival");
-		model.addAttribute("arrival", arrival);
-		model.addAttribute("flights", fservice.getFlights(true));
-		model.addAttribute("title", getTitle(arrival));
-		return getReturn();
-	}
-	
 	@PostMapping("/save.html")
 	public String saveArrival(
 			@ModelAttribute("arrival") Arrival arrival, BindingResult result, 
@@ -125,15 +114,12 @@ public class ArrivalController  extends AbstractEntityController {
 		arrival.setScheduledDate(DateTime.getDate(date, req.getParameter("scheduledTime")));
 		arrival.setStatusTime(DateTime.getDate(date, req.getParameter("arrStatusTime")));
 		arrival.setStatus((ArrivalStatus) model.getAttribute("arrival.status"));
-		
 		model.addAttribute("arrival", arrival);
 		
 		validator.validate(model, result);
-		
 		if (result.hasErrors()) {
 			return redirectArrival(model);
 		}
-		
 
 		service.save(arrival);
 		return getRedirect();

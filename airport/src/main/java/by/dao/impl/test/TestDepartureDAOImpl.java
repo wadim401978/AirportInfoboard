@@ -21,7 +21,6 @@ public class TestDepartureDAOImpl implements DepartureDAO {
 		return TestDataSet.getInstance().getDepartures();
 	}
 
-	@Override
 	public List<Departure> findAllByFlight(Flight flight) {
 		List<Departure> departures = new ArrayList<>();
 		List<Departure> allDepartures = findAll();
@@ -33,7 +32,6 @@ public class TestDepartureDAOImpl implements DepartureDAO {
 		return departures;
 	}
 
-	@Override
 	public List<Departure> findByPeriod(Date startDate, Date endDate) {
 		List<Departure> departures = new ArrayList<>();
 		List<Departure> allDepartures = findAll();
@@ -47,7 +45,6 @@ public class TestDepartureDAOImpl implements DepartureDAO {
 		return departures;
 	}
 
-	@Override
 	public Departure findScheduledFlight(Date date, Flight flight) {
 		List<Departure> allDepartures = findAll();
 		Departure foundDeparture = null;
