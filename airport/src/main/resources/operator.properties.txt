@@ -37,6 +37,10 @@ admin.time.status = Время в статусе
 
 admin.back.to.board = Вернуться в административную панель
 admin.close = Закрыть
+admin.add.name = Добавить наименование
+admin.del.row = Удалить строку
+admin.ok = Сохранить и выйти
+admin.cancel = Выйти без изменения
 
 admin.error.name.empty = Наименование не может быть пустым
 admin.error.language.tag.empty = Обозначение языка не может быть пустым

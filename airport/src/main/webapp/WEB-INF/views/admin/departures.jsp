@@ -3,17 +3,17 @@
 <fmt:setBundle basename="viewer" var="viewer_bundle" />
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
     <form method="post" action="${pageContext.request.contextPath}/admin/departure/ddepartures.html"  id="deleteCheckers">
 	<table class="admin dashed">
 		<thead>
+			<ui:listButtons itemHref="departure" colspan="3"/>
 			<tr>
-				<td style="width: 210px;"><fmt:message key="admin.date.scheduled" bundle="${op}"/></td>
-				<td>
+				<th style="width: 210px;"><fmt:message key="admin.date.scheduled" bundle="${op}"/></th>
+				<th>
 					<fmt:message key="admin.flight" bundle="${op}"/>
-				</td>
-				<td><fmt:message key="admin.status" bundle="${op}"/></td>
-				<td align="center"><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
+				</th>
+				<th><fmt:message key="admin.status" bundle="${op}"/></th>
+				<th><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -49,15 +49,6 @@
 					<td align="center"><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
-			<tr style="border: none;">
-				<td colspan="3">
-					<input type="button" name="add" value="+" onclick="location.href='departure/add.html'">
-					
-				</td>
-				<td>
-					<input type="submit" value="delete">
-				</td>
-			</tr>
 		</tbody>
 	</table>
 	</form>

@@ -6,7 +6,7 @@
 				<input type="radio" name="tabs" id="tab-1" checked>
 				<label for="tab-1" style="border-radius: 30px 0 0 0;"><fmt:message key="admin.references.title" bundle="${op}"/></label>
 				<div class="tab-content">
-					<table class="admin dashed">
+					<table class="admin">
 						<tr>
 							<td>
 								<a href="admin/langs.html">
@@ -43,7 +43,7 @@
 				<input type="radio" name="tabs" id="tab-2">
 				<label for="tab-2"><fmt:message key="admin.tables.title" bundle="${op}"/></label>
 				<div class="tab-content">
-					<table  class="admin dashed">
+					<table  class="admin">
 						<tr>
 							<td>
 								<a href="admin/arrivals.html">

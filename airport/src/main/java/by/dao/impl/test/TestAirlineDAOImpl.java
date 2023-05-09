@@ -9,12 +9,10 @@ import by.dao.model.flight.Airline;
 @Repository(value = "TestAirlineDAO")
 public class TestAirlineDAOImpl implements AirlineDAO {
 
-	@Override
 	public String readName(Language lang, Airline obj) {
 		return obj.getNames().get(lang);
 	}
 
-	@Override
 	public void saveNameByLang(String name, Language lang, Airline obj) {
 		obj.getNames().put(lang, name);
 	}
@@ -34,5 +32,6 @@ public class TestAirlineDAOImpl implements AirlineDAO {
 	public Airline findAirlineByIcaoCode(String icaoCode) {
 		return TestDataSet.getInstance().getAirlineMap().get(icaoCode);
 	}
+
 
 }

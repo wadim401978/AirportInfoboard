@@ -65,12 +65,26 @@ public class ExtractAssistant {
 	public void setLanguage(Language language) {
 		this.language = language;
 	}
+	
+	
+
+	public Map<String, Language> getLanguages() {
+		return languages;
+	}
+
+	public Map<String, Airport> getAirportMap() {
+		return airportMap;
+	}
+
+	public Map<Language, String> getAirportNames() {
+		return airportNames;
+	}
 
 	public Language getLanguageByTag(String tag) {
 		Language lang = languages.get(tag);
 		if (lang == null) {
 			lang = new Language();
-			this.languages.put(tag, this.language);
+			this.languages.put(tag, lang);
 		}
 		setLanguage(lang);
 		return this.language;
@@ -112,8 +126,7 @@ public class ExtractAssistant {
 	
 	public void setAirlineValues(ResultSet rs) throws SQLException {
 		//AIRLINE filling
-		setLanguage(getLanguageByTag(
-				rs.getString("larl.tag")));
+		setLanguage(getLanguageByTag(rs.getString("larl.tag")));
 		setLanguageValues(rs, getLanguage(), "larl.");
 		
 		getAirline().setId(rs.getInt("arl.id"));
@@ -127,15 +140,13 @@ public class ExtractAssistant {
 	
 	public void setAirportValues(ResultSet rs) throws SQLException {
 		//AIRPORT filling
-		setLanguage(getLanguageByTag(
-				rs.getString("larp.tag")));
+		setLanguage(getLanguageByTag(rs.getString("larp.tag")));
 		setLanguageValues(rs, getLanguage(), "larp.");
 		
 		getAirport().setId(rs.getInt("arp.id"));
 		getAirport().setIataCode(rs.getString("arp.IATA"));
 		getAirport().setIcaoCode(rs.getString("arp.ICAO"));
-		getAirport().setNames(getAirportNames(
-				rs.getString("arp18.name")));
+		getAirport().setNames(getAirportNames(rs.getString("arp18.name")));
 		
 		getAirport().setDefaultLanguage(languages.get(getDefaultLangTag()));
 		
@@ -143,8 +154,7 @@ public class ExtractAssistant {
 	
 	public void setFlightValues(ResultSet rs) throws SQLException {
 		setAirlineValues(rs);
-		setAirportByIcao(
-				rs.getString("arp.ICAO"));
+		setAirportByIcao(rs.getString("arp.ICAO"));
 		setAirportValues(rs);
 		
 		getFlight().setId(rs.getInt("flt.id"));

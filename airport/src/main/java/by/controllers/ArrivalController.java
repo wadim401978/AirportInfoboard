@@ -29,7 +29,7 @@ public class ArrivalController  extends AbstractEntityController {
 	private ArrivalService service;
 	
 	@Autowired
-	private FlightService fservice;
+	private FlightService flightService;
 	
 	@Autowired
 	private ArrivalValidator validator;
@@ -55,7 +55,7 @@ public class ArrivalController  extends AbstractEntityController {
 	
 	private String sendArrival(ModelMap model, Arrival arrival) {
 		model.addAttribute("arrival", arrival);
-		model.addAttribute("flights", fservice.getFlights(true));
+		model.addAttribute("flights", flightService.getFlights(true));
 		model.addAttribute("title", getTitle(arrival));
 		return "admin/arrival";
 	}
@@ -85,7 +85,9 @@ public class ArrivalController  extends AbstractEntityController {
 		if (flight_id == 0) {
 			flight = new Flight();
 		} else {
-			flight = fservice.get(flight_id);
+			flight = flightService.get(flight_id);
+//			flight.getAirline().setDefaultLanguage(langService.getDefaultLang());
+//			flight.getAirport().setDefaultLanguage(langService.getDefaultLang());
 		}
 		return flight;
 	}

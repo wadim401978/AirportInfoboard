@@ -1,7 +1,6 @@
 package by.controllers;
 
 import java.text.SimpleDateFormat;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import by.dao.model.flight.Flight;
 import by.services.DepartureService;
 import by.services.FlightService;
 
-
 @Controller
 @RequestMapping("/admin/departure")
 public class DepartureController extends AbstractEntityController {
@@ -31,7 +29,7 @@ public class DepartureController extends AbstractEntityController {
 	private DepartureService service;
 	
 	@Autowired
-	private FlightService fservice;
+	private FlightService flightService;
 	
 	@Autowired
 	private DepartureValidator validator;
@@ -56,7 +54,7 @@ public class DepartureController extends AbstractEntityController {
 	}
 	
 	private String sendDeparture(ModelMap model, Departure departure) {
-		model.addAttribute("flights", fservice.getFlights(false));
+		model.addAttribute("flights", flightService.getFlights(false));
 		model.addAttribute("departure", departure);
 		model.addAttribute("title", getTitle(departure));
 		return "admin/departure";
@@ -87,7 +85,7 @@ public class DepartureController extends AbstractEntityController {
 		if (flight_id == 0) {
 			flight = new Flight();
 		} else {
-			flight = fservice.get(flight_id);
+			flight = flightService.get(flight_id);
 		}
 		return flight;
 	}

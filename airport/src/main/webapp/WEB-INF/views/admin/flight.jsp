@@ -81,7 +81,7 @@
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/flights.html"/>	
     	</table>
-    	<form:errors element="name" cssStyle="color:red;"/>
+    	<form:errors element="name" cssStyle="color:red; color:red; padding-left:45px;"/>
     </form:form>
 </div>
 </ui:html>

@@ -72,7 +72,8 @@ public class FlightController extends AbstractEntityController {
     
     @RequestMapping(value = "/{id}.html")
     public String getFlight(ModelMap model, @PathVariable("id") int id) {
-		return sendFlight(model, service.get(id));
+		Flight flight = service.get(id);
+    	return sendFlight(model, flight);
     }
     
 	@GetMapping(path = "/add.html")

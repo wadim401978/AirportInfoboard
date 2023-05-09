@@ -16,6 +16,7 @@ import by.app.exception.DeleteException;
 import by.controllers.validators.AirportValidator;
 import by.dao.model.flight.Airport;
 import by.services.AirportService;
+import by.services.LanguageService;
 
 @Controller
 @RequestMapping("/admin/airport")
@@ -23,6 +24,9 @@ public class AirportController extends AbstractEntityController {
 	
 	@Autowired
 	private AirportService service;
+	
+	@Autowired
+	private LanguageService langService;
 	
 	@Autowired
 	private AirportValidator validator;
@@ -63,9 +67,6 @@ public class AirportController extends AbstractEntityController {
     	return sendAirport(model, new Airport());
     }
 	
-	//TODO
-	//create a model the default language
-	
 	@PostMapping("/save.html")
 	public String saveAirport(
 			@ModelAttribute("airport") Airport airport, BindingResult result, 
@@ -73,7 +74,13 @@ public class AirportController extends AbstractEntityController {
 			HttpServletRequest req
 			) {
 		
-		validator.validate(airport, result);
+		airport.setDefaultLanguage(langService.getDefaultLang());
+		if (req.getParameter("isEmpty") == null) {
+			model.addAttribute("isEmpty", true);
+		} else {
+			model.addAttribute("isEmpty", false);
+		}
+		validator.validate(model, result);
 		if(result.hasErrors()) {
 			return redirectAirport(model);
 		}

@@ -10,14 +10,11 @@ import by.dao.model.flight.Airline;
 import by.dao.model.flight.Flight;
 
 public class FlightsExtractor extends ExtractAssistant implements ResultSetExtractor<List<Flight>> {
-	
 
 	@Override
 	public List<Flight> extractData(ResultSet rs) throws SQLException, DataAccessException {
 		int instanceId = -1;
-		
 		List<Flight> flights = new ArrayList<>();
-		
 		while (rs.next()) {
 			int recordId = rs.getInt("flt.id");
 			if (rs.getRow() == 0 || recordId != instanceId) {
@@ -26,14 +23,9 @@ public class FlightsExtractor extends ExtractAssistant implements ResultSetExtra
 				setFlight(new Flight());
 				getFlight().setId(recordId);
 				flights.add(getFlight());
-				
 			}
-			
 			setFlightValues(rs);
-			
-			
 		}
-		 
 		return flights;
 	}
 

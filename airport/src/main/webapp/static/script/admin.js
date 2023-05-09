@@ -24,3 +24,13 @@ function setChosenId(id_dest, name_dest, id_src, e) {
 	elementDestName.value = Array.from(e.children)[0].innerHTML.trim();
 	//history.back();
 }
+
+function delLangRow(rowId) {
+	console.log(rowId);
+	row = document.getElementById(rowId);
+	row.remove();
+}
+
+function addRow() {
+	alert('under construction');
+}

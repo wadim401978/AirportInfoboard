@@ -16,12 +16,10 @@ public class TestAirportDAOImpl implements AirportDAO  {
 		return TestDataSet.getInstance().getAirports().get(id);
 	}
 
-	@Override
 	public String readName(Language lang, Airport obj) {
 		return obj.getNames().get(lang);
 	}
 
-	@Override
 	public void saveNameByLang(String name, Language lang, Airport obj) {
 		obj.getNames().put(lang, name);
 	}
@@ -34,6 +32,7 @@ public class TestAirportDAOImpl implements AirportDAO  {
 	public Airport findAirportByIcaoCode(String icaoCode) {
 		return TestDataSet.getInstance().getAirportMap().get(icaoCode);
 	}
+
 	
 
 }

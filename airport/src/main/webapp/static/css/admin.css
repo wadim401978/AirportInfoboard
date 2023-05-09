@@ -35,13 +35,37 @@ table.admin td {
 
 }
 
-table.dashed tr {
-	border-bottom: 1px dashed;	
+table.dashed tbody tr {
+	border-top: 1px dashed;	
+}
+
+table.dashed tbody tr:hover {
+	background-color: #eee;
 }
 
 table.admin {
 	margin: 10px auto;
 	width: 900px;	
+}
+
+table.langTable {
+	margin-top:0;
+	min-width:850px;
+}
+
+table.langTable th, table.admin th {
+	padding: 15px;
+	background-color: var(--bs-nightair-bg);
+	color:var(--bs-yellow);
+	text-align: center;
+}
+
+table.langTable tr {
+	border-top: dotted 1px black;
+}
+
+table.langTable tbody tr:hover {
+	background-color: #eee;
 }
 
 a {
@@ -74,7 +98,11 @@ input[type=text], select, input[type=time], input[type=date] {
 
 
 input.langtag {
-	width:80px;
+	width:70px;
+}
+
+input.langname {
+	width:440px;
 }
 
 /*---TABS---*/

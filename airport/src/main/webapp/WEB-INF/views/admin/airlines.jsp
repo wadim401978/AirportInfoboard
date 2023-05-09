@@ -2,17 +2,17 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setBundle basename="operator" var="op"/>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <a href="../admin.html"><fmt:message key="admin.back.to.board" bundle="${op}"/></a>
     <form method="post" action="${pageContext.request.contextPath}/admin/airline/dairlines.html" id="deleteCheckers">
 	<table class="admin dashed">
 		<thead>
+			<ui:listButtons itemHref="airline" colspan="2"/>
 			<tr>
-				<td><fmt:message key="admin.name" bundle="${op}"/></td>
-				<td>
+				<th><fmt:message key="admin.name" bundle="${op}"/></th>
+				<th>
 					<fmt:message key="admin.IATA.code" bundle="${op}"/>
 					(<fmt:message key="admin.ICAO.code" bundle="${op}"/>)
-				</td>
-				<td align="center"><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></td>
+				</th>
+				<th><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,14 +29,6 @@
 					<td align="center"><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
-			<tr style="border: none;">
-				<td colspan="2">
-					<input type="button" name="add" value="+" onclick="location.href='airline/add.html'">
-				</td>
-				<td>
-					<input type="submit" value="delete">
-				</td>
-			</tr>
 		</tbody>
 	</table>
 	<div style="color:red;">

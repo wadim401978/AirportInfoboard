@@ -10,41 +10,29 @@
     			<td><input type="text" name="id" value="${airline.id}"  readonly="readonly"></td>
     		</tr>
     		<tr>
-    			<td style="width: 180px;"><fmt:message key="admin.ICAO.code" bundle="${op}"/>:</td>
+    			<td style="width: 180px;">
+    				<fmt:message key="admin.ICAO.code" bundle="${op}"/>:<span style="color:red;">*</span>
+    			</td>
     			<td>
     				<form:errors path="icaoCode" cssStyle="color:red;" element="div"/>
 					<form:input path ="icaoCode" />
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 180px;"><fmt:message key="admin.IATA.code" bundle="${op}"/>:</td>
+    			<td style="width: 180px;">
+    				<fmt:message key="admin.IATA.code" bundle="${op}"/>:<span style="color:red;">*</span>
+    			</td>
     			<td>
     				<form:errors path="iataCode" cssStyle="color:red;" element="div"/>
 					<form:input path ="iataCode" />
     			</td>
     		</tr>
-			<c:forEach items="${airline.names}" var="entry">
 			<tr>
 				<td colspan="2">
-    				<input type="hidden" name="langid${entry.key.id}" value="${entry.key.id}" >
-    				<input type="text" name="lang${entry.key.id}" value="${entry.key.tag}" class="langtag" disabled="disabled">
-    				<input type="button" value="..." name="addLang${entry.key.id}" alt="select lang">
-    				<input type="text" name="langV${entry.key.id}" value="${entry.value}" >
-    				<input type="button" value="-" name="delLang${entry.key.id}" alt="del lang">
+					<ui:AirEntityName names="${airline.names}"/>
 				</td>
 			</tr>
-			</c:forEach>
-			<tr>
-				<td colspan="2">
-    				<input type="hidden" name="langid0" value="0" >
-    				<input type="text" name="lang0" value="" class="langtag" disabled="disabled">
-    				<input type="button" value="..." name="addLang0" alt="select lang">
-    				<input type="text" name="langV0" value="" >
-    				
-				</td>
-			</tr>
-			
-			<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/airlines.html"/>			
+			<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/airlines.html" addButton="true"/>			
 		</table>
     </form:form>
 </div>

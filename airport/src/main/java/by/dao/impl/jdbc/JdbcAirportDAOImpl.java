@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import by.dao.AirportDAO;
 import by.dao.impl.jdbc.mapper.AirportsExtractor;
-import by.dao.model.common.Language;
 import by.dao.model.flight.Airport;
 
 //@Transactional
@@ -16,17 +15,6 @@ public class JdbcAirportDAOImpl extends JdbcAbstractDao implements AirportDAO {
 		setExtractor(new AirportsExtractor());
 	}
 
-	@Override
-	public String readName(Language lang, Airport obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveNameByLang(String name, Language lang, Airport obj) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public Airport read(Integer id) {
@@ -57,6 +45,31 @@ public class JdbcAirportDAOImpl extends JdbcAbstractDao implements AirportDAO {
 		getJdbcTemplate().update(
 				getQuery("airport.delete.where.id"), id);
 	}
+
+	private void deleteNames(Airport obj) {
+		// TODO Auto-generated method stub
+	}
+	
+	private void createNames(Airport obj) {
+		// TODO Auto-generated method stub
+	}
+
+
+	@Override
+	public void create(Airport obj) {
+		// TODO Auto-generated method stub
+		//TRANSACTIONAL
+		createNames(obj);
+	}
+
+	@Override
+	public void update(Airport obj) {
+		// TODO Auto-generated method stub
+		//TRANSACTIONAL
+		deleteNames(obj);
+		createNames(obj);
+	}
+
 	
 	
 

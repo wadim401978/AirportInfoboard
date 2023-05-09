@@ -93,7 +93,7 @@ public abstract class AirEntity extends Entity {
 			return "";
 		} else {
 			String name = lnames.get(this.defaultLanguage);
-			return name == null ? this.getFirstName() : name;
+			return (name == null)?this.getFirstName():name;
 		}
 	}
 	
