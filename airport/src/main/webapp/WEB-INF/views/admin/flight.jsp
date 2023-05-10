@@ -2,20 +2,17 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setBundle basename="operator" var="op"/>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <c:set var="popupAirportId" value="airportModal"/>
-    <c:set var="popupAirlineId" value="airlineModal"/>
-    <c:set var="popupTargetAirportId" value="airport_id"/>
-    <c:set var="popupTargetAirlineId" value="airline_id"/>
-    <c:set var="popupTargetAirportName" value="airport_name"/>
-    <c:set var="popupTargetAirlineName" value="airline_name"/>
-    <ui:popup 
+    <c:set var="popupAirportId" value="airportModal"/><c:set var="popupAirlineId" value="airlineModal"/>
+    <c:set var="popupTargetAirportId" value="airport_id"/><c:set var="popupTargetAirlineId" value="airline_id"/>
+    <c:set var="popupTargetAirportName" value="airport_name"/><c:set var="popupTargetAirlineName" value="airline_name"/>
+    <ui:popupFlight 
     	items="${airports}" 
     	destination_id="${popupTargetAirportId}" 
     	destination_name="${popupTargetAirportName}" 
     	popupHeader="admin.select.airport"
     	popupId="${popupAirportId}"/>
     
-    <ui:popup 
+    <ui:popupFlight 
     	items="${airlines}" 
     	destination_id="${popupTargetAirlineId}" 
     	destination_name="${popupTargetAirlineName}" 
@@ -34,20 +31,20 @@
     				<fmt:message key="admin.airport" bundle="${op}"/>:
     				<span style="color:red;">*</span>
     			</td>
-    			<td>
-    				<input type="text" id="${popupTargetAirportName}" value="${flight.airport.presentation}" data-bs-toggle="modal" data-bs-target="#${popupAirportId}" readonly="readonly">
+    			<td><c:set var="selectAirport"><fmt:message key="admin.select.airport" bundle="${op}"/></c:set>
+    				<input type="text" id="${popupTargetAirportName}" value="${flight.airport.presentation}" title="${selectAirport}" data-bs-toggle="modal" data-bs-target="#${popupAirportId}" readonly="readonly">
     				<input type="hidden" name="${popupTargetAirportId}" id="${popupTargetAirportId}" value="${flight.airport.id}" >
-    				<input type="button" value="..." name="addAirport" alt="select airport"  data-bs-toggle="modal" data-bs-target="#${popupAirportId}">
+    				<input type="button" value="..." name="addAirport" title="${selectAirport}" data-bs-toggle="modal" data-bs-target="#${popupAirportId}">
     			</td>
     		</tr>
     		<tr>
     			<td style="width: 180px;">
     				<fmt:message key="admin.airline" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
-    			<td>
-    				<input type="text" id="${popupTargetAirlineName}" value="${flight.airline.presentation}" data-bs-toggle="modal" data-bs-target="#${popupAirlineId}" readonly="readonly">
+    			<td><c:set var="selectAirline"><fmt:message key="admin.select.airline" bundle="${op}"/></c:set>
+    				<input type="text" id="${popupTargetAirlineName}" value="${flight.airline.presentation}" title="${selectAirline}" data-bs-toggle="modal" data-bs-target="#${popupAirlineId}" readonly="readonly">
     				<input type="hidden" name="${popupTargetAirlineId}" id="${popupTargetAirlineId}" value="${flight.airline.id}" >
-    				<input type="button" value="..." name="addAirline"  alt="select airline" data-bs-toggle="modal" data-bs-target="#${popupAirlineId}">
+    				<input type="button" value="..." name="addAirline" title="${selectAirline}" data-bs-toggle="modal" data-bs-target="#${popupAirlineId}">
     			</td>
     		</tr>
     		<tr>
@@ -81,7 +78,7 @@
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/flights.html"/>	
     	</table>
-    	<form:errors element="name" cssStyle="color:red; color:red; padding-left:45px;"/>
+    	<form:errors element="name"  cssClass="errors"/>
     </form:form>
 </div>
 </ui:html>

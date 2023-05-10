@@ -5,7 +5,12 @@
 <tr>
 	<td colspan="2">
 		<c:if test="${addButton==true}"><c:set var="addName"><fmt:message key="admin.add.name" bundle="${op}"/></c:set>
-		<input type="button" value="${addName}" name="addLang" title="${addName}" onclick="addRow();"></c:if>
+		<input type="button" 
+			value="${addName}" 
+			name="addLang" 
+			id="addLang"
+			title="${addName}"  
+			data-bs-toggle="modal" ></c:if>
 		<c:set var="OK"><fmt:message key="admin.ok" bundle="${op}"/></c:set>
 		<input type="submit" value="OK" title="${OK}">
 		<c:set var="CANCEL"><fmt:message key="admin.cancel" bundle="${op}"/></c:set>

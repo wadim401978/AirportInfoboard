@@ -1,6 +1,8 @@
 package by.controllers;
 
 import java.text.MessageFormat;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import by.app.exception.DeleteException;
 import by.controllers.validators.AirlineValidator;
+import by.dao.model.common.Language;
 import by.dao.model.flight.Airline;
 import by.services.AirlineService;
+import by.services.LanguageService;
 
 @Controller
 @RequestMapping("/admin/airline")
@@ -23,6 +27,10 @@ public class AirlineController extends AbstractEntityController {
 	
 	@Autowired
 	private AirlineService service;
+	
+	@Autowired
+	private LanguageService langService;
+
 	
 	@Autowired
 	private AirlineValidator validator;
@@ -46,6 +54,7 @@ public class AirlineController extends AbstractEntityController {
     private String sendAirline(ModelMap model, Airline airline) {
     	model.addAttribute("title", getTitle(airline));
     	model.addAttribute("airline", airline);
+    	model.addAttribute("langs", langService.getActiveLanguages());
 		return "admin/airline";
     }
     
@@ -63,14 +72,21 @@ public class AirlineController extends AbstractEntityController {
 		return sendAirline(model, new Airline());
     }
 	
+	@ModelAttribute("names")
+	public Map<Language, String> getNames(HttpServletRequest req, ModelMap model) {
+		return getNames(req, model, langService);
+	}
+	
 	@PostMapping("/save.html")
 	public String saveAirport(
+			@ModelAttribute("names") Map<Language, String> names,
 			@ModelAttribute("airline") Airline airline, BindingResult result, 
 			ModelMap model,
 			HttpServletRequest req
 			) {
-		
-		validator.validate(airline, result);
+		airline.setNames(names);
+		model.addAttribute("isEmpty", req.getParameter("isEmpty"));
+		validator.validate(model, result);
 		if(result.hasErrors()) {
 			return redirectAirline(model);
 		}

@@ -37,7 +37,7 @@ public class Language extends ActiveEntity{
 
 	@Override
 	public String getPresentation() {
-		return getTag() + ": " + getName();
+		return "[ " + getTag() + " ]:   " + getName();
 	}
 
 	@Override

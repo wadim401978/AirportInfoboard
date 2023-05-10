@@ -1,6 +1,7 @@
 package by.controllers;
 
 import java.text.MessageFormat;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import by.app.exception.DeleteException;
 import by.controllers.validators.AirportValidator;
+import by.dao.model.common.Language;
 import by.dao.model.flight.Airport;
 import by.services.AirportService;
 import by.services.LanguageService;
@@ -48,8 +50,10 @@ public class AirportController extends AbstractEntityController {
     }
     
     private String sendAirport(ModelMap model, Airport airport) {
-    	model.addAttribute("title", getTitle(airport));
+//    	airport.setNames(null);
     	model.addAttribute("airport", airport);
+    	model.addAttribute("title", getTitle(airport));
+    	model.addAttribute("langs", langService.getActiveLanguages());
 		return "admin/airport";
     }
     
@@ -67,19 +71,22 @@ public class AirportController extends AbstractEntityController {
     	return sendAirport(model, new Airport());
     }
 	
+	@ModelAttribute("names")
+	public Map<Language, String> getNames(HttpServletRequest req, ModelMap model) {
+		return getNames(req, model, langService);
+	}
+	
 	@PostMapping("/save.html")
 	public String saveAirport(
+			@ModelAttribute("names") Map<Language, String> names,
 			@ModelAttribute("airport") Airport airport, BindingResult result, 
 			ModelMap model,
 			HttpServletRequest req
 			) {
 		
 		airport.setDefaultLanguage(langService.getDefaultLang());
-		if (req.getParameter("isEmpty") == null) {
-			model.addAttribute("isEmpty", true);
-		} else {
-			model.addAttribute("isEmpty", false);
-		}
+		airport.setNames(names);
+		model.addAttribute("isEmpty", req.getParameter("isEmpty"));
 		validator.validate(model, result);
 		if(result.hasErrors()) {
 			return redirectAirport(model);

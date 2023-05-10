@@ -36,9 +36,7 @@
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/langs.html"/>	
     	</table>
-    	
-    	<form:errors element="name" />
-    	
+    	<form:errors element="name"  cssClass="errors"/>
     </form:form>
     
     

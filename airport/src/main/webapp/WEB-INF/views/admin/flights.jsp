@@ -12,7 +12,7 @@
 					<fmt:message key="admin.IATA.number" bundle="${op}"/>
 					(<fmt:message key="admin.ICAO.number" bundle="${op}"/>)
 				</th>
-				<th><fmt:message key="admin.type" bundle="${op}"/></td>
+				<th><fmt:message key="admin.type" bundle="${op}"/></th>
 				<th  style="text-align: center;"><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></th>
 			</tr>
 		</thead>

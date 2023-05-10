@@ -77,11 +77,13 @@ public abstract class AirEntity extends Entity {
 	}
 
 	private String getFirstName() {
-		String name = "";
+		String name = "---";
 		Map<Language, String> map = this.getNames();
 		for (Map.Entry<Language, String> entry : map.entrySet()) {
-			name = entry.getValue();
-			break;
+			String value = entry.getValue();
+			if (value != null && !value.trim().equals("")) {
+				return value;
+			}
 		}
 		return name;
 	}
@@ -93,7 +95,10 @@ public abstract class AirEntity extends Entity {
 			return "";
 		} else {
 			String name = lnames.get(this.defaultLanguage);
-			return (name == null)?this.getFirstName():name;
+			if (name == null || name.trim().equals("")) {
+				name = this.getFirstName();
+			}
+			return name;
 		}
 	}
 	

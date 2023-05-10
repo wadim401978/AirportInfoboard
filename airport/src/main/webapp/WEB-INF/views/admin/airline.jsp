@@ -3,11 +3,16 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
+    <ui:popupLang items="${langs}" 
+    	popupId="airlineModal" 
+    	popupHeader="admin.select.language"/>
     <form:form action="${pageContext.request.contextPath}/admin/airline/save.html" modelAttribute="airline">
     	<table class="admin">
     		<tr>
     			<td style="width: 180px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
-    			<td><input type="text" name="id" value="${airline.id}"  readonly="readonly"></td>
+    			<td>
+    				<form:input path ="id" readonly="true" />
+    			</td>
     		</tr>
     		<tr>
     			<td style="width: 180px;">
@@ -15,7 +20,7 @@
     			</td>
     			<td>
     				<form:errors path="icaoCode" cssStyle="color:red;" element="div"/>
-					<form:input path ="icaoCode" />
+					<form:input path ="icaoCode" maxlength="3"/>
     			</td>
     		</tr>
     		<tr>
@@ -24,7 +29,7 @@
     			</td>
     			<td>
     				<form:errors path="iataCode" cssStyle="color:red;" element="div"/>
-					<form:input path ="iataCode" />
+					<form:input path ="iataCode" maxlength="2"/>
     			</td>
     		</tr>
 			<tr>
@@ -32,8 +37,13 @@
 					<ui:AirEntityName names="${airline.names}"/>
 				</td>
 			</tr>
-			<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/airlines.html" addButton="true"/>			
+			<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/airlines.html" addButton="true"/>
 		</table>
+		<form:errors element="div"  cssClass="errors"/>
     </form:form>
 </div>
+<script>
+	document.getElementById('addLang').setAttribute("data-bs-target", "#airlineModal");
+</script>
+
 </ui:html>

@@ -33,6 +33,7 @@
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/announcments.html"/>	
     	</table>
+    	<form:errors element="name"  cssClass="errors"/>
     </form:form>
 </div>
 </ui:html>

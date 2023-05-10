@@ -6,7 +6,7 @@
     <c:set var="popupId" value="flightModal"/>
     <c:set var="popupTargetId" value="flight_id"/>
     <c:set var="popupTargetName" value="flight_name"/>
-    <ui:popup 
+    <ui:popupFlight 
     	items="${flights}" 
     	destination_id="${popupTargetId}" 
     	destination_name="${popupTargetName}" 
@@ -21,10 +21,10 @@
     		</tr>
     		<tr>
     			<td style="width: 300px;"><fmt:message key="admin.flight" bundle="${op}"/>:<span style="color:red;">*</span></td>
-    			<td>
-    				<input type="text" id="${popupTargetName}" value="${arrival.flight.presentation}" data-bs-toggle="modal" data-bs-target="#${popupId}" readonly="readonly">
+    			<td><c:set var="selectFlight"><fmt:message key="admin.select.flight" bundle="${op}"/></c:set>
+    				<input type="text" id="${popupTargetName}" value="${arrival.flight.presentation}" title="${selectFlight}"  data-bs-toggle="modal" data-bs-target="#${popupId}" readonly="readonly">
     				<input type="hidden" name="${popupTargetId}" id="${popupTargetId}" value="${arrival.flight.id}">
-    				<input type="button" value="..." name="addFlight" alt="select flight" data-bs-toggle="modal" data-bs-target="#${popupId}">
+    				<input type="button" value="..." name="addFlight" title="${selectFlight}" data-bs-toggle="modal" data-bs-target="#${popupId}">
     			</td>
     		</tr>
     		<tr>
@@ -65,7 +65,7 @@
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/arrivals.html"/>	
     	</table>
-    	<form:errors element="name" cssStyle="color:red;"/>
+    	<form:errors element="name"  cssClass="errors"/>
     </form:form>
 </div>
 </ui:html>

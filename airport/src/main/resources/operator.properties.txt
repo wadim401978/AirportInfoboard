@@ -41,6 +41,7 @@ admin.add.name = Добавить наименование
 admin.del.row = Удалить строку
 admin.ok = Сохранить и выйти
 admin.cancel = Выйти без изменения
+admin.r.u.sure2delete = Вы уверены, что хотите удалить выбранное?
 
 admin.error.name.empty = Наименование не может быть пустым
 admin.error.language.tag.empty = Обозначение языка не может быть пустым
@@ -57,3 +58,4 @@ admin.select.airport = Выберите аэропорт из списка
 admin.select.airline = Выберите авиакомпанию из списка
 admin.select.flight = Выберите номер рейса из списка
 admin.select.language = Выберите язык из списка
+admin.selected.language.already.exists = Выберите другой язык. т.к. этот уже есть в таблице

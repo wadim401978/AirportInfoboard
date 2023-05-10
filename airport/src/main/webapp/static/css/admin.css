@@ -172,5 +172,10 @@ label {
 
 .tabs li.up > input:checked ~ .tab-content {
 	display: block;
-	
+}
+
+.errors {
+	color:red; 
+	padding-left:45px;
+	font-weight: bold;
 }
