@@ -113,7 +113,9 @@ public class ExtractAssistant {
 		if (this.airportNames == null) {
 			this.airportNames = new HashMap<Language, String>();
 		}
-		this.airportNames.put(getLanguage(), name);
+		if (getLanguage().getId() > 0) {
+			this.airportNames.put(getLanguage(), name);
+		}
 		return this.airportNames;
 	}
 

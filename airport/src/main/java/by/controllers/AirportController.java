@@ -91,7 +91,11 @@ public class AirportController extends AbstractEntityController {
 		if(result.hasErrors()) {
 			return redirectAirport(model);
 		}
+		
+		service.save(airport);
 		return getRedirect();
+
+		
 	}
 	
 	@PostMapping(path = "/dairports.html")

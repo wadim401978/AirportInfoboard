@@ -3,6 +3,8 @@ package by.services.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import by.dao.AirlineDAO;
 import by.dao.DAO;
 import by.dao.model.flight.Airline;
@@ -28,6 +30,7 @@ public class AirlineServiceImpl implements AirlineService {
 	}
 
 	@Override
+	@Transactional
 	public void save(Airline obj) {
 		// ---Object saved 
         if (obj.getId() == 0) {

@@ -33,13 +33,11 @@ public class AirportServiceImpl implements AirportService {
 	@Override
 	public void save(Airport obj) {
         if (obj.getId() == 0) {
-            dao.create(obj);
+        	dao.create(obj);
         } else {
             dao.update(obj);
         }
 	}
-
-
 
 	@Override
 	public Airport get(int id) {
@@ -50,7 +48,6 @@ public class AirportServiceImpl implements AirportService {
 	public void remove(int id) {
 		dao.delete(id);
 	}
-
 	
 	
 }
