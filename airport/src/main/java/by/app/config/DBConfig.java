@@ -51,7 +51,7 @@ public class DBConfig {
 	
 	@Bean(value = "txManager")
 	public PlatformTransactionManager txManager() {
-	    return new DataSourceTransactionManager(getDataSource()); // (2)
+	    return new DataSourceTransactionManager(getDataSource()); 
 	}
 
 }

@@ -1,11 +1,18 @@
 package by.dao.impl.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import by.dao.impl.jdbc.mapper.ExtractAssistant;
+import by.dao.impl.jdbc.mapper.AbstractExtractor;
+import by.dao.model.common.Language;
 
 @PropertySource("classpath:sql.properties")
 public abstract class JdbcAbstractDao {
@@ -16,16 +23,15 @@ public abstract class JdbcAbstractDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private ExtractAssistant extractor;
+	private AbstractExtractor extractor;
 	
-	public ExtractAssistant getExtractor() {
+	public AbstractExtractor getExtractor() {
 		return extractor;
 	}
 
-	public void setExtractor(ExtractAssistant extractor) {
+	public void setExtractor(AbstractExtractor extractor) {
 		this.extractor = extractor;
 	}
-
 	
 	public Environment getEnv() {
 		return env;
@@ -34,7 +40,6 @@ public abstract class JdbcAbstractDao {
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
-
 
 	public String getDefaultLangTag() {
 		return getProperty("language.default");
@@ -46,6 +51,18 @@ public abstract class JdbcAbstractDao {
 
 	public String getProperty(String key) {
 		return env.getProperty(key);
+	}
+	
+	public List<Object[]> getNamesMapBatch(Map<Language, String> names, int objectId) {
+		List<Object[]> batch = new ArrayList<>();
+		Set<Entry<Language, String>> entrySet = names.entrySet();
+		for (Entry<Language, String> entry : entrySet) {
+			Object[] values = new Object[] {
+					objectId, entry.getKey().getId(), entry.getValue()};
+//                    1, 1, entry.getValue()};
+			batch.add(values);
+		}
+		return batch;
 	}
 
 }

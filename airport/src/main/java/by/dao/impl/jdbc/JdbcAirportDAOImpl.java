@@ -1,11 +1,8 @@
 package by.dao.impl.jdbc;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -68,23 +65,13 @@ public class JdbcAirportDAOImpl extends JdbcAbstractDao implements AirportDAO {
 	}
 	
 	private void createNames(Airport obj) {
-		Map<Language, String> names = obj.getNames();
 		String query = getQuery("airentity.in18n.airport.insert");
 		String queryTemplate = getQuery("airentity.in18n.values");
+		Map<Language, String> names = obj.getNames();
 		if (!names.isEmpty()) {
-			List<Object[]> batch = new ArrayList<>();
-			Set<Entry<Language, String>> entrySet = names.entrySet();
-			for (Entry<Language, String> entry : entrySet) {
-				Object[] values = new Object[] {
-	                    obj.getId(), entry.getKey().getId(), entry.getValue()};
-//	                    1, 1, entry.getValue()};
-				batch.add(values);
-			}
-			
+			List<Object[]> batch = getNamesMapBatch(names, obj.getId());
 			getJdbcTemplate().batchUpdate(query+queryTemplate, batch);
 		}
-		
-		// TODO Auto-generated method stub
 	}
 
 	@Transactional
@@ -105,16 +92,21 @@ public class JdbcAirportDAOImpl extends JdbcAbstractDao implements AirportDAO {
 		}
 	}
 
+	@Transactional
 	@Override
 	public void update(Airport obj) {
-		// TODO Auto-generated method stub
-		//TRANSACTIONAL
-		deleteNames(obj);
-		createNames(obj);
+		try {
+			getJdbcTemplate().update(
+					getQuery("airport.update"),
+					obj.getIataCode(),
+					obj.getIcaoCode(),
+	                obj.getId());
+			deleteNames(obj);
+			createNames(obj);
+		} catch (Exception e) {
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			// TODO: handle exception = Log4j
+		}
 	}
-
-	
-	
-
 
 }

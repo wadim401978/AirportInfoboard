@@ -1,7 +1,6 @@
 package by.services.impl;
 
 import java.util.List;
-import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import by.dao.AirportDAO;
@@ -21,10 +20,6 @@ public class AirportServiceImpl implements AirportService {
 		
 	}
 	
-	public AirportServiceImpl() {
-		ResourceBundle.getBundle("initial");
-	}
-
 	@Override
 	public List<Airport> getAll() {
 		return dao.findAirports();

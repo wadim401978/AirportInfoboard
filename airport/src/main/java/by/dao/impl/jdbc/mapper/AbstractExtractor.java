@@ -12,7 +12,7 @@ import by.dao.model.flight.Airport;
 import by.dao.model.flight.Flight;
 import by.dao.model.flight.ScheduledFlight;
 
-public class ExtractAssistant {
+public abstract class AbstractExtractor {
 	
 	private Language language;
 	private Map<String, Language> languages = new HashMap<>();
@@ -65,8 +65,6 @@ public class ExtractAssistant {
 	public void setLanguage(Language language) {
 		this.language = language;
 	}
-	
-	
 
 	public Map<String, Language> getLanguages() {
 		return languages;
@@ -174,7 +172,6 @@ public class ExtractAssistant {
 		Time time = rs.getTime(pseudoname + "scheduledDate"); 
 		schFlight.setScheduledDate(DateTime.getDateFromSqlTypes(date, time));
 		
-//		date = rs.getDate(pseudoname + "statusTime");
 		time = rs.getTime(pseudoname + "statusTime");
 		schFlight.setStatusTime(DateTime.getDateFromSqlTypes(date, time)); 
 	}

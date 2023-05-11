@@ -85,11 +85,14 @@ public class AirlineController extends AbstractEntityController {
 			HttpServletRequest req
 			) {
 		airline.setNames(names);
+		airline.setDefaultLanguage(langService.getDefaultLang());
 		model.addAttribute("isEmpty", req.getParameter("isEmpty"));
 		validator.validate(model, result);
 		if(result.hasErrors()) {
 			return redirectAirline(model);
 		}
+		
+		service.save(airline);
 		return getRedirect();
 	}
 

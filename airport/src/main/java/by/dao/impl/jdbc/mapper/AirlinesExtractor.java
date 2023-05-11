@@ -8,7 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import by.dao.model.flight.Airline;
 
-public class AirlinesExtractor extends ExtractAssistant implements ResultSetExtractor<List<Airline>> {
+public class AirlinesExtractor extends AbstractExtractor implements ResultSetExtractor<List<Airline>> {
 
 	@Override
 	public List<Airline> extractData(ResultSet rs) throws SQLException, DataAccessException {

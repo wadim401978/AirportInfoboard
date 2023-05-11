@@ -11,7 +11,7 @@ import by.dao.model.flight.DepartureStatus;
 import by.dao.model.flight.Departure;
 import by.dao.model.flight.Flight;
 
-public class DeparturesExtractor extends ExtractAssistant implements ResultSetExtractor<List<Departure>> {
+public class DeparturesExtractor extends AbstractExtractor implements ResultSetExtractor<List<Departure>> {
 
 	
 	@Override
