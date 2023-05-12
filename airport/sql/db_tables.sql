@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS `airports`;
 DROP TABLE IF EXISTS `airlines_i18n`;
 DROP TABLE IF EXISTS `airlines`;
 DROP TABLE IF EXISTS `languages`;
+DROP TABLE IF EXISTS `textAnnouncments`;
 
 CREATE TABLE `languages` ( 
     `id` INT(11) NOT NULL AUTO_INCREMENT, 
@@ -111,4 +112,8 @@ CREATE TABLE `departures` (
 		ON DELETE RESTRICT
 ) ENGINE = InnoDB;
 
-
+CREATE TABLE `textAnnouncments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `html` TEXT NOT NULL,
+  `active` TINYINT NULL,
+  PRIMARY KEY (`id`))  ENGINE = InnoDB;

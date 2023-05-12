@@ -3,7 +3,7 @@
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
     <form method="post" action="${pageContext.request.contextPath}/admin/announcment/dannouncments.html" id="deleteCheckers">
-	<table class="admin dashed">
+	<table class="admin dashed" style="">
 		<thead>
 			<ui:listButtons itemHref="announcment" colspan="2"/>
 			<tr>
@@ -15,7 +15,7 @@
 		<tbody>
 			<!-- 14 rows -->
 			<c:forEach items="${items}" var="item">
-				<tr>
+				<tr >
 					<td>
 						<a href="announcment/${item.id}.html"> 
 							<c:choose>
@@ -28,9 +28,12 @@
 							</c:choose>
 						</a>
 					</td>
-					<td><a href="announcment/${item.id}.html"> <span>${item.html}</span></a>
+					<td>
+						<div style="max-height:150px; overflow: hidden; font-size:medium;">
+							<a href="announcment/${item.id}.html"> <span class="htmlInside" style="">${item.html}</span></a>
+						</div>
 					</td>
-					<td align="center"><input type="checkbox" name="delete${item.id}"></td>
+					<td align="center"><input type="checkbox" name="${item.id}"></td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -3,37 +3,38 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <ui:html title="${title}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <div class="p-4">
-    <form:form action="${pageContext.request.contextPath}/admin/announcments.html" >
+    <form:form action="${pageContext.request.contextPath}/admin/announcment/save.html" modelAttribute="announcment" >
     	<table class="admin">
     		<tr>
-    			<td style="width: 180px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
-    			<td><input type="text" name="id" value="${announcment.id}" readonly="readonly"></td>
+    			<td style="width: 180px;" class="bold"><fmt:message key="admin.id" bundle="${op}"/>:</td>
+    			<td>${announcment.id}<form:hidden path="id"/></td>
     		</tr>
     		<tr>
-    			<td style="width: 180px;"><fmt:message key="admin.active" bundle="${op}"/>:</td>
+    			<td style="width: 180px;" class="bold"><fmt:message key="admin.active" bundle="${op}"/>:</td>
 				<td>
-					<c:choose>
-						<c:when test="${announcment.active==true}">
-							<input type="checkbox" name="icao" value="${announcment.active}" checked="checked">
-						</c:when>
-						<c:otherwise>
-							<input type="checkbox" name="icao" value="${announcment.active}">
-						</c:otherwise>
-					</c:choose> 
-					
+					<form:checkbox path="active"/> 
 				</td>
 			</tr>
     		<tr>
-    			<td style="width: 180px;"><fmt:message key="admin.content" bundle="${op}"/>:</td>
-    			<td>
-    			<textarea rows="10" cols="35" name="html">
-    				${announcment.html}
-    			</textarea>
+    			<td style="width: 180px;"  class="bold" colspan="2">
+	    			<fmt:message key="admin.content" bundle="${op}"/>:
+	    			<span style="color:red;">*</span><form:errors path="html" cssStyle="color:red;"/>
     			</td>
+    		</tr>
+    		<tr>
+    			<td colspan="2">
+    				
+    				<form:textarea path="html"/>
+				</td>
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/announcments.html"/>	
     	</table>
     	<form:errors element="name"  cssClass="errors"/>
     </form:form>
 </div>
+<script src="${pageContext.request.contextPath}/script/tinymce/tinymce.min.js"></script>
+
+<script>
+tinymce.init({ selector:'textarea' });	
+</script>
 </ui:html>

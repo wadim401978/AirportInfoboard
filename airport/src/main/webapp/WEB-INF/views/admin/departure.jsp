@@ -16,11 +16,11 @@
     <form:form action="${pageContext.request.contextPath}/admin/departure/save.html" modelAttribute="departure" >
     	<table class="admin">
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.id" bundle="${op}"/>:</td>
     			<td><input type="text" name="id" value="${departure.id}" readonly="readonly"></td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;">
+    			<td style="width: 300px;" class="bold">
     				<fmt:message key="admin.flight" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
     			<td><c:set var="selectFlight"><fmt:message key="admin.select.flight" bundle="${op}"/></c:set>
@@ -30,7 +30,7 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;">
+    			<td style="width: 300px;" class="bold">
     				<fmt:message key="admin.date.scheduled" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
     			<td><c:set var="scheduledDate"><fmt:formatDate pattern="YYYY-MM-dd" value="${departure.scheduledDate}"/></c:set>
@@ -38,7 +38,7 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;">
+    			<td style="width: 300px;" class="bold">
     				<fmt:message key="admin.time.scheduled" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
     			<td><c:set var="scheduledTime"><fmt:formatDate pattern="HH:mm" value="${departure.scheduledDate}"/></c:set>
@@ -46,7 +46,7 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.status" bundle="${op}"/>:</td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.status" bundle="${op}"/>:</td>
     			<td>
     				<select name="depStatus" >
     				<c:forEach items="${departure.status.values()}" var="item">
@@ -63,7 +63,7 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.time.status" bundle="${op}"/>:</td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.time.status" bundle="${op}"/>:</td>
     			<td>
     				<input type="time" name="depStatusTime" value="<fmt:formatDate pattern="HH:mm" value="${departure.statusTime}"/>" >
     			</td>

@@ -31,8 +31,10 @@ footer {
 
 table.admin td {
 	padding: 15px;
-	font-weight: bold;
+}
 
+table.admin td.bold {
+	font-weight: bold;
 }
 
 table.dashed tbody tr {
@@ -178,4 +180,9 @@ label {
 	color:red; 
 	padding-left:45px;
 	font-weight: bold;
+}
+
+.htmlInside h1, h2, h3, h4, h5, h6, h7 {
+	font-size:medium;  
+
 }

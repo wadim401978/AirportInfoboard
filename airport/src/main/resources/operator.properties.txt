@@ -52,6 +52,7 @@ admin.error.airline.empty = Поле "Авиакомпания"  не может
 admin.error.flight.empty = Поле "Номер рейса"  не может быть пустым
 admin.error.ICAO.empty = Поле "ICAO"  не может быть пустым
 admin.error.IATA.empty = Поле "IATA"  не может быть пустым
+admin.error.html.empty = Содержимое  не может быть пустым
 admin.error.flight.type.linked = Нельзя изменить тип номера рейса - на него имеются ссылки (в таблицах прилётов и вылетов)
 
 admin.select.airport = Выберите аэропорт из списка

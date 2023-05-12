@@ -16,11 +16,11 @@
     <form:form action="${pageContext.request.contextPath}/admin/arrival/save.html" method="POST" modelAttribute="arrival" >
     	<table class="admin">
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.id" bundle="${op}"/>:</td>
     			<td><input type="text" name="id" value="${arrival.id}" readonly="readonly"></td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.flight" bundle="${op}"/>:<span style="color:red;">*</span></td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.flight" bundle="${op}"/>:<span style="color:red;">*</span></td>
     			<td><c:set var="selectFlight"><fmt:message key="admin.select.flight" bundle="${op}"/></c:set>
     				<input type="text" id="${popupTargetName}" value="${arrival.flight.presentation}" title="${selectFlight}"  data-bs-toggle="modal" data-bs-target="#${popupId}" readonly="readonly">
     				<input type="hidden" name="${popupTargetId}" id="${popupTargetId}" value="${arrival.flight.id}">
@@ -28,19 +28,19 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.date.scheduled" bundle="${op}"/>:<span style="color:red;">*</span></td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.date.scheduled" bundle="${op}"/>:<span style="color:red;">*</span></td>
     			<td><c:set var="scheduledDate"><fmt:formatDate pattern="YYYY-MM-dd" value="${arrival.scheduledDate}"/></c:set>
     				<input type="date" name="arrScheduledDate" value="${scheduledDate}" required="required">
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.time.scheduled" bundle="${op}"/>:<span style="color:red;">*</span></td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.time.scheduled" bundle="${op}"/>:<span style="color:red;">*</span></td>
     			<td><c:set var="scheduledTime"><fmt:formatDate pattern="HH:mm" value="${arrival.scheduledDate}"/></c:set>
     				<input type="time" name="scheduledTime" value="${scheduledTime}"  required="required">
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.status" bundle="${op}"/>:</td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.status" bundle="${op}"/>:</td>
     			<td>
     				<select name="arrStatus" >
     				<c:forEach items="${arrival.status.values()}" var="item">
@@ -58,7 +58,7 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 300px;"><fmt:message key="admin.time.status" bundle="${op}"/>:</td>
+    			<td style="width: 300px;" class="bold"><fmt:message key="admin.time.status" bundle="${op}"/>:</td>
     			<td>
     				<input type="time" name="arrStatusTime" value="<fmt:formatDate pattern="HH:mm" value="${arrival.statusTime}"/>" >
     			</td>

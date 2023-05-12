@@ -23,11 +23,11 @@
     <form:form action="${pageContext.request.contextPath}/admin/flight/save.html"  modelAttribute="flight">
     	<table class="admin">
     		<tr>
-    			<td style="width: 180px;"><fmt:message key="admin.id" bundle="${op}"/>:</td>
+    			<td style="width: 180px;" class="bold"><fmt:message key="admin.id" bundle="${op}"/>:</td>
     			<td><input type="text" name="id" value="${flight.id}" readonly="readonly"></td>
     		</tr>
     		<tr>
-    			<td style="width: 180px;">
+    			<td style="width: 180px;"  class="bold">
     				<fmt:message key="admin.airport" bundle="${op}"/>:
     				<span style="color:red;">*</span>
     			</td>
@@ -38,7 +38,7 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 180px;">
+    			<td style="width: 180px;" class="bold">
     				<fmt:message key="admin.airline" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
     			<td><c:set var="selectAirline"><fmt:message key="admin.select.airline" bundle="${op}"/></c:set>
@@ -48,7 +48,7 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 180px;">
+    			<td style="width: 180px;" class="bold">
     				<fmt:message key="admin.number" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
     			<td>
@@ -57,7 +57,7 @@
     			</td>
     		</tr>
     		<tr>
-    			<td style="width: 180px;">
+    			<td style="width: 180px;" class="bold">
     				<fmt:message key="admin.type" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
     			<td>
@@ -78,7 +78,7 @@
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/flights.html"/>	
     	</table>
-    	<form:errors element="name"  cssClass="errors"/>
+    	<form:errors element="div"  cssClass="errors"/>
     </form:form>
 </div>
 </ui:html>

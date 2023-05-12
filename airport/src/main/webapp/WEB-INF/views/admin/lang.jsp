@@ -6,30 +6,30 @@
     <form:form action="${pageContext.request.contextPath}/admin/lang/save.html" method="POST" modelAttribute="language" >
     	<table class="admin">
     		<tr>
-    			<td style="width: 245px;"><fmt:message key="admin.id" bundle="${op}"/>:
+    			<td style="width: 245px;" class="bold"><fmt:message key="admin.id" bundle="${op}"/>:
     			</td>
     			<td><input type="text" name="id" value="${language.id}" readonly="readonly"></td>
     		</tr>
     		<tr>
-    			<td ><fmt:message key="admin.name" bundle="${op}"/>:
+    			<td  class="bold"><fmt:message key="admin.name" bundle="${op}"/>:
     				<span style="color:red;">*</span>
     			</td>
-    			<td>
+    			<td class="bold">
     				<form:errors path="name" cssStyle="color:red;" element="div"/>
     				<form:input path="name"/>
     			</td>
     		</tr>
     		<tr>
-    			<td><fmt:message key="admin.tag" bundle="${op}"/>:
+    			<td class="bold"><fmt:message key="admin.tag" bundle="${op}"/>:
     				<span style="color:red;">*</span>
     			</td>
-    			<td>
+    			<td class="bold">
     				<form:errors path="tag" cssStyle="color:red;" element="div"/>
     				<form:input path="tag"/>
     			</td>
     		</tr>
     		<tr>
-    			<td><fmt:message key="admin.active" bundle="${op}"/>:</td>
+    			<td class="bold"><fmt:message key="admin.active" bundle="${op}"/>:</td>
     			<td>
     				<form:checkbox path="active"/>
     			</td>
