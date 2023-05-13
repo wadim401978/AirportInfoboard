@@ -41,11 +41,27 @@ function ContentRotator(url, param) {
 	});
 }
 
-function runRotator(langUrl, timeOut, languagesArray, announcmentsArray) {
+function extractIds(msg) {
+	console.log('ok' + msg);
+	return 1;
+}
+
+function getIds(url) {
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("GET", url, false); // false for synchronous request
+	xmlHttp.send(null);
+	return xmlHttp.responseText;
+ }
+ 
+function runRotator(langUrl, timeOut) {
+	let languagesArray = getIds('langsIds');
+	let announcmentsArray = getIds('blocksIds');
 	let languageIndex = 0;//langs array increment index
 	let hasAnnouncments; 
 	let announcmentIndex = -1;//announcments array increment index
 	let infoUrl = "info.html";
+	
+	console.log(announcmentsArray);
 	
 	jsonActiveLangs = JSON.parse(languagesArray);
 	jsonAnnouncments = JSON.parse(announcmentsArray);

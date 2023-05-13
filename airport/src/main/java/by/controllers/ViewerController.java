@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.google.gson.Gson;
 import by.dao.model.flight.Arrival;
 import by.dao.model.flight.Departure;
-import by.dao.model.infomsg.TextBlock;
 import by.services.LanguageService;
 import by.services.ArrivalService;
 import by.services.DepartureService;
@@ -24,7 +22,6 @@ import by.services.TextBlockService;
 @Controller
 @PropertySource("classpath:initial.properties")
 public class ViewerController extends AbstractController {
-	
 	
 	@Autowired
 	private Environment env;
@@ -36,35 +33,18 @@ public class ViewerController extends AbstractController {
 		super(arrivalService, departureService, textBlockService, langService);
 	}
 
-
-
 	private void setGetRequestModelAttributes(ModelMap model, String timeOutSource) {
-    	TextBlockService textBlockService = getTextBlockService();
     	LanguageService langService = getLangService();
     	model.addAttribute("lang", langService.getDefaultLang());
     	model.addAttribute("langCount", langService.getActiveLanguages().size());
-    	Gson json = new Gson();
-    	String str = json.toJson(langService.getIds(langService.getActiveLanguages()));
-    	model.addAttribute("activeLangs", str);
-    	
-    	List<TextBlock> tbList = textBlockService.getActiveBlocks();
-    	if(tbList.isEmpty()) {
-    		str = json.toJson(tbList.toArray());
-    	} else {
-    		str = json.toJson(textBlockService.getIds(tbList));
-    	}
-    	model.addAttribute("announcments", str);
-    	
     	model.addAttribute("timeOutSource", timeOutSource);
     	model.addAttribute("timeOutValue", env.getProperty("timeout"));
     }
-    
     
 	private void setPostRequestModelAttributes(ModelMap model, String sLangId) {
     	int langId = Integer.parseInt(sLangId);
     	model.addAttribute("lang", getLangService().getNextActiveLanguage(langId));
     }
-    
     
 	@GetMapping("/arr.html")
     public String arrival(ModelMap model) {
@@ -78,7 +58,6 @@ public class ViewerController extends AbstractController {
         model.addAttribute("emptyRows", getEmptyRowsNumber(arrivals.size()));
         return "arr";
     }
-	
 	
 	@PostMapping("/arr.html")
     public String arrivalPost(ModelMap model, @RequestParam(value = "langid") String langId) {
@@ -133,7 +112,7 @@ public class ViewerController extends AbstractController {
     @RequestMapping(value = "/info.html", method = RequestMethod.GET)
     public String info(ModelMap model) {
     	setGetRequestModelAttributes(model, "info.html");
-        model.addAttribute("block", getTextBlockService().get(0));
+        model.addAttribute("block", getTextBlockService().getActiveBlocks().get(0));
         return "info";
     }
 

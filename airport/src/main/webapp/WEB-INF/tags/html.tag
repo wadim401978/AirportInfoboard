@@ -26,7 +26,7 @@
  	    <c:if test="${timeOutSource!= null}" >
  	    <script type="text/javascript">
 	 	   $(document).ready(function() {
-	 			runRotator("${timeOutSource}", ${timeOutValue}, "${activeLangs}", "${announcments}");
+	 			runRotator("${timeOutSource}", ${timeOutValue});
 	 			runClock();
 	 		});
 		</script>

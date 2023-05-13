@@ -2,6 +2,7 @@ airport.name = Аэропорт Витебск
 airport.header.international = МЕЖДУНАРОДНЫЙ АЭРОПОРТ
 airport.header.name = ВИТЕБСК
 airport.footer = Государственное предприятие «Белаэронавигация». Витебский филиал
+operator.bar = Панель оператора
 
 status.arrival.delay = задерживается до {0} 
 status.arrival.expected = ожидается в {0}

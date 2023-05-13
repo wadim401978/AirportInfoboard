@@ -14,7 +14,15 @@ public class TestTextBlockDAOImpl implements TextBlockDAO, ActiveItemsDAO<TextBl
 	public TextBlock read(Integer id) {
 		id--;
 		if (id < 0) id = 0;
-		return TestDataSet.getInstance().getInfoBlocks().get(id);
+		TextBlock tBlock = null;
+		List<TextBlock> list = TestDataSet.getInstance().getInfoBlocks();
+		for (TextBlock item : list) {
+			if (item.getId() == id) {
+				tBlock = item;
+			}
+		}
+		return tBlock;
+//		return TestDataSet.getInstance().getInfoBlocks().get(id);
 	}
 
 	@Override
