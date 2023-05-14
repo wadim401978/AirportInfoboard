@@ -23,6 +23,7 @@
 	    <link href="css/fonts.css" type="text/css" rel="stylesheet"/>
 	    <script type="text/javascript" src="script/jquery-3.6.4.js"></script>
  	    <script type="text/javascript" src="script/viewer.js"></script>
+ 	    <script src="script/anime.min.js"></script>
  	    <c:if test="${timeOutSource!= null}" >
  	    <script type="text/javascript">
 	 	   $(document).ready(function() {

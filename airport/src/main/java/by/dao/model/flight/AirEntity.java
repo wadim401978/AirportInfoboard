@@ -1,6 +1,9 @@
 package by.dao.model.flight;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import by.dao.model.Entity;
 import by.dao.model.common.Language;
 
@@ -63,8 +66,23 @@ public abstract class AirEntity extends Entity {
 	public Map<Language, String> getNames() {
 		return names;
 	}
+	
 	public void setNames(Map<Language, String> names) {
 		this.names = names;
+	}
+	
+	public Map<Integer, String> getNamesSimple() {
+		Map<Integer, String> map = new HashMap<>();
+		Map<Language, String> readMap = getNames();
+		if (readMap != null) {
+			Iterator<Entry<Language, String>> iterator = readMap.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Entry<Language, String> item = iterator.next();
+				int lid = item.getKey().getId();
+				map.put(Integer.valueOf(lid), item.getValue());
+			} 
+		}
+		return map;
 	}
 	
 

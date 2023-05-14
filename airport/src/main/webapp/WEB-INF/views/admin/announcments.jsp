@@ -29,7 +29,7 @@
 						</a>
 					</td>
 					<td>
-						<div style="max-height:150px; overflow: hidden; font-size:medium;">
+						<div style="max-height:150px; max-width:700px; overflow: hidden; font-size:medium;">
 							<a href="announcment/${item.id}.html"> <span class="htmlInside" style="">${item.html}</span></a>
 						</div>
 					</td>

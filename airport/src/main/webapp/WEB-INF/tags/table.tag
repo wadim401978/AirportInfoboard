@@ -19,44 +19,62 @@
 	 			<c:forEach items="${flights}" var="flight_sch">
 	    			<tr><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}" var="statusTime"/>
 		    			<td class="flight">
-		    					<span class="yellow">${flight_sch.flight.iataNumber}</span>
-		    					<span class="white"> (${flight_sch.flight.icaoNumber})</span>
+		    				<span id="iata${flight_sch.id}" class="yellow">${flight_sch.flight.iataNumber}</span>
+		    				<span id="icao${flight_sch.id}" class="white"> (${flight_sch.flight.icaoNumber})</span>
+		    				<script type="text/javascript">
+								printWriter('#iata${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "yellow");
+								printWriter('#icao${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "white");
+							</script>
 		    			</td>
 		    			<td class="airport">
-		    					<span class="yellow">
 								<c:choose>
-								    <c:when test="${flight_sch.flight.airport.names[lang]==null}">
-								        ${flight_sch.flight.airport.name}
+								    <c:when test="${flight_sch.flight.airport.namesSimple[lang.id]==null}">
+								    	<c:set var="apname">${flight_sch.flight.airport.name}</c:set>
 								    </c:when>
 								    <c:otherwise>
-								        ${flight_sch.flight.airport.names[lang]}
+								    	<c:set var="apname">${flight_sch.flight.airport.namesSimple[lang.id]}</c:set>
 								    </c:otherwise>
 								</c:choose>
-		    					</span>
-		    					<span class="white">(${flight_sch.flight.airport.iataCode})</span>
+								
+		    					<span id="apname${flight_sch.id}" class="yellow">${apname}</span>
+		    					<span id="apcode${flight_sch.id}" class="white">(${flight_sch.flight.airport.iataCode})</span>
+		    					<script type="text/javascript">
+									printWriter('#apname${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "yellow");
+									printWriter('#apcode${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "white");
+								</script>
 		    			</td>
 		    			<td class="time">
-		    				<span class="white"><fmt:formatDate pattern="dd.MM.YYYY" value="${flight_sch.scheduledDate}"/></span>
-		    				<span class="yellow"><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}"/></span>
+		    				<span id="fdate${flight_sch.id}" class="white"><fmt:formatDate pattern="dd.MM.YYYY" value="${flight_sch.scheduledDate}"/></span>
+		    				<span id="ftime${flight_sch.id}" class="yellow"><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}"/></span>
+		    				<script type="text/javascript">
+								printWriter('#fdate${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "white");
+								printWriter('#ftime${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "yellow");
+							</script>
 		    			</td>
 		    			<td>
-		    				<span class="yellow"> 
 		    				<c:choose>
-								<c:when test="${flight_sch.flight.airline.names[lang]==null}">
-								        ${flight_sch.flight.airline.name}
+								<c:when test="${flight_sch.flight.airline.namesSimple[lang.id]==null}">
+									<c:set var="alname">${flight_sch.flight.airline.name}</c:set>
 								</c:when>
 								<c:otherwise>
-								        ${flight_sch.flight.airline.names[lang]}
+									<c:set var="alname"> ${flight_sch.flight.airline.namesSimple[lang.id]}</c:set>
 								</c:otherwise>
 							</c:choose> 
-							</span>
+		    				<span id="alname${flight_sch.id}" class="yellow">${alname}</span>
+		    				<script type="text/javascript">
+								printWriter('#alname${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "yellow");
+							</script>
 		    			</td>
-		    			<td>
-			    				<span class="cyan">
+		    			<td><c:set var="statusParameter"><span id="statusParameter${flight_sch.id}" class='white'>${statusTime}</span></c:set>
+			    			<span class="cyan" id="status${flight_sch.id}">
 			    				<fmt:message key="${flight_sch.status.property}" bundle="${viewer_bundle}">
-			    				<fmt:param value="<span class='white'>${statusTime}</span>"/>
+			    				<fmt:param value="${statusParameter}"/>
 			    				</fmt:message>
-			    				</span>
+			    			</span>
+		    				<script type="text/javascript">
+								printWriter('#status${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "cyan");
+								printWriter('#statusParameter${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "white");
+							</script>
 		    			</td>
 	    			</tr>
 	    		</c:forEach>

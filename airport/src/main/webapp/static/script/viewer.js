@@ -19,6 +19,7 @@ function change(msg) {
 			}
 		}
 	}
+	
 }
 
 function ContentRotator(url, param) {
@@ -116,4 +117,20 @@ function runClock() {
 		
 		timerId = setTimeout(tick,1000);
 	}, 1000);
+}
+
+
+function printWriter(selector, newSelectorId, durationValue, delayParameter, className) {
+	var textWrapper = document.querySelector(selector);
+	let replaceValue= "<span class='"+ className +"' id='" + newSelectorId +"'>$&</span>"; 
+	textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, replaceValue);
+	let targetsValue = '' + selector + ' #' +newSelectorId;
+	anime.timeline({ loop: false })
+		.add({
+			targets: targetsValue,
+			opacity: [0, 1],
+			easing: "easeInOutQuad",
+			duration: durationValue,
+			delay: (el, i) => delayParameter * (i + 1)
+		});
 }
