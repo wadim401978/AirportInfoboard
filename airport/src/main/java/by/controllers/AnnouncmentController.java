@@ -2,6 +2,8 @@ package by.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import by.controllers.validators.TextAnnouncmentValidator;
 import by.dao.model.infomsg.TextBlock;
 import by.services.TextBlockService;
@@ -21,22 +22,17 @@ import by.services.TextBlockService;
 @RequestMapping("/admin/announcment")
 public class AnnouncmentController extends AbstractEntityController {
 	
+	private static final Logger logger = Logger.getLogger(AnnouncmentController.class);
+	
 	@Autowired
 	private TextBlockService service;
 	
 	@Autowired
 	private TextAnnouncmentValidator validator;
 	
-//    @Autowired(required = true)
-//	public AnnouncmentController(TextBlockService announcmentService) {
-//		super();
-//		this.service = announcmentService;
-//	}
-    
 	private String getRedirect() {
 		return "redirect:../announcments.html";
 	}
-
     
     private String getTitle() {
     	return getEnv().getProperty("admin.announcment") +": ";
@@ -91,7 +87,9 @@ public class AnnouncmentController extends AbstractEntityController {
 		try {
 			service.simpleRemoveItems(req);
 		} catch (Exception e) {
-			session.setAttribute("error", "You can't delete record: " + e.getMessage());
+			String error = "delete announcment error: ";
+			session.setAttribute("error", error + e.getMessage());
+			logger.error(error + e.getMessage());
 		}
 		return getRedirect();
 	}

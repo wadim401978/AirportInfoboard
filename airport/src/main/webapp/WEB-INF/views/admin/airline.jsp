@@ -6,7 +6,10 @@
     <ui:popupLang items="${langs}" 
     	popupId="airlineModal" 
     	popupHeader="admin.select.language"/>
-    <form:form action="${pageContext.request.contextPath}/admin/airline/save.html" modelAttribute="airline">
+    <form:form enctype="multipart/form-data" 
+    	action="${pageContext.request.contextPath}/admin/airline/save.html" 
+    	modelAttribute="airline"
+    	>
     	<table class="admin">
     		<tr>
     			<td style="width: 180px;" class="bold"><fmt:message key="admin.id" bundle="${op}"/>:</td>
@@ -30,6 +33,15 @@
     			<td class="bold">
     				<form:errors path="iataCode" cssStyle="color:red;" element="div"/>
 					<form:input path ="iataCode" maxlength="2"/>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td style="width: 180px;" class="bold">
+    				<fmt:message key="admin.IATA.code" bundle="${op}"/>:<span style="color:red;">*</span>
+    			</td>
+    			<td class="bold">
+					<input type="file" name="logoFile" onchange="showFiles(this);" webkitdirectory = "true" directory="home/vadimsorokin"/>
+					<form:input path="logo" readonly="readonly"/>
     			</td>
     		</tr>
 			<tr>

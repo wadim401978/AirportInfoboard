@@ -29,12 +29,12 @@
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/announcments.html"/>	
     	</table>
+    	<a href="${pageContext.request.contextPath}/info/${announcment.id}.html" target="_blank"><fmt:message key="admin.show.in.blank" bundle="${op}"/></a>
     	<form:errors element="name"  cssClass="errors"/>
     </form:form>
+    
 </div>
 <script src="${pageContext.request.contextPath}/script/tinymce/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 
-<script>
-tinymce.init({ selector:'textarea' });	
-</script>
 </ui:html>

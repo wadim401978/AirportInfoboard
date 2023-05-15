@@ -8,6 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -123,6 +124,14 @@ public class ViewerController extends AbstractController {
     	model.addAttribute("block",getTextBlockService().getNextActiveBlock(blockId));
         return "info";
     }
+    
+    @RequestMapping(value = "/info/{id}.html", method = RequestMethod.GET)
+    public String infoId(ModelMap model, @PathVariable("id") int id) {
+        model.addAttribute("block", getTextBlockService().get(id));
+        return "info";
+    }
+
+
 
     @RequestMapping("/index.html")
     public String index(ModelMap model) {

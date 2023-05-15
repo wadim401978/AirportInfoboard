@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import by.app.exception.DeleteException;
 import by.controllers.validators.AirlineValidator;
 import by.dao.model.common.Language;
@@ -25,12 +30,13 @@ import by.services.LanguageService;
 @RequestMapping("/admin/airline")
 public class AirlineController extends AbstractEntityController {
 	
+	private static final Logger logger = Logger.getLogger(AirlineController.class);
+	
 	@Autowired
 	private AirlineService service;
 	
 	@Autowired
 	private LanguageService langService;
-
 	
 	@Autowired
 	private AirlineValidator validator;
@@ -77,22 +83,23 @@ public class AirlineController extends AbstractEntityController {
 		return getNames(req, model, langService);
 	}
 	
-	@PostMapping("/save.html")
+	@RequestMapping(value = "/save.html", method = RequestMethod.POST, consumes = "multipart/form-data")
 	public String saveAirport(
 			@ModelAttribute("names") Map<Language, String> names,
 			@ModelAttribute("airline") Airline airline, BindingResult result, 
+//			@RequestParam("logoFile") MultipartFile file,
 			ModelMap model,
 			HttpServletRequest req
 			) {
 		airline.setNames(names);
 		airline.setDefaultLanguage(langService.getDefaultLang());
-		model.addAttribute("isEmpty", req.getParameter("isEmpty"));
+		model.addAttribute("isEmpty", req.getParameter("isEmpty")); 
 		validator.validate(model, result);
 		if(result.hasErrors()) {
 			return redirectAirline(model);
 		}
-		
 		service.save(airline);
+		model.remove("isEmpty");
 		return getRedirect();
 	}
 
@@ -108,6 +115,7 @@ public class AirlineController extends AbstractEntityController {
 					airline.getIataCode() + "-" + airline.getName()
 					);
 			session.setAttribute("error", msg);
+			logger.info(msg);
 		}
 		
 		return getRedirect();

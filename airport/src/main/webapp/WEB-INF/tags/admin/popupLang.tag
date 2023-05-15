@@ -5,7 +5,7 @@
 <%@attribute name="items" required="true" rtexprvalue="true" type="java.util.List"%>
 <div class="modal fade" id="${popupId}" tabindex="-1" aria-labelledby="${popupId}Label" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" >
       <div class="modal-header">
         <h5 class="modal-title" id="${popupId}Label"><fmt:message key="${popupHeader}" bundle="${op}"/></h5>
         <c:set var="close_label"><fmt:message key="admin.close" bundle="${op}"/></c:set>
@@ -15,8 +15,8 @@
 					<table><c:set var="delete_label"><fmt:message key="admin.del.row" bundle="${op}"/></c:set>
 					<c:forEach items="${items}" var="lang">
 						<tr>
-							<td>
-								<div data-bs-dismiss="modal"  
+							<td >
+								<div data-bs-dismiss="modal"   
 									id="dataBsDismiss${lang.id}" 
 									onclick="addLangRow(this, '${delete_label}','${alert_label}');">
 									<input type="hidden" id="selectId${lang.id}" value="${lang.id}" readonly="readonly">

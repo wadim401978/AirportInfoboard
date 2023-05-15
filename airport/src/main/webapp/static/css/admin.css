@@ -75,7 +75,7 @@ a {
 	font-weight: bold;
 }
 
-input[type=button], input[type=reset], input[type=submit] {
+input[type=button], input[type=reset], input[type=submit], input[type=file] {
 	background-color: var(--bs-nightair-bg);
 	border: none;
 	border-radius: 10px;
@@ -185,4 +185,25 @@ label {
 .htmlInside h1, h2, h3, h4, h5, h6, h7 {
 	font-size:medium;  
 
+}
+
+.modal-body {
+	margin: auto;	
+}
+
+.modal-header, .modal-footer {
+	background-color: #fff;
+}
+
+.modal-content {
+	background-color: var(--bs-nightair-bg);
+}
+div[data-bs-dismiss="modal"] {
+	cursor: pointer;
+	padding: 25px;
+	font-weight: bold;	
+	color: white; 
+}
+div[data-bs-dismiss="modal"]:hover {
+	color: var(--bs-yellow); 
 }

@@ -3,6 +3,8 @@ package by.controllers;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +26,8 @@ import by.services.FlightService;
 @Controller
 @RequestMapping("/admin/arrival")
 public class ArrivalController  extends AbstractEntityController {
+	
+	private static final Logger logger = Logger.getLogger(ArrivalController.class);
 	
 	@Autowired
 	private ArrivalService service;
@@ -86,8 +90,6 @@ public class ArrivalController  extends AbstractEntityController {
 			flight = new Flight();
 		} else {
 			flight = flightService.get(flight_id);
-//			flight.getAirline().setDefaultLanguage(langService.getDefaultLang());
-//			flight.getAirport().setDefaultLanguage(langService.getDefaultLang());
 		}
 		return flight;
 	}
@@ -132,7 +134,9 @@ public class ArrivalController  extends AbstractEntityController {
 		try {
 			service.simpleRemoveItems(req);
 		} catch (Exception e) {
-			session.setAttribute("error", "I can't delete record: " + e.getMessage());
+			String error = "delete arrival flight error: ";
+			session.setAttribute("error", error + e.getMessage());
+			logger.error(error + e.getMessage());
 		}
 		return getRedirect();
     }

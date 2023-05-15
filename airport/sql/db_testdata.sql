@@ -1,4 +1,32 @@
 
+INSERT INTO `textAnnouncments` (`html`, `active`) VALUES ('
+<h2 style="text-align: center;">Вниманию &nbsp;пассажиров!</h2>
+<p>Обращаем ВАШЕ ВНИМАНИЕ, что перед посадкой на борт воздушного судна ВАМ необходимо 
+пройти предполётный досмотр, 
+ в том числе предоставить багаж&nbsp;и ручную кладь для досмотра в целях авиационной 
+безопасности.</p>
+', true);
+
+INSERT INTO `textAnnouncments` (`html`, `active`) VALUES ('
+<h1 style="text-align: center;">Attention, all passengers.!</h1>
+<p style="text-align: justify;">Electronic registration of foreigners is carried out 
+through the unified portal for electronic services (portal.gov.by)</p>
+', true);
+
+INSERT INTO `textAnnouncments` (`html`, `active`) VALUES ('
+<p style="text-align: center;">Вниманию &nbsp;пассажиров!</p>
+<p style="text-align: justify;">В целях соблюдения норм и правил авиационной безопасности,
+ просим ВАС переложить в багаж, находящиеся в ручной клади любые острые, колюще-режущие
+ предметы, электронные устройства и приборы, а также различные жидкости и аэрозоли. 
+Обращаем ваше внимание на строгое соблюдение правил перевозки опасных и запрещённых 
+предметов на борту воздушного судна в ручной клади и багаже, с которыми вы можете 
+ознакомится на информационных стендах в зале ожидания.</p>
+', true);
+
+INSERT INTO `textAnnouncments` (`html`, `active`) VALUES ('
+<h2 style="text-align: center;">Buenvenido</h2>
+<p>&nbsp;a <span style="color: rgb(185, 106, 217);">nuestro </span>aeropuerto</p>
+', false);
 
 INSERT INTO `languages` (`name`, `tag`, `active`) VALUES ('русский', 'ru', true);
 INSERT INTO `languages` (`name`, `tag`, `active`) VALUES ('english-английский', 'en', true);

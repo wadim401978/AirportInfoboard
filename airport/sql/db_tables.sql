@@ -26,7 +26,6 @@ CREATE TABLE `airports` (
     `id` INT(11) NOT NULL AUTO_INCREMENT, 
     `IATA` VARCHAR(3) NOT NULL, 
     `ICAO` VARCHAR(4) NOT NULL UNIQUE, 
-	`ordering` INT(11) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; 
 
@@ -34,7 +33,6 @@ CREATE TABLE `airports_i18n` (
     `id_airports` INT(11) NOT NULL, 
     `id_languages` INT(11) NOT NULL, 
     `name` VARCHAR(40) NOT NULL,
-	`ordering` INT(11) NOT NULL DEFAULT '0',
     CONSTRAINT `pk_AirportNameID` PRIMARY KEY (`id_airports`, `id_languages`),
 	FOREIGN KEY (`id_airports`)
 		REFERENCES `airports`(`id`)
@@ -49,7 +47,6 @@ CREATE TABLE `airlines` (
     `IATA` VARCHAR(2) NOT NULL, 
     `ICAO` VARCHAR(3) NOT NULL UNIQUE, 
     `path` VARCHAR(150),
-	`ordering` INT(11) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB; 
 
@@ -73,7 +70,6 @@ CREATE TABLE `flights` (
     `id_airports` INT(11) NOT NULL, 
     `id_airlines` INT(11) NOT NULL, 
     `type` ENUM('arrival', 'departure'),
-	`ordering` INT(11) NOT NULL DEFAULT '0',
 	CONSTRAINT `flight_number` UNIQUE (`id_airlines`, `aviacompany_flight_number`),
     PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_airports`)
@@ -90,7 +86,6 @@ CREATE TABLE `arrivals` (
 	`scheduledDate` DATETIME NOT NULL,
     `ArrivalStatus` ENUM('1', '2', '3', '4'),
 	`statusTime` DATETIME,
-	`ordering` INT(11) NOT NULL DEFAULT '0',
 	CONSTRAINT `flight_date` UNIQUE (`id_flights`, `scheduledDate`),
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`id_flights`)
@@ -104,7 +99,6 @@ CREATE TABLE `departures` (
 	`scheduledDate` DATETIME NOT NULL,
     `DepartureStatus` ENUM('1', '2', '3', '4', '5'),
 	`statusTime` DATETIME,
-	`ordering` INT(11) NOT NULL DEFAULT '0',
 	CONSTRAINT `flight_date` UNIQUE (`id_flights`, `scheduledDate`),
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`id_flights`)
