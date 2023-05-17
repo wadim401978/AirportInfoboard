@@ -29,7 +29,7 @@
 						</a>
 					</td>
 					<td>
-						<div style="max-height:150px; max-width:700px; overflow: hidden; font-size:medium;">
+						<div style="max-height:200px; max-width:700px; overflow: hidden; font-size:medium;">
 							<a href="announcment/${item.id}.html"> <span class="htmlInside" style="">${item.html}</span></a>
 						</div>
 					</td>
@@ -38,6 +38,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	</form>
+	</form><c:set var="textConfirm"><fmt:message key="admin.r.u.sure2delete" bundle="${op}"/></c:set>
+	<script type="text/javascript">
+		confirmDelete('deleteCheckers', '${textConfirm}');
+	</script>
     </div>
 </ui:html>

@@ -12,7 +12,7 @@
 			title="${addName}"  
 			data-bs-toggle="modal" ></c:if>
 		<c:set var="OK"><fmt:message key="admin.ok" bundle="${op}"/></c:set>
-		<input type="submit" value="OK" title="${OK}">
+		<input type="submit" name="SAVE" value="OK" title="${OK}">
 		<c:set var="CANCEL"><fmt:message key="admin.cancel" bundle="${op}"/></c:set>
 		<input type="button" value="Cancel" onclick="location.href='${onCancelHref}'" title="${CANCEL}">
 	</td>

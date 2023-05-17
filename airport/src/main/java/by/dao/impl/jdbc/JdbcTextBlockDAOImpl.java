@@ -31,7 +31,12 @@ public class JdbcTextBlockDAOImpl extends JdbcAbstractDao implements TextBlockDA
 	@Override
 	public TextBlock read(Integer id) {
 		String query = getQuery("textAnnouncments.select.where.id");
-		return getJdbcTemplate().queryForObject(query, mapper, id);
+		try {
+			return getJdbcTemplate().queryForObject(query, mapper, id);
+		} catch (Exception e) {
+			return new TextBlock(id, "Page №404", false);
+		}
+		
 	}
 
 	@Override

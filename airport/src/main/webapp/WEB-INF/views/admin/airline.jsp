@@ -40,7 +40,7 @@
     				<fmt:message key="admin.IATA.code" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
     			<td class="bold">
-					<input type="file" name="logoFile" onchange="showFiles(this);" webkitdirectory = "true" directory="home/vadimsorokin"/>
+					<input type="file" name="logoFile" onchange="showFiles(this);" />
 					<form:input path="logo" readonly="readonly"/>
     			</td>
     		</tr>

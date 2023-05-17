@@ -51,6 +51,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	</form>
+	</form><c:set var="textConfirm"><fmt:message key="admin.r.u.sure2delete" bundle="${op}"/></c:set>
+	<script type="text/javascript">
+		confirmDelete('deleteCheckers', '${textConfirm}');
+	</script>
     </div>
 </ui:html>

@@ -16,12 +16,15 @@ function switchAllCheckers(e) {
 	});
 }
 
-function setChosenId(id_dest, name_dest, id_src, e) {
-	elementDestId = document.getElementById(id_dest);
-	elementSrcId = document.getElementById(id_src);
-	elementDestId.value = elementSrcId.value;
-	elementDestName = document.getElementById(name_dest);
-	elementDestName.value = Array.from(e.children)[0].innerHTML.trim();
+function confirmDelete(formId, textConfirm) {
+	let thisForm = document.getElementById(formId);
+	thisForm.onsubmit = (e) => {
+		e.preventDefault()
+		let confirmSubmit = confirm(textConfirm);
+		if (confirmSubmit) {
+			document.getElementById('deleteCheckers').submit();
+		}
+	}
 }
 
 function delLangRow(rowId, confirm_label) {
@@ -33,6 +36,16 @@ function delLangRow(rowId, confirm_label) {
 	}
 }
 
+/**insert selected value from popup window **/
+function setChosenId(id_dest, name_dest, id_src, e) {
+	elementDestId = document.getElementById(id_dest);
+	elementSrcId = document.getElementById(id_src);
+	elementDestId.value = elementSrcId.value;
+	elementDestName = document.getElementById(name_dest);
+	elementDestName.value = Array.from(e.children)[0].innerHTML.trim();
+}
+
+//******INSERT table row functions******/
 function getAirNameInput(selectedLanguageId) {
 	let inputAirEntityName = document.createElement('input');
 	inputAirEntityName.type = "text";
@@ -115,6 +128,7 @@ function addLangRow(e, delete_label, alert_label) {
 	}
 	
 }
+//-------------------------
 
 function showFiles(e) {
 	console.log(e);

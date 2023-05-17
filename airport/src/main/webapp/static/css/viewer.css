@@ -122,6 +122,10 @@ td.center {
 }
 
 
+.modal-body {
+	padding: 30px 70px 0;
+}
+
 
 /* CUSTOMIZE NAV-BAR
 ---------------------------------------------------*/
@@ -203,22 +207,6 @@ li span{
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

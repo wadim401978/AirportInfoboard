@@ -26,10 +26,17 @@
  	    <script src="script/anime.min.js"></script>
  	    <c:if test="${timeOutSource!= null}" >
  	    <script type="text/javascript">
+// 	 	   $(document).ready(function() {
+// 	 			runRotator("${timeOutSource}", ${timeOutValue});
+// 	 			runClock();
+// 	 		});
+	 	   
 	 	   $(document).ready(function() {
-	 			runRotator("${timeOutSource}", ${timeOutValue});
+	 			runRotator1("${timeOutSource}");
 	 			runClock();
 	 		});
+	 	   
+	 	   
 		</script>
 		</c:if>
 

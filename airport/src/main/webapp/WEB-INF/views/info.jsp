@@ -6,7 +6,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setLocale value="${locale}"/><fmt:setBundle basename="viewer" var="viewer_bundle" />
         <title>${title}<fmt:message key="title.arrivals" bundle="${viewer_bundle}" /></title>
         
-		<link href="images/001_logo/fav.ico" rel="shortcut icon" type="image/x-icon" />
 	    <style>
 	      .bd-placeholder-img {
 	        font-size: 1.125rem;
@@ -17,19 +16,28 @@
 	      }	    
 	     </style>
 	      
-	    <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
-	    <link href="css/viewer.css" type="text/css" rel="stylesheet"/>
-	    <link href="css/fonts.css" type="text/css" rel="stylesheet"/>
-	    <script type="text/javascript" src="script/jquery-3.6.4.js"></script>
- 	    <script type="text/javascript" src="script/viewer.js"></script>
+	    <link href="${pageContext.request.contextPath}/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+	    <link href="${pageContext.request.contextPath}/css/viewer.css" type="text/css" rel="stylesheet"/>
+	    <link href="${pageContext.request.contextPath}/css/fonts.css" type="text/css" rel="stylesheet"/>
+	    <script type="text/javascript" src="${pageContext.request.contextPath}/script/jquery-3.6.4.js"></script>
+ 	    <script type="text/javascript" src="${pageContext.request.contextPath}/script/viewer.js"></script>
 
     </head>
   <body class="d-flex flex-column h-100" >
 	<header class="text-white bd-blue-900  pb-1"></header>
 
 	<main class="flex-shrink-0 fs-5">
+	
+		<div class="modal-show" id="testId" tabindex="1"
+			aria-labelledby="testIdLabel" aria-hidden="true">
+			<div class="modal-fullscreen ">
+				<div class="modal-content">
+					<div class="modal-body" >${block.html}</div>
+				</div>
+			</div>
+		</div>
+	
 	    <div class="p-5 fs-1">
-		    <div>${block.html}</div>
 			<form action="${timeOutSource}" method="post" id="timeOutForm">
 				<input type="hidden" name="blockid" value="${block.id}"> 
 				<input type="hidden" name="block" value="${block}">

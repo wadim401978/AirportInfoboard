@@ -6,6 +6,7 @@ function change(msg) {
 	for (i = 0; i < $(msg).length; i++) {
 		if ($(msg)[i].nodeName == "TITLE" || $(msg)[i].nodeName == "FOOTER" || $(msg)[i].nodeName == "MAIN" || $(msg)[i].nodeName == "HEADER") {
 			if ($(msg)[i].nodeName == "MAIN") {
+				
 				$('main').html($(msg)[i].innerHTML);
 			}
 			if ($(msg)[i].nodeName == "TITLE") {
@@ -47,16 +48,26 @@ function extractIds(msg) {
 	return 1;
 }
 
-function getIds(url) {
-	var xmlHttp = new XMLHttpRequest();
+function getRestWebServiceValue(url) {
+	let xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", url, false); // false for synchronous request
 	xmlHttp.send(null);
 	return xmlHttp.responseText;
  }
  
+function postRestWebServiceValue(url, param) {
+	jsonParam = JSON.parse(param);
+	let http = new XMLHttpRequest();
+	let body = "langid=" + "" + encodeURIComponent(jsonParam.langid) + "";
+	http.open("POST", url, false); // false for synchronous request
+	http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	http.send(body);
+	return http.responseText;
+ }
+ 
 function runRotator(langUrl, timeOut) {
-	let languagesArray = getIds('langsIds');
-	let announcmentsArray = getIds('blocksIds');
+	let languagesArray = getRestWebServiceValue('langsIds');
+	let announcmentsArray = getRestWebServiceValue('blocksIds');
 	let languageIndex = 0;//langs array increment index
 	let hasAnnouncments; 
 	let announcmentIndex = -1;//announcments array increment index
@@ -106,10 +117,62 @@ function runRotator(langUrl, timeOut) {
 	}, timeOut);
 }
 
+function runRotator1(langUrl) {
+	let languagesArray = getRestWebServiceValue('langsIds');
+	let announcmentsArray = getRestWebServiceValue('blocksIds');
+	let langTimeOut = parseInt(getRestWebServiceValue('timeout'), 10);
+	let languageIndex = 0;//langs array increment index
+	let announcmentsIndex = 0;
+	
+	console.log(announcmentsArray);
+	
+	jsonActiveLangs = JSON.parse(languagesArray);
+	jsonAnnouncments = JSON.parse(announcmentsArray);
+	
+	let timeOut = langTimeOut * jsonActiveLangs.length;
+	if(jsonAnnouncments.length > 0) {
+		timeOut += langTimeOut;
+		jsonActiveLangs.push(jsonActiveLangs[0]);
+	}
+	
+	
+	setTimeout(function run() {
+		
+			languageIndex = getRestWebServiceValue('nextlang' + languageIndex);
+			param = JSON.stringify({ langid: "" + languageIndex });
+			
+			langTimeOut = parseInt(getRestWebServiceValue('timeout'), 10);
+			if((jsonActiveLangs.length - languageIndex) == 1) {//TODO
+				isActiveAnnotations = true;//TODO
+				announcmentsIndex = 1; //TODO
+				announcement = getRestWebServiceValue('tb' + announcmentsIndex);
+				console.log(announcement);
+				document.getElementById('modalBody').innerHTML = announcement;
+				langTimeOut *= 2;
+			} else {
+				isActiveAnnotations = false;
+				document.getElementById('modalBody').innerHTML = '';
+			}
+			
+			
+			msg = postRestWebServiceValue(langUrl, param);
+			change(msg);
+			showAnnotation(isActiveAnnotations);		
+			
+		setTimeout(run, langTimeOut);
+		
+	}, langTimeOut);
+	
+}
+
+
+
+
+
+
 function runClock() {
 	let timerId = setTimeout(function tick() {
 		let now = new Date();
-//		console.log(now.toLocaleTimeString());
 		let clock = document.getElementById('clock');
 		if(clock!=null) {
 			clock.innerHTML = now.toLocaleTimeString();
@@ -119,7 +182,7 @@ function runClock() {
 	}, 1000);
 }
 
-
+//text effect for infoboard letters
 function printWriter(selector, newSelectorId, durationValue, delayParameter, className) {
 	var textWrapper = document.querySelector(selector);
 	let replaceValue= "<span class='"+ className +"' id='" + newSelectorId +"'>$&</span>"; 
@@ -134,3 +197,17 @@ function printWriter(selector, newSelectorId, durationValue, delayParameter, cla
 			delay: (el, i) => delayParameter * (i + 1)
 		});
 }
+
+function showAnnotation(isActiveAnnotations) {
+	if (isActiveAnnotations) {
+		$("#testId")
+			.hide()// hides it first, or style it with 'display: none;' instead
+			.delay(4000) 
+			.fadeIn(1000) // fades it in
+			.delay(2000) // (optionally) waits
+			.fadeOut(1000); // (optionally) fades it out
+	}
+}
+
+
+

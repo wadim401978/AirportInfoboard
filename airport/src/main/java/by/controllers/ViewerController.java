@@ -99,6 +99,13 @@ public class ViewerController extends AbstractController {
     @GetMapping("/arrdep.html")
     public String arrdep(ModelMap model) {
         model.addAttribute("text", "Under construction");
+        String htmlField = null;
+        int activeAnnotationsNum = getTextBlockService().getActiveBlocks().size();
+        if (activeAnnotationsNum > 0) {
+        	htmlField = getTextBlockService().getActiveBlocks().get(0).getHtml();
+        }
+        model.addAttribute("activeAnnotationsNum", activeAnnotationsNum);
+        model.addAttribute("htmlField", htmlField);
         setGetRequestModelAttributes(model, "arrdep.html");
         return "arrdep";
     }
