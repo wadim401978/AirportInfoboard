@@ -37,14 +37,14 @@ public class ViewerController extends AbstractController {
 	private void setGetRequestModelAttributes(ModelMap model, String timeOutSource) {
     	LanguageService langService = getLangService();
     	model.addAttribute("lang", langService.getDefaultLang());
-    	model.addAttribute("langCount", langService.getActiveLanguages().size());
+    	model.addAttribute("langCount", langService.getActiveItems().size());
     	model.addAttribute("timeOutSource", timeOutSource);
     	model.addAttribute("timeOutValue", env.getProperty("timeout"));
     }
     
 	private void setPostRequestModelAttributes(ModelMap model, String sLangId) {
     	int langId = Integer.parseInt(sLangId);
-    	model.addAttribute("lang", getLangService().getNextActiveLanguage(langId));
+    	model.addAttribute("lang", getLangService().getNextActiveItem(langId));
     }
     
 	@GetMapping("/arr.html")

@@ -3,7 +3,7 @@ package by.services;
 import by.dao.model.infomsg.InfoBlock;
 import java.util.List;
 
-public interface InfoBlockService<T extends InfoBlock> extends EntityService<T> {
+public interface InfoBlockService<T extends InfoBlock> extends ActiveEntityService<T> {
 	public List<T> getActiveBlocks();
 	default public T getNextActiveBlock(int id) {
 		T block = null;

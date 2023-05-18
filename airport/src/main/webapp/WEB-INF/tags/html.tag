@@ -27,16 +27,14 @@
  	    <c:if test="${timeOutSource!= null}" >
  	    <script type="text/javascript">
 // 	 	   $(document).ready(function() {
-// 	 			runRotator("${timeOutSource}", ${timeOutValue});
+// 	 			runRotatorEx2Del("${timeOutSource}", ${timeOutValue});
 // 	 			runClock();
 // 	 		});
 	 	   
 	 	   $(document).ready(function() {
-	 			runRotator1("${timeOutSource}");
+	 			runRotator("${timeOutSource}");
 	 			runClock();
 	 		});
-	 	   
-	 	   
 		</script>
 		</c:if>
 

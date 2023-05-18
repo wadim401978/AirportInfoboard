@@ -55,4 +55,35 @@ public class TextBlockServiceImpl implements TextBlockService {
 		dao.delete(id);
 	}
 
+	@Override
+	public TextBlock getNextActiveItem(int id) {
+		TextBlock activeBlock = null;
+		List<TextBlock> list = getActiveBlocks();
+		if (list.isEmpty()) {
+			activeBlock = new TextBlock();
+			activeBlock.setId(0);
+		} else {
+			for (TextBlock item : list) {
+				if(item.getId() > id) {
+					activeBlock = item;
+					break;
+				}
+			}
+			
+			if (activeBlock == null) {
+				activeBlock = list.get(0);
+			}
+		}
+		return activeBlock;
+	}
+
+	@Override
+	public List<TextBlock> getActiveItems() {
+		List<TextBlock> list = dao.findActiveBlocks();
+		if (list == null) {
+			list = new ArrayList<TextBlock>();
+		}
+		return list;
+	}
+
 }

@@ -58,7 +58,7 @@ public class LanguageServiceImpl implements LanguageService {
 	}
 
 	@Override
-	public List<Language> getActiveLanguages() {
+	public List<Language> getActiveItems() {
 		List<Language> list = dao.findActiveLanguages();
 		if(list==null) {
 			list = new ArrayList<Language>();
@@ -67,9 +67,9 @@ public class LanguageServiceImpl implements LanguageService {
 	}
 
 	@Override
-	public Language getNextActiveLanguage(int id) {
+	public Language getNextActiveItem(int id) {
 		Language activeLang = null;
-		List<Language> activeList = getActiveLanguages();
+		List<Language> activeList = getActiveItems();
 		if(activeList.isEmpty()) {
 			activeLang = getDefaultLang();
 		} else {

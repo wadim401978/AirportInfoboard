@@ -53,7 +53,7 @@ public class AirportController extends AbstractEntityController {
 //    	airport.setNames(null);
     	model.addAttribute("airport", airport);
     	model.addAttribute("title", getTitle(airport));
-    	model.addAttribute("langs", langService.getActiveLanguages());
+    	model.addAttribute("langs", langService.getActiveItems());
 		return "admin/airport";
     }
     

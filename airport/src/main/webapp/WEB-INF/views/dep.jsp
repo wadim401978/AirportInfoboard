@@ -4,5 +4,6 @@
 <c:set value="true" var="hasNavbar" />
 <ui:html locale="${lang.tag}" title="${title}" hasNavbar="${hasNavbar}" ><%@page contentType="text/html" pageEncoding="UTF-8"%>
     <ui:timeOutForm/>
+    <ui:announcmentPopup/>
     <ui:table locale="${lang.tag}" flights="${departures}"/>
 </ui:html>

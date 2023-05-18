@@ -38,7 +38,12 @@ public class RestServiceController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "langsIds")
 	public int[] getLangIds() {
-		return langService.getIds(langService.getActiveLanguages());
+		return langService.getIds(langService.getActiveItems());
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "deflangid")
+	public int getDefaultLangId() {
+		return langService.getDefaultLang().getId();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "timeout")
@@ -52,7 +57,7 @@ public class RestServiceController {
 		return timeOut;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "tb{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "tb{id}", produces = "text/plain;charset=UTF-8")
 	public String getAnnouncmentHtml(@PathVariable("id") int id) {
 		String announcmentHtml = null;
 		try {
@@ -64,7 +69,12 @@ public class RestServiceController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "nextlang{id}")
 	public int getNextActiveLangId(@PathVariable("id") int id) {
-		return langService.getNextActiveLanguage(id).getId();
+		return langService.getNextActiveItem(id).getId();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "nexttb{id}")
+	public int getNextActiveAnnouncmentId(@PathVariable("id") int id) {
+		return blockService.getNextActiveBlock(id).getId();
 	}
 	
 }

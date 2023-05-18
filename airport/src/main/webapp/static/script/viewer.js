@@ -65,7 +65,92 @@ function postRestWebServiceValue(url, param) {
 	return http.responseText;
  }
  
-function runRotator(langUrl, timeOut) {
+function runRotator(langUrl) {
+	let deflangid = parseInt(getRestWebServiceValue('deflangid'), 10);
+	let langTimeOut = 0;
+	const singleLangTimeOut = parseInt(getRestWebServiceValue('timeout'), 10);
+	const doubleLangTimeOut = singleLangTimeOut * 2;
+	let currlanguageIndex = deflangid;//langs array increment index
+	let nextlanguageIndex = 0;//langs array increment index
+	let announcmentsIndex = 0;
+	
+	setTimeout(function run() {
+		nextlanguageIndex = getRestWebServiceValue('nextlang' + currlanguageIndex);
+		param = JSON.stringify({ langid: "" + currlanguageIndex });
+		msg = postRestWebServiceValue(langUrl, param);
+		change(msg);
+		
+//		langTimeOut = parseInt(getRestWebServiceValue('timeout'), 10);
+		if (nextlanguageIndex == deflangid) {//TODO deflangid
+			announcmentsIndex = parseInt(getRestWebServiceValue('nexttb' + announcmentsIndex), 10); //TODO
+			announcement = getRestWebServiceValue('tb' + announcmentsIndex);
+			langTimeOut = doubleLangTimeOut;
+			document.getElementById('modalBody').innerHTML = announcement;
+			showAnnotation(singleLangTimeOut);
+		} else {
+			document.getElementById('modalBody').innerHTML = '';
+			langTimeOut = singleLangTimeOut;
+		}
+		
+		currlanguageIndex = nextlanguageIndex;
+		setTimeout(run, langTimeOut);
+		
+	}, langTimeOut);
+	
+}
+
+
+function showAnnotation(langTimeOut) {
+	let fadeTimeOut = 0;
+	let delayTimeOut = 0;
+	if (langTimeOut >= 3000) {
+		fadeTimeOut = 1000;
+		delayTimeOut = langTimeOut - fadeTimeOut * 2;
+	} else {
+		delayTimeOut = langTimeOut;
+	}
+	$("#testId")
+		.hide()// hides it first, or style it with 'display: none;' instead
+		.delay(langTimeOut) 
+		.fadeIn(fadeTimeOut) // fades it in
+		.delay(delayTimeOut) // (optionally) waits
+		.fadeOut(fadeTimeOut); // (optionally) fades it out
+}
+
+
+
+
+function runClock() {
+	let timerId = setTimeout(function tick() {
+		let now = new Date();
+		let clock = document.getElementById('clock');
+		if(clock!=null) {
+			clock.innerHTML = now.toLocaleTimeString();
+		}
+		
+		timerId = setTimeout(tick,1000);
+	}, 1000);
+}
+
+//text effect for infoboard letters
+function printWriter(selector, newSelectorId, durationValue, delayParameter, className) {
+	var textWrapper = document.querySelector(selector);
+	let replaceValue= "<span class='"+ className +"' id='" + newSelectorId +"'>$&</span>"; 
+	textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, replaceValue);
+	let targetsValue = '' + selector + ' #' +newSelectorId;
+	anime.timeline({ loop: false })
+		.add({
+			targets: targetsValue,
+			opacity: [0, 1],
+			easing: "easeInOutQuad",
+			duration: durationValue,
+			delay: (el, i) => delayParameter * (i + 1)
+		});
+}
+
+
+
+function runRotatorEx2Del(langUrl, timeOut) {
 	let languagesArray = getRestWebServiceValue('langsIds');
 	let announcmentsArray = getRestWebServiceValue('blocksIds');
 	let languageIndex = 0;//langs array increment index
@@ -116,98 +201,5 @@ function runRotator(langUrl, timeOut) {
 		
 	}, timeOut);
 }
-
-function runRotator1(langUrl) {
-	let languagesArray = getRestWebServiceValue('langsIds');
-	let announcmentsArray = getRestWebServiceValue('blocksIds');
-	let langTimeOut = parseInt(getRestWebServiceValue('timeout'), 10);
-	let languageIndex = 0;//langs array increment index
-	let announcmentsIndex = 0;
-	
-	console.log(announcmentsArray);
-	
-	jsonActiveLangs = JSON.parse(languagesArray);
-	jsonAnnouncments = JSON.parse(announcmentsArray);
-	
-	let timeOut = langTimeOut * jsonActiveLangs.length;
-	if(jsonAnnouncments.length > 0) {
-		timeOut += langTimeOut;
-		jsonActiveLangs.push(jsonActiveLangs[0]);
-	}
-	
-	
-	setTimeout(function run() {
-		
-			languageIndex = getRestWebServiceValue('nextlang' + languageIndex);
-			param = JSON.stringify({ langid: "" + languageIndex });
-			
-			langTimeOut = parseInt(getRestWebServiceValue('timeout'), 10);
-			if((jsonActiveLangs.length - languageIndex) == 1) {//TODO
-				isActiveAnnotations = true;//TODO
-				announcmentsIndex = 1; //TODO
-				announcement = getRestWebServiceValue('tb' + announcmentsIndex);
-				console.log(announcement);
-				document.getElementById('modalBody').innerHTML = announcement;
-				langTimeOut *= 2;
-			} else {
-				isActiveAnnotations = false;
-				document.getElementById('modalBody').innerHTML = '';
-			}
-			
-			
-			msg = postRestWebServiceValue(langUrl, param);
-			change(msg);
-			showAnnotation(isActiveAnnotations);		
-			
-		setTimeout(run, langTimeOut);
-		
-	}, langTimeOut);
-	
-}
-
-
-
-
-
-
-function runClock() {
-	let timerId = setTimeout(function tick() {
-		let now = new Date();
-		let clock = document.getElementById('clock');
-		if(clock!=null) {
-			clock.innerHTML = now.toLocaleTimeString();
-		}
-		
-		timerId = setTimeout(tick,1000);
-	}, 1000);
-}
-
-//text effect for infoboard letters
-function printWriter(selector, newSelectorId, durationValue, delayParameter, className) {
-	var textWrapper = document.querySelector(selector);
-	let replaceValue= "<span class='"+ className +"' id='" + newSelectorId +"'>$&</span>"; 
-	textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, replaceValue);
-	let targetsValue = '' + selector + ' #' +newSelectorId;
-	anime.timeline({ loop: false })
-		.add({
-			targets: targetsValue,
-			opacity: [0, 1],
-			easing: "easeInOutQuad",
-			duration: durationValue,
-			delay: (el, i) => delayParameter * (i + 1)
-		});
-}
-
-function showAnnotation(isActiveAnnotations) {
-	if (isActiveAnnotations) {
-		$("#testId")
-			.hide()// hides it first, or style it with 'display: none;' instead
-			.delay(4000) 
-			.fadeIn(1000) // fades it in
-			.delay(2000) // (optionally) waits
-			.fadeOut(1000); // (optionally) fades it out
-	}
-}
-
 
 
