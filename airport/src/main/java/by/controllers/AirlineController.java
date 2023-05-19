@@ -1,8 +1,10 @@
 package by.controllers;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Map;
 
+import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -87,7 +89,7 @@ public class AirlineController extends AbstractEntityController {
 	public String saveAirport(
 			@ModelAttribute("names") Map<Language, String> names,
 			@ModelAttribute("airline") Airline airline, BindingResult result, 
-//			@RequestParam("logoFile") MultipartFile file,
+			@RequestParam("logoFile") MultipartFile file,
 			ModelMap model,
 			HttpServletRequest req
 			) {
@@ -98,7 +100,15 @@ public class AirlineController extends AbstractEntityController {
 		if(result.hasErrors()) {
 			return redirectAirline(model);
 		}
-		service.save(airline);
+		try {
+			service.saveWithUpload(airline, file);
+		} catch (IIOException e) {
+			result.reject("logo", getEnv().getProperty("admin.error.not.image"));
+			return redirectAirline(model);
+		} catch (IOException e) {
+			result.reject("logo", getEnv().getProperty("admin.error.image"));
+			return redirectAirline(model);
+		}
 		model.remove("isEmpty");
 		return getRedirect();
 	}

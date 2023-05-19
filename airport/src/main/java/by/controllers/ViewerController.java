@@ -2,6 +2,8 @@ package by.controllers;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -147,7 +149,8 @@ public class ViewerController extends AbstractController {
     
     @RequestMapping("/admin.html")
     public String admin(ModelMap model) {
-        model.addAttribute("title", env.getProperty("admin.board"));
+    	ResourceBundle bundle = ResourceBundle.getBundle("operator");
+        model.addAttribute("title", bundle.getString("admin.board"));
     	return "admin";
     }
 

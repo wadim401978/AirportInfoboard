@@ -1,3 +1,4 @@
+admin.board = Административная панель
 admin.languages.title = НАСТРОЙКА ЯЗЫКОВ ВОСПРОИЗВЕДЕНИЯ
 admin.airports.title = НАСТРОЙКА АЭРОПОРТОВ
 admin.airlines.title = НАСТРОЙКА АВИАКОМПАНИЙ
@@ -38,6 +39,7 @@ admin.time.scheduled = Время по расписанию
 admin.time.status = Время в статусе
 
 admin.back.to.board = Вернуться в административную панель
+admin.back.to.main = Вернуться в главное меню
 admin.close = Закрыть
 admin.add.name = Добавить наименование
 admin.del.row = Удалить строку
@@ -56,6 +58,8 @@ admin.error.ICAO.empty = Поле "ICAO"  не может быть пустым
 admin.error.IATA.empty = Поле "IATA"  не может быть пустым
 admin.error.html.empty = Содержимое  не может быть пустым
 admin.error.flight.type.linked = Нельзя изменить тип номера рейса - на него имеются ссылки (в таблицах прилётов и вылетов)
+admin.error.image = Ошибка загрузки файла
+admin.error.not.image = Загружаемый файл не является изображением
 
 admin.select.airport = Выберите аэропорт из списка
 admin.select.airline = Выберите авиакомпанию из списка

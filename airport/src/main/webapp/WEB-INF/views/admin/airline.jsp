@@ -40,6 +40,7 @@
     				<fmt:message key="admin.IATA.code" bundle="${op}"/>:<span style="color:red;">*</span>
     			</td>
     			<td class="bold">
+    				<form:errors path="logo" cssStyle="color:red;" element="div"/>
 					<input type="file" name="logoFile" onchange="showFiles(this);" />
 					<form:input path="logo" readonly="readonly"/>
     			</td>

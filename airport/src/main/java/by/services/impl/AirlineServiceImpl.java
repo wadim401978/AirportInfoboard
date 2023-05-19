@@ -1,17 +1,35 @@
 package by.services.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+
+import javax.imageio.IIOException;
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.multipart.MultipartFile;
 import by.dao.AirlineDAO;
 import by.dao.DAO;
 import by.dao.model.flight.Airline;
 import by.services.AirlineService;
 
 @Service(value = "AirlineService")
+@PropertySource("classpath:initial.properties")
 public class AirlineServiceImpl implements AirlineService {
+	
+	@Autowired
+	ServletContext context; 
+	
+	@Autowired
+	private Environment env;
 	
 	private AirlineDAO dao;
 	
@@ -41,6 +59,31 @@ public class AirlineServiceImpl implements AirlineService {
 	}
 
 	@Override
+	public void saveWithUpload(Airline airline, MultipartFile file) throws IOException, IIOException {
+		if (!file.isEmpty()) {
+			String uploadDir = System.getProperty("user.dir") + env.getProperty("upload.dir");
+			Path dirPath = Paths.get(uploadDir);
+			if(Files.notExists(dirPath)) {
+				 new File(uploadDir).mkdir();
+			}
+			
+			if (context.getMimeType(file.getOriginalFilename()).startsWith("image/")) {
+				try {
+					dirPath = Paths.get(uploadDir, file.getOriginalFilename());
+					Files.write(dirPath, file.getBytes());
+					airline.setLogo(dirPath.toAbsolutePath().toString());
+				} catch (IOException e) {
+					throw e;
+				}
+			} else {
+				throw new IIOException(file.getContentType() + " is not an image");
+			}
+			
+		}
+		save(airline);
+	}
+	
+	@Override
 	public Airline get(int id) {
 		return dao.read(id);
 	}
@@ -49,5 +92,6 @@ public class AirlineServiceImpl implements AirlineService {
 	public void remove(int id) {
 		dao.delete(id);
 	}
+
 
 }

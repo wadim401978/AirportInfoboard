@@ -35,6 +35,13 @@
 								</a>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<a href="${pageContext.request.contextPath}">
+									<fmt:message key="admin.back.to.main" bundle="${op}" />
+								</a>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</li>
@@ -62,6 +69,13 @@
 							<td>
 								<a href="admin/announcments.html">
 									<fmt:message key="admin.announcments.title" bundle="${op}"/>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="${pageContext.request.contextPath}">
+									<fmt:message key="admin.back.to.main" bundle="${op}" />
 								</a>
 							</td>
 						</tr>

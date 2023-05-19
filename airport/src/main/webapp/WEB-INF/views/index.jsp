@@ -6,12 +6,12 @@
 		<table class="admin" style="text-align: center;">
 			<tr>
 				<td>
-					<a href="arr.html"><fmt:message key="title.arrivals" bundle="${viewer_bundle}" /></a>
+					<a href="arr.html" target="_blank"><fmt:message key="title.arrivals" bundle="${viewer_bundle}" /></a>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<a href="dep.html"><fmt:message key="title.departures" bundle="${viewer_bundle}" /></a>
+					<a href="dep.html" target="_blank"><fmt:message key="title.departures" bundle="${viewer_bundle}" /></a>
 				</td>
 			</tr>
 			<tr>
