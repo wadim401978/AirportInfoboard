@@ -3,11 +3,9 @@ package by.controllers;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Map;
-
 import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +25,7 @@ import by.dao.model.common.Language;
 import by.dao.model.flight.Airline;
 import by.services.AirlineService;
 import by.services.LanguageService;
+import by.services.util.Images;
 
 @Controller
 @RequestMapping("/admin/airline")
@@ -72,7 +71,14 @@ public class AirlineController extends AbstractEntityController {
 
 	@RequestMapping(value = "/{id}.html")
     public String lang(ModelMap model, @PathVariable("id") int id) {
-		return sendAirline(model, service.get(id));
+		Airline airline = service.get(id);
+		String logoPath = airline.getLogo();
+		if (logoPath!=null && !logoPath.trim().equals("")) {
+			if(!Images.isExists(logoPath)) {
+				airline.setLogo(null);
+			}
+		}
+		return sendAirline(model, airline);
     }
     
 	@GetMapping(path = "/add.html")
@@ -100,6 +106,7 @@ public class AirlineController extends AbstractEntityController {
 		if(result.hasErrors()) {
 			return redirectAirline(model);
 		}
+		
 		try {
 			service.saveWithUpload(airline, file);
 		} catch (IIOException e) {
@@ -109,6 +116,7 @@ public class AirlineController extends AbstractEntityController {
 			result.reject("logo", getEnv().getProperty("admin.error.image"));
 			return redirectAirline(model);
 		}
+		
 		model.remove("isEmpty");
 		return getRedirect();
 	}

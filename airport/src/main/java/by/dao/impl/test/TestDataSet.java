@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import by.app.util.DateTime;
+
 import by.dao.model.common.Language;
 import by.dao.model.flight.Airline;
 import by.dao.model.flight.Airport;
@@ -19,6 +19,7 @@ import by.dao.model.flight.Flight;
 import by.dao.model.flight.Arrival;
 import by.dao.model.flight.Departure;
 import by.dao.model.infomsg.TextBlock;
+import by.services.util.DateTime;
 
 public final class TestDataSet {
 	private static TestDataSet instance;

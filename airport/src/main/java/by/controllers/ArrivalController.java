@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import by.app.util.DateTime;
+
 import by.controllers.validators.ArrivalValidator;
 import by.dao.model.flight.Arrival;
 import by.dao.model.flight.ArrivalStatus;
 import by.dao.model.flight.Flight;
 import by.services.ArrivalService;
 import by.services.FlightService;
+import by.services.util.DateTime;
 
 @Controller
 @RequestMapping("/admin/arrival")

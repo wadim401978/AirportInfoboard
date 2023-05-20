@@ -1,4 +1,4 @@
-package by.app.util;
+package by.services.util;
 
 import java.sql.Time;
 import java.time.LocalDate;

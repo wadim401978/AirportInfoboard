@@ -5,12 +5,13 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
-import by.app.util.DateTime;
+
 import by.dao.model.common.Language;
 import by.dao.model.flight.Airline;
 import by.dao.model.flight.Airport;
 import by.dao.model.flight.Flight;
 import by.dao.model.flight.ScheduledFlight;
+import by.services.util.DateTime;
 
 public abstract class AbstractExtractor {
 	
