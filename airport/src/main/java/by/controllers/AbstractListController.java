@@ -5,13 +5,13 @@ import by.services.ArrivalService;
 import by.services.DepartureService;
 import by.services.TextBlockService;
 
-public abstract class AbstractController {
+public abstract class AbstractListController {
 	private ArrivalService arrivalService;
 	private DepartureService departureService;
 	private TextBlockService textBlockService;
 	private LanguageService langService;
 	
-	public AbstractController(ArrivalService arrivalService,
+	public AbstractListController(ArrivalService arrivalService,
 			DepartureService departureService, TextBlockService textBlockService,
 			LanguageService langService) {
 		super();

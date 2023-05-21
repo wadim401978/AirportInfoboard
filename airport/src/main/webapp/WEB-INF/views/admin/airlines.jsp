@@ -12,6 +12,7 @@
 					<fmt:message key="admin.IATA.code" bundle="${op}"/>
 					(<fmt:message key="admin.ICAO.code" bundle="${op}"/>)
 				</th>
+				<th><fmt:message key="admin.file.logo" bundle="${op}"/></th>
 				<th><input type="checkbox" name="delete0" onchange="switchAllCheckers(this);"></th>
 			</tr>
 		</thead>
@@ -25,6 +26,13 @@
 						<a href="airline/${item.id}.html"> 
 							<span>${item.iataCode} (${item.icaoCode})</span>
 						</a>
+					</td>
+					<td align="center">
+						<a href="airline/${item.id}.html"> <c:choose>
+							<c:when test="${item.logo == null}">-</c:when>
+							<c:otherwise><img alt="${item.name}" src="${pageContext.request.contextPath}/airlines/${item.logo}"></c:otherwise>
+						</c:choose></a>
+						
 					</td>
 					<td align="center"><input type="checkbox" name="${item.id}"></td>
 				</tr>

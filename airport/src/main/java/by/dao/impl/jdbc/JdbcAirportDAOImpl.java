@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
+
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import by.dao.model.flight.Airport;
 
 @Repository
 public class JdbcAirportDAOImpl extends JdbcAbstractDao implements AirportDAO {
+	
+	private static final Logger logger = Logger.getLogger(JdbcAirportDAOImpl.class);
 	
 	private SimpleJdbcInsert insertAirport;
 	
@@ -88,7 +92,7 @@ public class JdbcAirportDAOImpl extends JdbcAbstractDao implements AirportDAO {
 			createNames(obj);
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			//TODO Log4j
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -105,7 +109,7 @@ public class JdbcAirportDAOImpl extends JdbcAbstractDao implements AirportDAO {
 			createNames(obj);
 		} catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			// TODO: handle exception = Log4j
+			logger.error(e.getMessage());
 		}
 	}
 

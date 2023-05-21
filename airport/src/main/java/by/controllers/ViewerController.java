@@ -24,7 +24,7 @@ import by.services.TextBlockService;
 
 @Controller
 @PropertySource("classpath:initial.properties")
-public class ViewerController extends AbstractController {
+public class ViewerController extends AbstractListController {
 	
 	@Autowired
 	private Environment env;

@@ -21,7 +21,7 @@ import by.services.TextBlockService;
 @Controller
 @RequestMapping("/admin")
 @PropertySource("classpath:operator.properties")
-public class OperatorController extends AbstractController {
+public class OperatorController extends AbstractListController {
 	private AirportService airportService;
 	private AirlineService airlineService;
 	private FlightService flightService;

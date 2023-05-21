@@ -6,6 +6,8 @@ import by.dao.model.common.Language;
 public class Airline extends AirEntity{
 	private String logo;   
 	
+	public static final String SAVE_DIR = "airlines";
+	
 	public Airline() {
 		super();
 	}

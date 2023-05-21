@@ -74,7 +74,7 @@ public class AirlineController extends AbstractEntityController {
 		Airline airline = service.get(id);
 		String logoPath = airline.getLogo();
 		if (logoPath!=null && !logoPath.trim().equals("")) {
-			if(!Images.isExists(logoPath)) {
+			if(!Images.isExists(Images.getUploadDir(Airline.SAVE_DIR) + "/" + logoPath)) {
 				airline.setLogo(null);
 			}
 		}
@@ -100,6 +100,9 @@ public class AirlineController extends AbstractEntityController {
 			HttpServletRequest req
 			) {
 		airline.setNames(names);
+		if (airline.getLogo().trim().equals("")) {
+			airline.setLogo(null);
+		}
 		airline.setDefaultLanguage(langService.getDefaultLang());
 		model.addAttribute("isEmpty", req.getParameter("isEmpty")); 
 		validator.validate(model, result);

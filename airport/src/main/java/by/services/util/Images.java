@@ -11,10 +11,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import java.lang.Integer;
 
 public class Images {
+	
+	private static final int TARGET_WIDTH = 100;
+	private static final int TARGET_HEIGHT = 40;
+	
 	public static boolean isExists(String logoPath) {
 		Path filePath = Paths.get(logoPath);
 		return Files.exists(filePath);
@@ -46,11 +51,11 @@ public class Images {
 		return coords;
 	}
 	
-	public static void resizeImage(Path source, int targetWidth, int targetHeight)
+	public static void resizeImage(Path source)
 			throws IOException {
 		Map<String, Integer> coords = new HashMap<>();
-		coords.put("targetWidth", Integer.valueOf(targetWidth));
-		coords.put("targetHeight", Integer.valueOf(targetHeight));
+		coords.put("targetWidth", Integer.valueOf(TARGET_WIDTH));
+		coords.put("targetHeight", Integer.valueOf(TARGET_HEIGHT));
 		try {
 			File targetFile = source.toFile();
 			InputStream input = new FileInputStream(targetFile);
@@ -68,11 +73,31 @@ public class Images {
 		    		coords.get("targetHeight"), 
 		    		BufferedImage.TYPE_INT_RGB);
 		    outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
-//			File file = dirPath.toFile();		    
 		    ImageIO.write(outputImage, getExtention(source), targetFile);
 		} catch (IOException e) {
 			throw e;
 		}
+	}
+	
+	public static String getUploadDir(String dirName) {
+		ResourceBundle bundle = ResourceBundle.getBundle("initial");
+        Path uploadDir;
+        String uploadAbsolutePath = bundle.getString("upload.asolute.path").trim();
+        String uploadPath;
+        if (uploadAbsolutePath.equals("")) {
+        	uploadDir = Paths.get(System.getProperty("user.dir") + bundle.getString("upload.dir") + "/" + dirName);
+        } else {
+        	uploadDir = Paths.get(uploadAbsolutePath, dirName);
+        }
+
+        uploadPath = uploadDir.toFile().getAbsolutePath();
+        
+        Path dirPath = Paths.get(uploadPath);
+		if(Files.notExists(dirPath)) {
+			 new File(uploadPath).mkdirs(); 
+		}
+		
+		return uploadPath;
 	}
 
 }

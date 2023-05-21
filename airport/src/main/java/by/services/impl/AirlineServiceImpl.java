@@ -1,6 +1,5 @@
 package by.services.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,7 +11,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,9 +27,6 @@ public class AirlineServiceImpl implements AirlineService {
 	
 	@Autowired
 	ServletContext context; 
-	
-	@Autowired
-	private Environment env;
 	
 	private AirlineDAO dao;
 	
@@ -61,36 +56,31 @@ public class AirlineServiceImpl implements AirlineService {
 
 	@Override
 	public void saveWithUpload(Airline airline, MultipartFile file) throws IOException, IIOException {
-		if (!file.isEmpty()) {
-			String uploadDir = getUploadDir();
-			Path dirPath = Paths.get(uploadDir);
-			if(Files.notExists(dirPath)) {
-				 new File(uploadDir).mkdir(); 
-			}
+		save(airline);
+		if (!file.isEmpty() && airline.getId() > 0) {
+			String uploadDir = Airline.SAVE_DIR;
+			String sourceDir = Images.getUploadDir(uploadDir);
 			
 			if (context.getMimeType(file.getOriginalFilename()).startsWith("image/")) {
 				try {
 					Path filePath = Paths.get(uploadDir, file.getOriginalFilename());
 					String extension = Images.getExtention(filePath);
-					filePath = Paths.get(uploadDir, 
+					filePath = Paths.get(sourceDir, 
 							"airline" + 
 							airline.getId() + 
 							"." + 
 							extension);
 					Files.write(filePath, file.getBytes());
-					int width = Integer.parseInt(env.getProperty("target.width"));
-					int height = Integer.parseInt(env.getProperty("target.height"));
-					Images.resizeImage(filePath, width, height);
-					airline.setLogo(filePath.toAbsolutePath().toString());
+					Images.resizeImage(filePath);
+					airline.setLogo(filePath.toFile().getName()); 
+					save(airline);
 				} catch (IOException e) {
 					throw e;
 				}
 			} else {
 				throw new IIOException(file.getContentType() + " is not an image");
 			}
-			
 		}
-		save(airline);
 	}
 	
 	@Override
@@ -125,8 +115,4 @@ public class AirlineServiceImpl implements AirlineService {
 		dao.delete(id);
 	}
 	
-	private String getUploadDir() {
-		return System.getProperty("user.dir") + env.getProperty("upload.dir") + "/airlines";
-	}
-
 }

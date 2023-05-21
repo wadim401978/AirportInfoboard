@@ -52,18 +52,24 @@
 							</script>
 		    			</td>
 		    			<td>
-		    				<c:choose>
-								<c:when test="${flight_sch.flight.airline.namesSimple[lang.id]==null}">
-									<c:set var="alname">${flight_sch.flight.airline.name}</c:set>
+							<c:choose>
+								<c:when test="${flight_sch.flight.airline.logo == null}">
+				    				<c:choose>
+										<c:when test="${flight_sch.flight.airline.namesSimple[lang.id]==null}">
+											<c:set var="alname">${flight_sch.flight.airline.name}</c:set>
+										</c:when>
+										<c:otherwise>
+											<c:set var="alname"> ${flight_sch.flight.airline.namesSimple[lang.id]}</c:set>
+										</c:otherwise>
+									</c:choose> 
+				    				<span id="alname${flight_sch.id}" class="yellow">${alname}</span>
+				    				<script type="text/javascript">
+										printWriter('#alname${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "yellow");
+									</script>
 								</c:when>
-								<c:otherwise>
-									<c:set var="alname"> ${flight_sch.flight.airline.namesSimple[lang.id]}</c:set>
-								</c:otherwise>
-							</c:choose> 
-		    				<span id="alname${flight_sch.id}" class="yellow">${alname}</span>
-		    				<script type="text/javascript">
-								printWriter('#alname${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "yellow");
-							</script>
+								<c:otherwise><img src="${pageContext.request.contextPath}/airlines/${flight_sch.flight.airline.logo}"></c:otherwise>
+							</c:choose>
+		    			
 		    			</td>
 		    			<td><c:set var="statusParameter"><span id="statusParameter${flight_sch.id}" class='white'>${statusTime}</span></c:set>
 			    			<span class="cyan" id="status${flight_sch.id}">

@@ -3,15 +3,12 @@ package by.controllers;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-
 import by.dao.model.common.Language;
 import by.services.Service;
 

@@ -37,7 +37,7 @@
     		</tr>
     		<tr>
     			<td style="width: 180px;" class="bold">
-    				<fmt:message key="admin.IATA.code" bundle="${op}"/>:<span style="color:red;">*</span>
+    				<fmt:message key="admin.file.logo" bundle="${op}"/>:
     			</td>
     			<td class="bold">
     				<form:errors path="logo" cssStyle="color:red;" element="div"/>
