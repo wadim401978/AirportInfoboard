@@ -14,5 +14,4 @@ public class TextBlockRowMapper implements RowMapper<TextBlock> {
 				rs.getString("html"), 
 				rs.getBoolean("active"));
 	}
-
 }

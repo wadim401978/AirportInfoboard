@@ -43,6 +43,4 @@ public class AirportServiceImpl implements AirportService {
 	public void remove(int id) {
 		dao.delete(id);
 	}
-	
-	
 }

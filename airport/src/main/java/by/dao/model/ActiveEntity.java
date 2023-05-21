@@ -9,7 +9,6 @@ public class ActiveEntity extends Entity {
 	}
 	
 	public ActiveEntity() {
-		
 	}
 
 	public boolean isActive() {

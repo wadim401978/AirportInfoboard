@@ -12,15 +12,12 @@ import by.dao.model.flight.Departure;
 import by.dao.model.flight.Flight;
 
 public class DeparturesExtractor extends AbstractExtractor implements ResultSetExtractor<List<Departure>> {
-
 	
 	@Override
 	public List<Departure> extractData(ResultSet rs) throws SQLException, DataAccessException {
 		int instanceId = -1;
-		
 		Departure departure = null;
 		List<Departure> departures = new ArrayList<>();
-		
 		while (rs.next()) {
 			int recordId = rs.getInt("dep.id");
 			if (rs.getRow() == 0 || recordId != instanceId) {
@@ -32,7 +29,6 @@ public class DeparturesExtractor extends AbstractExtractor implements ResultSetE
 				departure.setId(instanceId);
 				departures.add(departure);
 			}
-			
 			setSchFlightValues(departure, rs, "dep.");
 			
 			DepartureStatus[] enums = DepartureStatus.values();
@@ -43,8 +39,6 @@ public class DeparturesExtractor extends AbstractExtractor implements ResultSetE
 				}
 			}
 		}
-		 
 		return departures;
 	}
-
 }

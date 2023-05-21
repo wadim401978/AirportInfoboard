@@ -31,9 +31,6 @@ public class Language extends ActiveEntity{
 	public void setTag(String langTag) {
 		this.tag = langTag;
 	}
-	
-	
-
 
 	@Override
 	public String getPresentation() {
@@ -44,7 +41,4 @@ public class Language extends ActiveEntity{
 	public String toString() {
 		return super.toString() + getPresentation();
 	}
-	
-	
-
 }

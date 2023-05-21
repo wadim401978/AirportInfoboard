@@ -42,7 +42,6 @@ public class JdbcLanguageDAOImpl extends JdbcAbstractDao implements LanguageDAO 
 
 	@Override
 	public void update(Language obj)  {
-		
 		getJdbcTemplate().update(
 				getQuery("language.update"),
                 obj.getName(),
@@ -65,5 +64,4 @@ public class JdbcLanguageDAOImpl extends JdbcAbstractDao implements LanguageDAO 
 		getJdbcTemplate().update(
 				getQuery("language.delete.where.id"), id);
 	}
-
 }

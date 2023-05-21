@@ -33,7 +33,6 @@ public class LanguageServiceImpl implements LanguageService {
 
 	@Override
 	public void save(Language obj) {
-		// ---Object saved 
         if (obj.getId() == 0) {
             dao.create(obj);
         } else {
@@ -90,5 +89,4 @@ public class LanguageServiceImpl implements LanguageService {
 	public void remove(int id) {
 		dao.delete(id);
 	}
-
 }

@@ -8,19 +8,17 @@ import by.dao.model.Entity;
 import by.dao.model.common.Language;
 
 public abstract class AirEntity extends Entity {
-    public void setIataCode(String iataCode) {
+	private Map<Language, String> names;
+    private String iataCode;
+    private String icaoCode;
+    private Language defaultLanguage;
+	
+	public void setIataCode(String iataCode) {
 		this.iataCode = iataCode;
 	}
 	public void setIcaoCode(String icaoCode) {
 		this.icaoCode = icaoCode;
 	}
-
-
-	private Map<Language, String> names;
-    private String iataCode;
-    private String icaoCode;
-    private Language defaultLanguage;
-
     
 	public AirEntity(int id, String iataCode, String icaoCode, Map<Language, String> names, Language defaultLanguage) {
 		super(id);
@@ -31,11 +29,7 @@ public abstract class AirEntity extends Entity {
 	}
 	
 	public AirEntity() {
-		
 	}
-
-	
-	
 	
 	public AirEntity(int id) {
 		super(id);
@@ -141,7 +135,6 @@ public abstract class AirEntity extends Entity {
 		this.defaultLanguage = defaultLanguage;
 	}
 	
-	
 	private String toStringNames() {
 		Map<Language, String> map = this.getNames();
 		String names = null;
@@ -156,12 +149,9 @@ public abstract class AirEntity extends Entity {
 		return names;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return super.toString() +  this.toStringNames() + " " + getIataCode() + "/" + getIcaoCode() + " ";
 	}
-    
-	
 
 }

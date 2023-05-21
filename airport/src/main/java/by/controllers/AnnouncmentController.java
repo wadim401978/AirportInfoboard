@@ -16,7 +16,6 @@ import by.controllers.validators.TextAnnouncmentValidator;
 import by.dao.model.infomsg.TextBlock;
 import by.services.TextBlockService;
 
-
 @Controller
 @RequestMapping("/admin/announcment")
 public class AnnouncmentController extends AbstractEntityController {

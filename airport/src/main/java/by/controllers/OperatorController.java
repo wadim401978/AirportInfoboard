@@ -40,7 +40,6 @@ public class OperatorController extends AbstractListController {
 		this.flightService = flightService;
 	}
 
-
     private <T> void setListParameters(
     		ModelMap model, Service<T> service, String title, HttpSession session) {
 		model.addAttribute("items", service.getAll());
@@ -57,7 +56,6 @@ public class OperatorController extends AbstractListController {
         
 		return "admin/langs";
     }
-	
 	
     @RequestMapping("/airports.html")
     public String airports(ModelMap model, HttpSession session) {

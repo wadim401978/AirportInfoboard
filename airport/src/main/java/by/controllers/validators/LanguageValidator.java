@@ -8,7 +8,6 @@ import by.dao.model.common.Language;
 
 @Component("langValidator")
 public class LanguageValidator implements Validator {
-	
 
 	@Override
 	public boolean supports(Class<?> clazz) {

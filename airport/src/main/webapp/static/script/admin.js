@@ -130,10 +130,4 @@ function addLangRow(e, delete_label, alert_label) {
 }
 //-------------------------
 
-function showFiles(e) {
-	console.log(e);
-}
 
-function jFold() {
-	
-}

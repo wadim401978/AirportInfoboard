@@ -1,6 +1,7 @@
 package by.dao.model.flight;
 
 import java.util.Date;
+
 public class Arrival extends ScheduledFlight {
 	private ArrivalStatus status;
 
@@ -10,7 +11,6 @@ public class Arrival extends ScheduledFlight {
 	}
 	
 	public Arrival() {
-		
 	}
 
 	public Arrival(int id, Flight flight, Date scheduledDate, Date statusTime, ArrivalStatus status) {
@@ -25,5 +25,4 @@ public class Arrival extends ScheduledFlight {
 	public void setStatus(ArrivalStatus status) {
 		this.status = status;
 	}
-
 }

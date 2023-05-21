@@ -43,5 +43,4 @@ public class DepartureServiceImpl implements DepartureService {
 	public void remove(int id) {
 		dao.delete(id);
 	}
-
 }

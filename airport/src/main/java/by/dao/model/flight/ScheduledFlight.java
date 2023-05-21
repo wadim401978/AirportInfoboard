@@ -16,9 +16,7 @@ public abstract class ScheduledFlight extends Entity {
 	}
     
     public ScheduledFlight() {
-    	
     }
-
 
 	public ScheduledFlight(int id, Flight flight, Date scheduledDate, Date statusTime) {
 		super(id);
@@ -47,7 +45,6 @@ public abstract class ScheduledFlight extends Entity {
 		return statusTime;
 	}
 
-    
 	public void setStatusTime(Date statusTime) {
 		this.statusTime = statusTime;
 	}
@@ -60,5 +57,4 @@ public abstract class ScheduledFlight extends Entity {
 				+ fl.getAirline().getName() + "; " 
 				+ "(" + fl.getAirport().getIataCode() + ") " + fl.getAirport().getName() + " | ";
 	}
-    
 }

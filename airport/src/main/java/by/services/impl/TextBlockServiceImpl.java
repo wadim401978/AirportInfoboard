@@ -2,10 +2,8 @@ package by.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import by.dao.DAO;
 import by.dao.TextBlockDAO;
 import by.dao.model.infomsg.TextBlock;
@@ -23,7 +21,6 @@ public class TextBlockServiceImpl implements TextBlockService {
 	
 	@Override
 	public void save(TextBlock obj) {
-		// ---Object saved 
         if (obj.getId() == 0) {
             dao.create(obj);
         } else {
@@ -85,5 +82,4 @@ public class TextBlockServiceImpl implements TextBlockService {
 		}
 		return list;
 	}
-
 }

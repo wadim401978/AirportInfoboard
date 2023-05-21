@@ -26,7 +26,6 @@ public class ArrivalServiceImpl implements ArrivalService {
 
 	@Override
 	public void save(Arrival obj) {
-		// ---Object saved 
         if (obj.getId() == 0) {
             dao.create(obj);
         } else {
@@ -43,6 +42,4 @@ public class ArrivalServiceImpl implements ArrivalService {
 	public void remove(int id) {
 		dao.delete(id);
 	}
-
-
 }

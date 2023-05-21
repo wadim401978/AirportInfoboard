@@ -23,7 +23,6 @@ public class Flight extends Entity {
 		this.number = number;
 		this.isArrival = isArrival;
 	}
-    
 
     public Airport getAirport() {
         return airport;
@@ -48,15 +47,11 @@ public class Flight extends Entity {
     	} else {
     		return getAirline().getIataCode() + number;
     	}
-        
     }
-    
 
 	public boolean isArrival() {
 		return isArrival;
 	}
-	
-	
 
 	public void setAirline(Airline airline) {
 		this.airline = airline;
@@ -82,7 +77,6 @@ public class Flight extends Entity {
 		return isArrival()?"Arrival":"Departure";
 	}
 	
-
 	@Override
 	public String getPresentation() {
 		if (getAirport() == null) {
@@ -90,7 +84,6 @@ public class Flight extends Entity {
 		} else {
 			return getIataNumber() + ": " + getAirport().getName();
 		}
-		
 	}
 
 	@Override
@@ -101,5 +94,4 @@ public class Flight extends Entity {
 				+ getAirline().getName() + "; " 
 				+ "(" + getAirport().getIataCode() + ") " + getAirport().getName();
 	}
-
 }

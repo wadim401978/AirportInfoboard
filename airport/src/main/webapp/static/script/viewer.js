@@ -20,7 +20,6 @@ function change(msg) {
 			}
 		}
 	}
-	
 }
 
 function ContentRotator(url, param) {
@@ -50,7 +49,7 @@ function extractIds(msg) {
 
 function getRestWebServiceValue(url) {
 	let xmlHttp = new XMLHttpRequest();
-	xmlHttp.open("GET", url, false); // false for synchronous request
+	xmlHttp.open("GET", url, false); 
 	xmlHttp.send(null);
 	return xmlHttp.responseText;
  }
@@ -59,7 +58,7 @@ function postRestWebServiceValue(url, param) {
 	jsonParam = JSON.parse(param);
 	let http = new XMLHttpRequest();
 	let body = "langid=" + "" + encodeURIComponent(jsonParam.langid) + "";
-	http.open("POST", url, false); // false for synchronous request
+	http.open("POST", url, false); 
 	http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	http.send(body);
 	return http.responseText;
@@ -80,9 +79,8 @@ function runRotator(langUrl) {
 		msg = postRestWebServiceValue(langUrl, param);
 		change(msg);
 		
-//		langTimeOut = parseInt(getRestWebServiceValue('timeout'), 10);
-		if (nextlanguageIndex == deflangid) {//TODO deflangid
-			announcmentsIndex = parseInt(getRestWebServiceValue('nexttb' + announcmentsIndex), 10); //TODO
+		if (nextlanguageIndex == deflangid) {
+			announcmentsIndex = parseInt(getRestWebServiceValue('nexttb' + announcmentsIndex), 10); 
 			announcement = getRestWebServiceValue('tb' + announcmentsIndex);
 			langTimeOut = doubleLangTimeOut;
 			document.getElementById('modalBody').innerHTML = announcement;
@@ -96,9 +94,7 @@ function runRotator(langUrl) {
 		setTimeout(run, langTimeOut);
 		
 	}, langTimeOut);
-	
 }
-
 
 function showAnnotation(langTimeOut) {
 	let fadeTimeOut = 0;
@@ -110,15 +106,12 @@ function showAnnotation(langTimeOut) {
 		delayTimeOut = langTimeOut;
 	}
 	$("#testId")
-		.hide()// hides it first, or style it with 'display: none;' instead
+		.hide()
 		.delay(langTimeOut) 
-		.fadeIn(fadeTimeOut) // fades it in
-		.delay(delayTimeOut) // (optionally) waits
-		.fadeOut(fadeTimeOut); // (optionally) fades it out
+		.fadeIn(fadeTimeOut) 
+		.delay(delayTimeOut) 
+		.fadeOut(fadeTimeOut); 
 }
-
-
-
 
 function runClock() {
 	let timerId = setTimeout(function tick() {
@@ -147,59 +140,4 @@ function printWriter(selector, newSelectorId, durationValue, delayParameter, cla
 			delay: (el, i) => delayParameter * (i + 1)
 		});
 }
-
-
-
-function runRotatorEx2Del(langUrl, timeOut) {
-	let languagesArray = getRestWebServiceValue('langsIds');
-	let announcmentsArray = getRestWebServiceValue('blocksIds');
-	let languageIndex = 0;//langs array increment index
-	let hasAnnouncments; 
-	let announcmentIndex = -1;//announcments array increment index
-	let infoUrl = "info.html";
-	
-	console.log(announcmentsArray);
-	
-	jsonActiveLangs = JSON.parse(languagesArray);
-	jsonAnnouncments = JSON.parse(announcmentsArray);
-	
-	if(jsonAnnouncments.length == 0) {
-		hasAnnouncments = false;
-	} else {
-		hasAnnouncments = true;
-	}
-	
-	
-	setInterval(function() {
-		if (jsonActiveLangs.length > 0) {
-			if (languageIndex >= jsonActiveLangs.length) {
-				if(hasAnnouncments) {
-					languageIndex = -1;
-				} else {
-					languageIndex = 0;
-				}
-			}
-			
-			if (languageIndex == -1) {
-				announcmentIndex++;
-				if(announcmentIndex >= jsonAnnouncments.length) {
-					announcmentIndex = 0;
-				}
-				
-				console.log("announcmentIndex: " + announcmentIndex);
-				param = JSON.stringify({ blockid: "" + jsonAnnouncments[announcmentIndex] });
-				url = infoUrl;
-				
-			} else {
-				param = JSON.stringify({ langid: "" + jsonActiveLangs[languageIndex] });
-				url = langUrl;
-			}
-			
-			ContentRotator(url, param);
-			languageIndex++;
-		}
-		
-	}, timeOut);
-}
-
 

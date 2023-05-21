@@ -3,7 +3,6 @@ package by.controllers;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -21,6 +20,7 @@ import by.services.LanguageService;
 import by.services.ArrivalService;
 import by.services.DepartureService;
 import by.services.TextBlockService;
+import by.services.util.DateTime;
 
 @Controller
 @PropertySource("classpath:initial.properties")
@@ -54,8 +54,8 @@ public class ViewerController extends AbstractListController {
 		ArrivalService arrivalService = getArrivalService();
 		List<Arrival> arrivals = arrivalService.getAll();
 		Date date = new Date();
-		model.addAttribute("date", arrivalService.getDateFormatted(date));
-		model.addAttribute("time", arrivalService.getTimeFormattedSec(date));
+		model.addAttribute("date", DateTime.getDateFormatted(date));
+		model.addAttribute("time", DateTime.getTimeFormattedSec(date));
         model.addAttribute("arrivals", arrivals);
         setGetRequestModelAttributes(model, "arr.html");
         model.addAttribute("emptyRows", getEmptyRowsNumber(arrivals.size()));
@@ -84,8 +84,8 @@ public class ViewerController extends AbstractListController {
     	List<Departure> departures = departureService.getAll();
     	model.addAttribute("departures", departures);
     	Date date = new Date();
-        model.addAttribute("date", departureService.getDateFormatted(date));
-        model.addAttribute("time", departureService.getTimeFormattedSec(date));
+        model.addAttribute("date", DateTime.getDateFormatted(date));
+        model.addAttribute("time", DateTime.getTimeFormattedSec(date));
         setGetRequestModelAttributes(model, "dep.html");
         model.addAttribute("emptyRows", getEmptyRowsNumber(departures.size()));
         return "dep";
@@ -140,8 +140,6 @@ public class ViewerController extends AbstractListController {
         return "info";
     }
 
-
-
     @RequestMapping("/index.html")
     public String index(ModelMap model) {
         return "index";
@@ -153,5 +151,4 @@ public class ViewerController extends AbstractListController {
         model.addAttribute("title", bundle.getString("admin.board"));
     	return "admin";
     }
-
 }

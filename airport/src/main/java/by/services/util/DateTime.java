@@ -60,4 +60,18 @@ public class DateTime {
 		return LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
 	}
 	
+	public static String getDateFormatted(Date date) {
+		return LocalDateTime
+				.ofInstant(date.toInstant(), offset)
+				.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+	}
+
+	public static String getTimeFormattedSec(Date date) {
+		if(date==null) {
+			return "";
+		}
+		LocalTime lt = LocalDateTime.ofInstant(date.toInstant(), offset).toLocalTime();
+		return lt.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+	}
+
 }

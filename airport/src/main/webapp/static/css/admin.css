@@ -167,7 +167,7 @@ label {
 	background-color: #cfe2ff;
 }
 
-/* Функциональность: */
+/* functionality: */
 .tabs li.up > input:checked + label {
 	background-color: white;	
 }

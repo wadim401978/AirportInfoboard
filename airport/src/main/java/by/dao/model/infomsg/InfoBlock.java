@@ -11,7 +11,6 @@ public abstract class InfoBlock extends ActiveEntity {
 	}
 	
 	public InfoBlock() {
-		
 	}
 	
 	public String getHtml() {
@@ -21,6 +20,4 @@ public abstract class InfoBlock extends ActiveEntity {
 	public void setHtml(String html) {
 		this.html = html;
 	}
-	
-
 }

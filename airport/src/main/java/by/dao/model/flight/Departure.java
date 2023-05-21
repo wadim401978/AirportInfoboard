@@ -11,7 +11,6 @@ public class Departure extends ScheduledFlight {
 	}
     
     public Departure() {
-    	
     }
 
     public Departure(int id, Flight flight, Date scheduledDate, Date statusTime, DepartureStatus status) {
@@ -26,6 +25,4 @@ public class Departure extends ScheduledFlight {
 	public void setStatus(DepartureStatus status) {
 		this.status = status;
 	}
-
-
 }

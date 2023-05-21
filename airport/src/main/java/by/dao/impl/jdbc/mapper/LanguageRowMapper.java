@@ -2,9 +2,7 @@ package by.dao.impl.jdbc.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.springframework.jdbc.core.RowMapper;
-
 import by.dao.model.common.Language;
 
 public class LanguageRowMapper implements RowMapper<Language> {
@@ -17,5 +15,4 @@ public class LanguageRowMapper implements RowMapper<Language> {
 				rs.getString("tag"), 
 				rs.getBoolean("active"));
 	}
-
 }

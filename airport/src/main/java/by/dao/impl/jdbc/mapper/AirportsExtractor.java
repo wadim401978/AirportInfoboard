@@ -15,7 +15,6 @@ public class AirportsExtractor extends AbstractExtractor implements ResultSetExt
 		int instanceId = -1;
 		Airport airport = null;
 		List<Airport> airports = new ArrayList<>();
-		
 		while (rs.next()) {
 			int recordId = rs.getInt("arp.id");
 			if (rs.getRow() == 0 || recordId != instanceId) {
@@ -23,11 +22,9 @@ public class AirportsExtractor extends AbstractExtractor implements ResultSetExt
 				airport = new Airport();
 				setAirport(airport);
 				airports.add(airport);
-				
 			}
 			setAirportValues(rs);
 		}
 		return airports;
 	}
-
 }

@@ -8,5 +8,4 @@ public class TextBlock extends InfoBlock {
 	public TextBlock() {
 		
 	}
-
 }

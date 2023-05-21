@@ -139,5 +139,4 @@ public class DepartureController extends AbstractEntityController {
 		}
 		return getRedirect();
     }
-
 }

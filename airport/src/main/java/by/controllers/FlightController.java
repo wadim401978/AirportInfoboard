@@ -150,5 +150,4 @@ public class FlightController extends AbstractEntityController {
 		service.save(flight); 
 		return getRedirect();
 	}
-
 }

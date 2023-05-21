@@ -22,7 +22,6 @@ main  {
 	font-family: Archangelsk;
 }
 
-
 /* TABLE
 ---------------------------------------------------*/
 span.yellow {
@@ -37,9 +36,6 @@ span.cyan {
 	color: #04fac8;
 }
 
-
-
-
 table.schedule td {
 	padding:10px 25px;
 }
@@ -51,7 +47,6 @@ table.schedule tbody td {
 
 table.schedule thead td {
 	color: var(--bs-body-color);
-/* 	color: #04fac8; */
 }
 
 table.schedule {
@@ -60,23 +55,24 @@ table.schedule {
 	margin: 0;
 }
 
-
 table.schedule td.flight {
 	max-width: 280px;
 	width: 280px;
 }
+
 table.schedule td.airport {
 		max-width: 390px;
 		width: 390px;
 		table-layout:fixed; 
 }
+
 table.schedule td.time {
 	width: 260px;
 }
+
 table.schedule td.status {
 	width: 480px;
 }
-
 
 @media (min-width: 1919px) {
 	table.schedule  {
@@ -97,15 +93,11 @@ table.schedule td.status {
 	table.schedule td.status {
 		width: 576px;
 	}
-	
 }
-
-
 
 td.center {
 	text-align: center;
 }
-
 
 /* CUSTOMIZE NAV-BAR
 ---------------------------------------------------*/
@@ -121,11 +113,9 @@ td.center {
 	flex-wrap: nowrap;
 }
 
-
 .modal-body {
 	padding: 30px 70px 0;
 }
-
 
 /* CUSTOMIZE NAV-BAR
 ---------------------------------------------------*/
@@ -161,11 +151,9 @@ td.center {
   width: 0.7em
 }
 
-
 .navbar-VAIR .navbar-text span {
   color: rgba(0, 0, 0, 0.9);
 }
-
 
 li span{
 	color: #fff;
@@ -174,7 +162,6 @@ li span{
 .VAIR-dropdown {
 	color: #ffffff;
 }
-
 
 .VAIR-dropdown-items-dark span{
 	display: block;
@@ -207,10 +194,6 @@ li span{
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
-
-
-
-
 
 /* CUSTOMIZE COLORS
 -------------------------------------------------- */
@@ -275,9 +258,6 @@ li span{
 .text-blue-900 {
 	color:#031633
 }
-
-
-
 
 .bd-indigo-100 {
 	color:#000;
@@ -758,6 +738,3 @@ li span{
 	color:#fff;
 	background-color:#000
 }
-
-
-

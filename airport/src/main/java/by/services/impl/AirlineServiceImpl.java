@@ -26,7 +26,7 @@ import by.services.util.Images;
 public class AirlineServiceImpl implements AirlineService {
 	
 	@Autowired
-	ServletContext context; 
+	private ServletContext context; 
 	
 	private AirlineDAO dao;
 	
@@ -114,5 +114,4 @@ public class AirlineServiceImpl implements AirlineService {
 	public void remove(int id) {
 		dao.delete(id);
 	}
-	
 }

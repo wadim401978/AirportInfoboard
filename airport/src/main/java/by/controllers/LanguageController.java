@@ -94,8 +94,6 @@ public class LanguageController extends AbstractEntityController {
 		} catch (Exception e) {
 			return redirectLang(model);
 		}
-    	
 		return "redirect:../langs.html";
     }
-
 }

@@ -41,7 +41,6 @@ public class JdbcTextBlockDAOImpl extends JdbcAbstractDao implements TextBlockDA
 
 	@Override
 	public void create(TextBlock obj) {
-		
 		getJdbcTemplate().update(
 				getQuery("textAnnouncments.insert.where.id"),
                 obj.getHtml(),
@@ -64,5 +63,4 @@ public class JdbcTextBlockDAOImpl extends JdbcAbstractDao implements TextBlockDA
 		getJdbcTemplate().update(
 				getQuery("textAnnouncments.delete.where.id"), id);
 	}
-
 }

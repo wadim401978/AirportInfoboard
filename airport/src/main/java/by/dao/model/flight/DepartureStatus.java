@@ -22,7 +22,4 @@ public enum DepartureStatus {
 	public int getId() {
 		return id;
 	}
-
-	
-
 }

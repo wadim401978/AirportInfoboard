@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
-
 import by.dao.model.common.Language;
 import by.dao.model.flight.Airline;
 import by.dao.model.flight.Airport;
@@ -96,7 +95,6 @@ public abstract class AbstractExtractor {
 			this.airportMap.put(icao, getAirport());
 		}
 	}
-
 	
 	public Map<Language, String> getAirlineNames(String name) {
 		this.airlineNames = getAirline().getNames();
@@ -126,7 +124,6 @@ public abstract class AbstractExtractor {
 	}
 	
 	public void setAirlineValues(ResultSet rs) throws SQLException {
-		//AIRLINE filling
 		setLanguage(getLanguageByTag(rs.getString("larl.tag")));
 		setLanguageValues(rs, getLanguage(), "larl.");
 		
@@ -140,7 +137,6 @@ public abstract class AbstractExtractor {
 	}
 	
 	public void setAirportValues(ResultSet rs) throws SQLException {
-		//AIRPORT filling
 		setLanguage(getLanguageByTag(rs.getString("larp.tag")));
 		setLanguageValues(rs, getLanguage(), "larp.");
 		
@@ -150,7 +146,6 @@ public abstract class AbstractExtractor {
 		getAirport().setNames(getAirportNames(rs.getString("arp18.name")));
 		
 		getAirport().setDefaultLanguage(languages.get(getDefaultLangTag()));
-		
 	}
 	
 	public void setFlightValues(ResultSet rs) throws SQLException {
@@ -176,5 +171,4 @@ public abstract class AbstractExtractor {
 		time = rs.getTime(pseudoname + "statusTime");
 		schFlight.setStatusTime(DateTime.getDateFromSqlTypes(date, time)); 
 	}
-
 }

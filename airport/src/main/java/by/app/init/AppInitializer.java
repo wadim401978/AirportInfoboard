@@ -1,10 +1,8 @@
 package by.app.init;
 
 import by.app.config.*;
-
 import by.app.filter.AppCharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 import javax.servlet.Filter;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -36,6 +34,4 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         		new AppCharacterEncodingFilter("UTF-8", "text/html;charset=UTF-8")
         };
     }
-    
-    
 }

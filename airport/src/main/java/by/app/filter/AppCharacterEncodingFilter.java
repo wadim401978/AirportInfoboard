@@ -1,7 +1,6 @@
 package by.app.filter;
 
 import org.springframework.web.filter.GenericFilterBean;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -32,7 +31,6 @@ public class AppCharacterEncodingFilter extends GenericFilterBean {
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
-
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

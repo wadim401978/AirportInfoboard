@@ -50,7 +50,6 @@ public class AirportController extends AbstractEntityController {
     }
     
     private String sendAirport(ModelMap model, Airport airport) {
-//    	airport.setNames(null);
     	model.addAttribute("airport", airport);
     	model.addAttribute("title", getTitle(airport));
     	model.addAttribute("langs", langService.getActiveItems());
@@ -94,8 +93,6 @@ public class AirportController extends AbstractEntityController {
 		
 		service.save(airport);
 		return getRedirect();
-
-		
 	}
 	
 	@PostMapping(path = "/dairports.html")
@@ -110,8 +107,6 @@ public class AirportController extends AbstractEntityController {
 					);
 			session.setAttribute("error", msg);
 		}
-		
 		return getRedirect();
     }
-
 }

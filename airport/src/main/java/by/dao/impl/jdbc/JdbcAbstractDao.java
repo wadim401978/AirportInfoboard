@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import by.dao.impl.jdbc.mapper.AbstractExtractor;
 import by.dao.model.common.Language;
 
@@ -59,10 +57,8 @@ public abstract class JdbcAbstractDao {
 		for (Entry<Language, String> entry : entrySet) {
 			Object[] values = new Object[] {
 					objectId, entry.getKey().getId(), entry.getValue()};
-//                    1, 1, entry.getValue()};
 			batch.add(values);
 		}
 		return batch;
 	}
-
 }

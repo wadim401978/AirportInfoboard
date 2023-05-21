@@ -45,7 +45,5 @@ public class FlightValidator implements Validator {
 				errors.reject("number", env.getProperty("admin.error.flight.type.linked"));
 			}
 		}
-		
 	}
-
 }

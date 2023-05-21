@@ -12,15 +12,12 @@ import by.dao.model.flight.ArrivalStatus;
 import by.dao.model.flight.Flight;
 
 public class ArrivalsExtractor extends AbstractExtractor implements ResultSetExtractor<List<Arrival>> {
-
 	
 	@Override
 	public List<Arrival> extractData(ResultSet rs) throws SQLException, DataAccessException {
 		int instanceId = -1;
-		
 		Arrival arrival = null;
 		List<Arrival> arrivals = new ArrayList<>();
-		
 		while (rs.next()) {
 			int recordId = rs.getInt("arr.id");
 			if (rs.getRow() == 0 || recordId != instanceId) {
@@ -32,7 +29,6 @@ public class ArrivalsExtractor extends AbstractExtractor implements ResultSetExt
 				arrival.setId(instanceId);
 				arrivals.add(arrival);
 			}
-			
 			setSchFlightValues(arrival, rs, "arr.");
 			
 			ArrivalStatus[] enums = ArrivalStatus.values();
@@ -44,9 +40,6 @@ public class ArrivalsExtractor extends AbstractExtractor implements ResultSetExt
 			}
 			
 		}
-		 
 		return arrivals;
 	}
-	
-
 }

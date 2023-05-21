@@ -29,5 +29,4 @@ public enum ArrivalStatus {
 		this.id = id;
 		this.property = property;
 	}
-
 }

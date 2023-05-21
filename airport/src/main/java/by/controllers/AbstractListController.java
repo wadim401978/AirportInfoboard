@@ -36,7 +36,4 @@ public abstract class AbstractListController {
 	public LanguageService getLangService() {
 		return langService;
 	}
-	
-	
-
 }

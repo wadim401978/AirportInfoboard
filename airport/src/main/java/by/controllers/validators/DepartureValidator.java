@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
 import by.dao.model.flight.Departure;
 
 @Component
@@ -31,5 +30,4 @@ public class DepartureValidator implements Validator {
 			errors.reject("number", env.getProperty("admin.error.flight.empty"));
 		}
 	}
-
 }

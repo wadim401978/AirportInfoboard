@@ -28,5 +28,4 @@ public class FlightsExtractor extends AbstractExtractor implements ResultSetExtr
 		}
 		return flights;
 	}
-
 }

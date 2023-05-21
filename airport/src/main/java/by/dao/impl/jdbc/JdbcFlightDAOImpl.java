@@ -3,7 +3,6 @@ package by.dao.impl.jdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
@@ -39,7 +38,6 @@ public class JdbcFlightDAOImpl extends JdbcAbstractDao implements FlightDAO {
 		extr.setDefaultLangTag(getDefaultLangTag());
 		return getJdbcTemplate().query(query, extr);
 	}
-	
 
 	@Override
 	public void create(Flight obj) {
@@ -97,10 +95,8 @@ public class JdbcFlightDAOImpl extends JdbcAbstractDao implements FlightDAO {
 					result = rs.getInt("quantity");
 				}
 				return result;
-				
 			}
 			
 		}, flight.getId());
 	}
-	
 }
