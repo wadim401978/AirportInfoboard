@@ -40,9 +40,13 @@
     				<fmt:message key="admin.file.logo" bundle="${op}"/>:
     			</td>
     			<td class="bold">
+						<c:choose>
+							<c:when test="${airline.logo == null}">-</c:when>
+							<c:otherwise><img alt="${airline.name}" src="${pageContext.request.contextPath}/airlines/${airline.logo}"></c:otherwise>
+						</c:choose>
     				<form:errors path="logo" cssStyle="color:red;" element="div"/>
 					<input type="file" name="logoFile" onchange="showFiles(this);" />
-					<form:input path="logo" readonly="readonly"/>
+					<form:hidden path="logo" readonly="readonly"/>
     			</td>
     		</tr>
 			<tr>
