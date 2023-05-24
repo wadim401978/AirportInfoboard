@@ -36,7 +36,7 @@ span.cyan {
 	color: #04fac8;
 }
 
-table.schedule td {
+table.schedule td,th {
 	padding:10px 25px;
 }
 
@@ -45,7 +45,12 @@ table.schedule tbody td {
 	background-color: #031633;
 }
 
-table.schedule thead td {
+table.schedule th {
+	border-right: 1px dashed #031633;
+	border-left: 1px dashed #031633;
+}
+
+table.schedule thead td, th {
 	color: var(--bs-body-color);
 }
 
@@ -77,21 +82,38 @@ table.schedule td.status {
 @media (min-width: 1919px) {
 	table.schedule  {
 		width: 1919px; 
+		
 	}
-	table.schedule td.flight   {
-		max-width: 297px; 
-		width: 297px; 
+	
+	table.schedule td {
+		font-size: calc((0.75rem - 0.3vw)*4.7) !important;
+		font-family: RobotronDotMatrix;
 	}
-	table.schedule td.airport {
-		max-width: 576px;
-		width: 576px;
+	
+	table.schedule th {
+		font-size: calc((0.75rem - 0.3vw)*3.5) !important;
+		text-align: center;
+		font-family: Arial;
+	}
+	
+	table.schedule th.flight   {
+		max-width: 240px; 
+		width: 240px; 
+	}
+	table.schedule th.airport {
+		max-width: 567px;
+		width: 567px;
 		table-layout:fixed; 
 	}
-	table.schedule td.time {
-		width: 250px;
+	table.schedule th.time {
+		width: 246px;
 	}
-	table.schedule td.status {
-		width: 576px;
+	
+	table.schedule td.time {
+		text-align: center;
+	}
+	table.schedule th.status {
+		width: 626px;
 	}
 }
 
@@ -126,6 +148,7 @@ td.center {
 
 .navbar-VAIR .navbar-nav .nav-link {
   color: rgba(0, 0, 0, 0.55);
+  padding-right: 100px;
 }
 
 
@@ -138,18 +161,6 @@ td.center {
   color: rgba(0, 0, 0, 0.9);
 }
 
-.navbar-VAIR .navbar-toggler {
-  color: rgba(16, 37, 92, 0.95);
-  border-color: rgba(16, 37, 92, 0.5);
-  padding: 0.05rem 0.05rem;
-  line-height: 0;
-}
-
-.navbar-VAIR .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1.5 -1.5 35 35'%3e%3cpath stroke='rgba%2816, 37, 92, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  height: 0.7em;
-  width: 0.7em
-}
 
 .navbar-VAIR .navbar-text span {
   color: rgba(0, 0, 0, 0.9);
@@ -178,20 +189,26 @@ li span{
 }
 
 .VAIR-bdi-blue-900 {
-	background-image: url(../images/001_logo/arrow_bd-blue-901.png), url(../images/001_logo/arrow_bd-blue-903.png);
+	background-image: url(../images/001_logo/arrow_bd-blue-701.png), url(../images/001_logo/arrow_bd-blue-703.png);
 	background-repeat: no-repeat, no-repeat;
 	background-position-x: right, left;
 	background-position-y: top, top;
 	
-	padding-left: 33px;
-	padding-right:10px;
-	margin-top: 8px;
+	padding-left: 49px;
+	padding-right:15px;
+	margin-top: 14px;
+	font-family: Arial;
+	
+/* 	padding-left: 33px; */
+/* 	padding-right:10px; */
+/* 	margin-top: 8px; */
 }
 .VAIR-bdi-blue-900 > span {
 	/*background-image: url(../images/001_logo/arrow_bd-blue-902.png);
 	background-repeat: repeat-x;*/
 	padding-top: 0px;
 	padding-bottom: 0px;
+	padding-right: 10px;
 	margin-bottom: 0px;
 }
 

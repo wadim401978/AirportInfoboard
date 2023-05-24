@@ -81,10 +81,12 @@ function runRotator(langUrl) {
 		
 		if (nextlanguageIndex == deflangid) {
 			announcmentsIndex = parseInt(getRestWebServiceValue('nexttb' + announcmentsIndex), 10); 
-			announcement = getRestWebServiceValue('tb' + announcmentsIndex);
-			langTimeOut = doubleLangTimeOut;
-			document.getElementById('modalBody').innerHTML = announcement;
-			showAnnotation(singleLangTimeOut);
+			if (announcmentsIndex > 0) {
+				announcement = getRestWebServiceValue('tb' + announcmentsIndex);
+				langTimeOut = doubleLangTimeOut;
+				document.getElementById('modalBody').innerHTML = announcement;
+				showAnnotation(singleLangTimeOut);
+			}
 		} else {
 			document.getElementById('modalBody').innerHTML = '';
 			langTimeOut = singleLangTimeOut;

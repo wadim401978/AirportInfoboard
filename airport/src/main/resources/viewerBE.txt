@@ -1,8 +1,25 @@
 airport.name = Аэрапорт Вiцебск
 airport.header.international = МIЖНАРОДНЫ АЭРАПОРТ
 airport.header.name = ВIЦЕБСК
+airport.footer = Дзяржаунае прадпрыемства «Белаэранавiгацыя». Вiцебскi фiлiял
+operator.bar = Панель аператара
 
-status.arrival.landed = здейсниу пасадку 
+status.arrival.delay = затрымлiваецца да {0} 
+status.arrival.expected = чакаецца з {0}
+status.arrival.landed = здейснiу пасадку 
+status.arrival.cancelled = скасаваны
+title.arrivals = Прыбываючыя рэйсы
+
+status.departure.checkin.at = Пачатак рэгiстрацыi в {0}
+status.departure.checkin.now = iдзе рэгiстрацыя
+status.departure.checkin.finished = рэгiстрацыя скончана
+status.departure.delayed.till = вылет затрымлiваецца да {0} 
+status.departure.cancelled = отменён
+title.departures = Вылятаючыя рэйсы
 
 table.number = Рэйс
-table.airport = Горад (аэрапорт)
+table.airport = Горад <br>(аэрапорт)
+table.date = Дата по распiсанiю
+table.time = Час па <br>раскладу
+table.airline = Авiякампанiя
+table.status = Статус <br>рэйса

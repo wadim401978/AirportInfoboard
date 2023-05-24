@@ -73,7 +73,12 @@ public class RestServiceController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "nexttb{id}")
 	public int getNextActiveAnnouncmentId(@PathVariable("id") int id) {
-		return blockService.getNextActiveBlock(id).getId();
+		TextBlock tb = blockService.getNextActiveBlock(id);
+		if (tb==null) {
+			tb = new TextBlock();
+			tb.setId(0);
+		}
+		return tb.getId();
 	}
 	
 }

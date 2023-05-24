@@ -26,11 +26,6 @@
  	    <script src="script/anime.min.js"></script>
  	    <c:if test="${timeOutSource!= null}" >
  	    <script type="text/javascript">
-// 	 	   $(document).ready(function() {
-// 	 			runRotatorEx2Del("${timeOutSource}", ${timeOutValue});
-// 	 			runClock();
-// 	 		});
-	 	   
 	 	   $(document).ready(function() {
 	 			runRotator("${timeOutSource}");
 	 			runClock();
@@ -46,7 +41,10 @@
 				class=" align-items-center mb-1 mb-lg-0 me-lg-auto text-decoration-none float-start Archangelsk">
 				<div class="d-block fs-3">
 					<div class="text-yellow-500 d-inline"><fmt:message key="airport.header.international" bundle="${viewer_bundle}" /></div>
-					<div class="text-light d-block "><fmt:message key="airport.header.name" bundle="${viewer_bundle}" /></div>
+					<div class="text-light d-block ">
+						<fmt:message key="airport.header.name" bundle="${viewer_bundle}" />: 
+						<fmt:message key="title.arrivals" bundle="${viewer_bundle}" />
+					</div>
 				</div>
 			</div>
 			<ul class="nav nav-pills pt-2 d-none d-md-flex ps-2 ps-lg-0">

@@ -8,22 +8,20 @@
 	    	<table class="schedule Archangelsk">
 	    		<thead>
 	    			<tr>
-		    			<td class="flight"><fmt:message key="table.number" bundle="${viewer_bundle}" /></td>
-		    			<td class="airport"><fmt:message key="table.airport" bundle="${viewer_bundle}" /></td>
-		    			<td class="time"><fmt:message key="table.time" bundle="${viewer_bundle}" /></td>
-		    			<td class="airline"><fmt:message key="table.airline" bundle="${viewer_bundle}" /></td>
-		    			<td class="status"><fmt:message key="table.status" bundle="${viewer_bundle}" /></td>
+		    			<th class="flight"><fmt:message key="table.number" bundle="${viewer_bundle}" /></th>
+		    			<th class="airport"><fmt:message key="table.airport" bundle="${viewer_bundle}" /></th>
+		    			<th class="time"><fmt:message key="table.time" bundle="${viewer_bundle}" /></th>
+		    			<th class="airline"><fmt:message key="table.airline" bundle="${viewer_bundle}" /></th>
+		    			<th class="status"><fmt:message key="table.status" bundle="${viewer_bundle}" /></th>
 	    			</tr>
 	    		</thead>
 	 			<tbody><!-- 14 rows -->
 	 			<c:forEach items="${flights}" var="flight_sch">
 	    			<tr><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}" var="statusTime"/>
 		    			<td class="flight">
-		    				<span id="iata${flight_sch.id}" class="yellow">${flight_sch.flight.iataNumber}</span>
-		    				<span id="icao${flight_sch.id}" class="white"> (${flight_sch.flight.icaoNumber})</span>
+		    				<span id="iata${flight_sch.id}" class="white">${flight_sch.flight.iataNumber}</span>
 		    				<script type="text/javascript">
 								printWriter('#iata${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "yellow");
-								printWriter('#icao${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "white");
 							</script>
 		    			</td>
 		    			<td class="airport">
@@ -44,11 +42,9 @@
 								</script>
 		    			</td>
 		    			<td class="time">
-		    				<span id="fdate${flight_sch.id}" class="white"><fmt:formatDate pattern="dd.MM.YYYY" value="${flight_sch.scheduledDate}"/></span>
-		    				<span id="ftime${flight_sch.id}" class="yellow"><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}"/></span>
+		    				<span id="ftime${flight_sch.id}" class="white"><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}"/></span>
 		    				<script type="text/javascript">
-								printWriter('#fdate${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "white");
-								printWriter('#ftime${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "yellow");
+								printWriter('#ftime${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "white");
 							</script>
 		    			</td>
 		    			<td>
@@ -97,19 +93,19 @@
 			<c:if test="${emptyRows > 0}">
 			<c:forEach begin="1" end="${emptyRows}" varStatus="loop">
 	    			<tr>
-		    			<td class="flight">
+		    			<td class="flight" align="center">
 		    				<span class="yellow">-</span>
 		    			</td>
-		    			<td class="airport">
-		    				<span class="white">-</span>
+		    			<td class="airport" align="center">
+		    				<span class="yellow">-</span>
 		    			</td>
 		    			<td class="time">
 		    				<span class="white">-</span>
 		    			</td>
-		    			<td>
+		    			<td  align="center">
 		    				<span class="yellow">-</span>
 		    			</td>
-		    			<td>
+		    			<td  align="center">
 			    			<span class="cyan">-</span>
 		    			</td>
 	    			</tr>
