@@ -47,7 +47,7 @@
 								printWriter('#ftime${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "white");
 							</script>
 		    			</td>
-		    			<td>
+		    			<td align="center">
 							<c:choose>
 								<c:when test="${flight_sch.flight.airline.logo == null}">
 				    				<c:choose>

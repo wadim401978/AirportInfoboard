@@ -86,7 +86,7 @@ table.schedule td.status {
 	}
 	
 	table.schedule td {
-		font-size: calc((0.75rem - 0.3vw)*4.7) !important;
+		font-size: calc((0.75rem - 0.3vw)*4.9) !important;
 		font-family: RobotronDotMatrix;
 	}
 	
@@ -97,23 +97,25 @@ table.schedule td.status {
 	}
 	
 	table.schedule th.flight   {
-		max-width: 240px; 
-		width: 240px; 
+		max-width: 200px; 
+		width: 200px; 
 	}
 	table.schedule th.airport {
-		max-width: 567px;
-		width: 567px;
+		max-width: 585px;
+		width: 585px;
 		table-layout:fixed; 
 	}
 	table.schedule th.time {
-		width: 246px;
+		width: 195px;
 	}
 	
 	table.schedule td.time {
 		text-align: center;
 	}
+	
+	
 	table.schedule th.status {
-		width: 626px;
+		width: 669px;
 	}
 }
 

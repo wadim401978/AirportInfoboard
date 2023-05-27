@@ -52,7 +52,8 @@ public class AirportController extends AbstractEntityController {
     private String sendAirport(ModelMap model, Airport airport) {
     	model.addAttribute("airport", airport);
     	model.addAttribute("title", getTitle(airport));
-    	model.addAttribute("langs", langService.getActiveItems());
+//    	model.addAttribute("langs", langService.getActiveItems());
+    	model.addAttribute("langs", langService.getAll());
 		return "admin/airport";
     }
     

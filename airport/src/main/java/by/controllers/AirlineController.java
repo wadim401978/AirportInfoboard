@@ -61,7 +61,8 @@ public class AirlineController extends AbstractEntityController {
     private String sendAirline(ModelMap model, Airline airline) {
     	model.addAttribute("title", getTitle(airline));
     	model.addAttribute("airline", airline);
-    	model.addAttribute("langs", langService.getActiveItems());
+//    	model.addAttribute("langs", langService.getActiveItems());
+    	model.addAttribute("langs", langService.getAll());
 		return "admin/airline";
     }
     
