@@ -13,7 +13,7 @@ title.arrivals = Прибывающие рейсы
 status.departure.checkin.at = начало регистрации в {0}
 status.departure.checkin.now = идёт регистрация
 status.departure.checkin.finished = регистрация закончена
-status.departure.delayed.till = вылет задерживается до {0} 
+status.departure.delayed.till = задерживается до {0} 
 status.departure.cancelled = отменён
 title.departures = Вылетающие рейсы
 

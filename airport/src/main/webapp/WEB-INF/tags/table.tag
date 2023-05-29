@@ -18,13 +18,15 @@
 	 			<tbody><!-- 14 rows -->
 	 			<c:forEach items="${flights}" var="flight_sch">
 	    			<tr><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}" var="statusTime"/>
-		    			<td class="flight">
-		    				<span id="iata${flight_sch.id}" class="white">${flight_sch.flight.iataNumber}</span>
+		    			<td class="flight tds1">
+		    				<span id="iata${flight_sch.id}" class="yellow">${flight_sch.flight.iataNumber}</span><br>
+		    				<span id="icao${flight_sch.id}" class="white">${flight_sch.flight.icaoNumber}</span>
 		    				<script type="text/javascript">
 								printWriter('#iata${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "yellow");
+								printWriter('#icao${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "white");
 							</script>
 		    			</td>
-		    			<td class="airport">
+		    			<td class="airport tds1">
 								<c:choose>
 								    <c:when test="${flight_sch.flight.airport.namesSimple[lang.id]==null}">
 								    	<c:set var="apname">${flight_sch.flight.airport.name}</c:set>
@@ -42,12 +44,14 @@
 								</script>
 		    			</td>
 		    			<td class="time">
-		    				<span id="ftime${flight_sch.id}" class="white"><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}"/></span>
+		    				<span id="fdate${flight_sch.id}" class="yellow tds_date"><fmt:formatDate pattern="dd.MM.yyyy" value="${flight_sch.scheduledDate}"/></span>
+		    				<span id="ftime${flight_sch.id}" class="white tds1"><fmt:formatDate pattern="HH:mm" value="${flight_sch.scheduledDate}"/></span>
 		    				<script type="text/javascript">
-								printWriter('#ftime${flight_sch.id}', 'letter${flight_sch.id}', 300, 70, "white");
+								printWriter('#fdate${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "yellow");
+								printWriter('#ftime${flight_sch.id}', 'letter${flight_sch.id}', 10, 50, "white");
 							</script>
 		    			</td>
-		    			<td align="center">
+		    			<td align="center" class="tds_airline">
 							<c:choose>
 								<c:when test="${flight_sch.flight.airline.logo == null}">
 				    				<c:choose>
@@ -67,7 +71,7 @@
 							</c:choose>
 		    			
 		    			</td>
-		    			<td><c:set var="statusParameter"><span id="statusParameter${flight_sch.id}" class='white'>${statusTime}</span></c:set>
+		    			<td class="tds1"><c:set var="statusParameter"><span id="statusParameter${flight_sch.id}" class='white'>${statusTime}</span></c:set>
 			    			<span class="cyan" id="status${flight_sch.id}">
 			    				<fmt:message key="${flight_sch.status.property}" bundle="${viewer_bundle}">
 			    				<fmt:param value="${statusParameter}"/>

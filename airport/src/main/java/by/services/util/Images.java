@@ -17,8 +17,8 @@ import java.lang.Integer;
 
 public class Images {
 	
-	private static final int TARGET_WIDTH = 175;
-	private static final int TARGET_HEIGHT = 70;
+	private static final int TARGET_WIDTH = 200;
+	private static final int TARGET_HEIGHT = 80;
 	
 	public static boolean isExists(String logoPath) {
 		Path filePath = Paths.get(logoPath);
