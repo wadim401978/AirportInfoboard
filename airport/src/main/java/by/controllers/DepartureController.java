@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -123,9 +124,15 @@ public class DepartureController extends AbstractEntityController {
 		if (result.hasErrors()) {
 			return redirectDeparture(model);
 		}
+		
+		try {
+			service.save(departure);
+			return getRedirect();
+		} catch (DuplicateKeyException e) {
+			result.reject("scheduledDate", getEnv().getProperty("admin.error.duplicated.field"));
+			return redirectDeparture(model);
+		}
 
-		service.save(departure);
-		return getRedirect();
 	}
 
 	@PostMapping(path = "/ddepartures.html")

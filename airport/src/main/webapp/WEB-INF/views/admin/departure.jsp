@@ -70,7 +70,7 @@
     		</tr>
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/departures.html"/>	
     	</table>
-    	<form:errors element="name"  cssClass="errors"/>
+    	<form:errors element="div"  cssClass="errors" />
     </form:form>
 </div>
 </ui:html>

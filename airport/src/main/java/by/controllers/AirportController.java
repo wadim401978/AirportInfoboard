@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -92,8 +93,13 @@ public class AirportController extends AbstractEntityController {
 			return redirectAirport(model);
 		}
 		
-		service.save(airport);
-		return getRedirect();
+		try {
+			service.save(airport);
+			return getRedirect();
+		} catch (DuplicateKeyException e) {
+			result.rejectValue("ICAO", "admin.error.duplicated.field");
+			return redirectAirport(model);
+		}
 	}
 	
 	@PostMapping(path = "/dairports.html")

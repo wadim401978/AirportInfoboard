@@ -30,7 +30,7 @@
     		<ui:itemButtons onCancelHref="${pageContext.request.contextPath}/admin/announcments.html"/>	
     	</table>
     	<a href="${pageContext.request.contextPath}/info/${announcment.id}.html" target="_blank"><fmt:message key="admin.show.in.blank" bundle="${op}"/></a>
-    	<form:errors element="name"  cssClass="errors"/>
+    	<form:errors element="div"  cssClass="errors"/>
     </form:form>
     
 </div>

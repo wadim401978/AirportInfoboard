@@ -5,7 +5,7 @@
     <meta charset="utf-8"/><%@tag language="java" pageEncoding="UTF-8"%><%@taglib prefix="ui" tagdir="/WEB-INF/tags"%>
     <meta name="viewport" content="width=device-width, initial-scale=1"/><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><fmt:setLocale value="${locale}"/><fmt:setBundle basename="viewer" var="viewer_bundle" />
-        <title>${title}<fmt:message key="title.arrivals" bundle="${viewer_bundle}" /></title>
+        <title>${title}</title>
         
 		<link href="images/001_logo/fav.ico" rel="shortcut icon" type="image/x-icon" />
 	    <style>
@@ -43,7 +43,7 @@
 					<div class="text-yellow-500 d-inline"><fmt:message key="airport.header.international" bundle="${viewer_bundle}" /></div>
 					<div class="text-light d-block ">
 						<fmt:message key="airport.header.name" bundle="${viewer_bundle}" />: 
-						<fmt:message key="title.arrivals" bundle="${viewer_bundle}" />
+						${title}
 					</div>
 				</div>
 			</div>
